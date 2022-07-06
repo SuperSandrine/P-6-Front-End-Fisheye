@@ -27,25 +27,26 @@
 // console loge
 // renvoie l'objet photographers
 async function getPhotographers() {
-  const photographers = []; //Est-ce que ça doit être une constante ou une variable?
+  let photographers = []; //Est-ce que ça doit être une constante ou une variable?
   await fetch("/data/photographers.json")
     .then((response) => response.json())
     .then((response2) => {
-      photographers.push(
-        response2.photographers[0],
-        response2.photographers[1],
-        response2.photographers[2],
-        response2.photographers[3],
-        response2.photographers[4],
-        response2.photographers[5]
-      );
-      // photographers = response2.photographers; >>> si la let photographers != de constance)
+      // photographers.push(
+      //   response2.photographers[0],
+      //   response2.photographers[1],
+      //   response2.photographers[2],
+      //   response2.photographers[3],
+      //   response2.photographers[4],
+      //   response2.photographers[5]
+      // );
+      photographers = response2.photographers; //>>> si la let photographers != de constance)
       // photographers.push(response2.photographers); >>> j'importe un tableau dans [0]
     });
   console.log(photographers);
   return { photographers };
 }
-// TODO = simplifier cette répétition = possible si variable.
+// TODO = simplifier cette répétition = possible si variable = variable plus appropriée
+// comme choix du fait qu'on la modifie dans la fonction
 
 // Penser à remplacer par les données récupérées dans le json
 // TODO= récupérer les données d'un JSON avec la fonction fetch, utiliser

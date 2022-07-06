@@ -42,24 +42,33 @@
 // toUn, comment marche la récursivité?
 
 function photographerFactory(data) {
-  const { name, city, country, tagline, price, portrait } = data;
+  const { name, city, id, country, tagline, price, portrait } = data;
 
   const picture = `assets/photographers/${portrait}`;
+  //const linkUrl = `${id-}photographer.html`;
+  const linkUrl = `photographer.html?id=${id}`;
+  //TODO: personnaliser la page html avec id? = en rajoutant des paramètres
+  // Todo: comment rajouter des paramètres ? = avec ?
+  // Todo: est ce que j'ai bien compris les paramètres?
 
   function getUserCardDOM() {
+    const link = document.createElement("a");
+    link.setAttribute("href", linkUrl);
     const article = document.createElement("article");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
     const h2 = document.createElement("h2");
     h2.textContent = name;
-    const p = document.createElement("p");
-    p.innerHTML = `<div class="article_information">
+    const text = document.createElement("p");
+    text.innerHTML = `<div class="article_information">
     <p class="city">${city + ", " + country} </p>
     <p class="tagline">${tagline}</p>
     <p class="price">${price}€/jour</p></div>`;
-    article.appendChild(img);
-    article.appendChild(h2);
-    article.appendChild(p);
+    article.appendChild(link);
+
+    link.appendChild(img);
+    link.appendChild(h2);
+    article.appendChild(text);
 
     return article;
   }
