@@ -42,6 +42,7 @@ getMedia();
 // j'arrive à récupérer la partie de l'array dans la console avec la deuxième partie
 // de cet ordre.
 // TODO: en gros faut que je dise d'attendre d'avoir le tableau photographers : comment?
+// il faut mettre dans une fonction qui a fait appel au fonction précédente
 photographerData = photographers.filter((el) => el.id == parameterID);
 
 //Plan:

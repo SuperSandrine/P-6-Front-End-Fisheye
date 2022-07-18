@@ -1,3 +1,12 @@
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  margin: 0;
+}
+
 #contact_modal {
   display: none;
 }
@@ -17,63 +26,54 @@
 
 .photograph-header {
   background-color: #fafafa;
-  height: 300px;
   margin: 0 100px;
+  padding: calc(4%);
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.photograph-header article {
-  justify-self: center;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
-.photograph-header article h2 {
+.photograph-header h2 {
   color: #d3573c;
-  font-size: 36px;
+  font-size: 64px;
   font-weight: 400;
-  line-height: 47px;
   justify-content: center;
   display: flex;
-  margin: auto; /*pour forcer l'alignement reste le problèle
-  de Ellie Wilkems*/
+  margin: auto;
   text-align: center;
 }
-.photograph-header article img {
+.photograph-header img {
   height: 200px;
   width: 200px;
   border-radius: 50%;
   background: #c4c4c4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  margin-bottom: 20px;
   object-fit: cover;
 }
 
-.photograph-header article p {
+.photograph-header p {
   display: flex;
   flex-direction: column;
   padding-bottom: 4px;
-
   margin: 0;
 }
-.photograph-header article p .city {
+.city {
   color: #901c1c;
-  font-size: 17px;
-  align-items: center;
+  font-size: 24px;
+  align-items: flex-start;
 }
 
-.photograph-header article p .tagline {
+.tagline {
   color: #000000;
-  font-size: 13px;
-  align-items: center;
-  text-align: center;
+  font-size: 18px;
+  text-align: left;
 }
-.photograph-header article p .price {
+
+/* .price {
   color: #757575;
   font-size: 12px;
   align-items: center;
-}
+} */
 
 /* --------- Modal Form --------- */
 .modal {
