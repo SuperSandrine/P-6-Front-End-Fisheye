@@ -17,23 +17,16 @@
       /></a>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <div class="photograph-header_information">
-          <h2>Name</h2>
-          <p class="city">ville</p>
-          <p class="tagline">tagline</p>
-        </div>
-        <button class="contact_button" onclick="displayModal()">
-          Contactez-moi
-        </button>
-        <img src="/assets/photographers/EllieRoseWilkens.jpg" />
-      </div>
+      <div class="photograph-header"></div>
+      <div class="photograph-sorting-gallery">trier par</div>
+      <div class="photograph-gallery">Des photos</div>
+      <div class="photograph-price">Price et du texte</div>
     </main>
     <div id="contact_modal">
       <div class="modal">
         <header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="./assets/icons/close.svg" onclick="closeModal()" />
         </header>
         <form>
           <div>
@@ -45,8 +38,9 @@
         </form>
       </div>
     </div>
+
     <script src="/scripts/utils/contactForm.js"></script>
-    <script src="scripts/factories/Photographer.js"></script>
-    <script src="scripts/pages/photographer.js"></script>
+    <script src="/scripts/factories/Photographer.js"></script>
+    <script src="/scripts/pages/photographer.js"></script>
   </body>
 </html>

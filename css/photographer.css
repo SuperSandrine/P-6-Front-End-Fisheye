@@ -28,20 +28,45 @@ body {
   background-color: #fafafa;
   margin: 0 100px;
   padding: calc(4%);
+}
+
+.photograph-header div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.photograph-header h2 {
+.photograph-header div .photograph-header_information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.photograph-header p {
+  /* display: flex;
+  flex-direction: column; */
+  padding-bottom: 4px;
+  margin: 0;
+}
+.photograph-header_information h2 {
   color: #d3573c;
   font-size: 64px;
   font-weight: 400;
-  justify-content: center;
+  /* justify-content: center; */
   display: flex;
   margin: auto;
-  text-align: center;
 }
+.city {
+  color: #901c1c;
+  font-size: 24px;
+  align-items: flex-start;
+}
+.tagline {
+  color: #000000;
+  font-size: 18px;
+  text-align: left;
+}
+
 .photograph-header img {
   height: 200px;
   width: 200px;
@@ -51,29 +76,24 @@ body {
   object-fit: cover;
 }
 
-.photograph-header p {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 4px;
-  margin: 0;
+/*---------- Sorting space or selected box ---------------*/
+.photograph-sorting-gallery {
+  margin: 0 100px;
 }
-.city {
-  color: #901c1c;
+/*---------- Gallery ---------------*/
+.photograph-gallery {
+  margin: 0 100px;
+}
+/*---------- Price and like space ------*/
+.photograph-price {
+  background-color: #db8876;
+  padding: calc(1.2%) calc(2.5%);
+  position: fixed;
+  bottom: 0;
+  right: 36px;
+  font-weight: 500;
   font-size: 24px;
-  align-items: flex-start;
 }
-
-.tagline {
-  color: #000000;
-  font-size: 18px;
-  text-align: left;
-}
-
-/* .price {
-  color: #757575;
-  font-size: 12px;
-  align-items: center;
-} */
 
 /* --------- Modal Form --------- */
 .modal {
