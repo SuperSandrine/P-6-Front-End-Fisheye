@@ -30,10 +30,13 @@ async function displayData(photographer) {
   //   document.getElementsByClassName("photograph-header");
   // thomas: ça ne marche pas avec getElement mais ça marche avec query? Pourquoi?
   const photographHeaderDiv = document.querySelector(".photograph-header");
+  const photographPriceDiv = document.querySelector(".photograph-price");
   photographer.forEach((id) => {
     const photographerModel = photographerFactory(id);
     const printPhotographHeader = photographerModel.getPhotographHeader();
+    const printPhotographPrice = photographerModel.getPhotographPrice();
     photographHeaderDiv.appendChild(printPhotographHeader);
+    photographPriceDiv.appendChild(printPhotographPrice);
   });
 }
 

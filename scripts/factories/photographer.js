@@ -41,5 +41,17 @@ function photographerFactory(data) {
   // TODO: il y a la création d'une div autour des 3 balises avec la première
   //ligne, peut-on l'enlever?
 
-  return { name, picture, getUserCardDOM, getPhotographHeader };
+  function getPhotographPrice() {
+    const photographPrice = document.querySelector(".photograph-price");
+    photographPrice.innerHTML = `<p>007 <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€/jour</p> `;
+    return photographPrice;
+  }
+
+  return {
+    name,
+    picture,
+    getUserCardDOM,
+    getPhotographHeader,
+    getPhotographPrice,
+  };
 }

@@ -147,12 +147,18 @@ body {
 /*---------- Price and like space ------*/
 .photograph-price {
   background-color: #db8876;
-  padding: calc(1.2%) calc(2.5%);
+  padding: 10px 20px;
   position: fixed;
   bottom: 0;
   right: 36px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.photograph-price p {
   font-weight: 500;
   font-size: 24px;
+  margin: 0;
 }
 
 /* --------- Footer --------- */
