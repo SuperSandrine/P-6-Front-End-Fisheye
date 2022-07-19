@@ -12,8 +12,8 @@ body {
 }
 /* --------- Photograph Header --------- */
 .contact_button {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 700;
   color: white;
   padding: 11px;
   width: 170px;
@@ -28,6 +28,7 @@ body {
   background-color: #fafafa;
   margin: 0 100px;
   padding: calc(4%);
+  margin-bottom: 20px;
 }
 
 .photograph-header div {
@@ -79,10 +80,69 @@ body {
 /*---------- Sorting space or selected box ---------------*/
 .photograph-sorting-gallery {
   margin: 0 100px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: flex-start;
 }
+
+.photograph-sorting-gallery label {
+  font-weight: 700;
+  font-size: 18px;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.photograph-sorting-gallery nav {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  padding: 23px 60px 23px 20px;
+
+  background-color: #901c1c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 /*---------- Gallery ---------------*/
 .photograph-gallery {
   margin: 0 100px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: calc(5%);
+  row-gap: 20px;
+  justify-content: space-between;
+}
+.photograph-gallery article {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.photograph-gallery article a {
+  width: 350px;
+  height: 300px;
+}
+.photograph-gallery article a img {
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.photograph-gallery article section {
+  display: flex;
+  justify-content: space-between;
+}
+.photograph-gallery article section h3,
+.photograph-gallery article section p {
+  margin: 0;
+  padding: 10px 0;
+  font-weight: 400;
+  font-size: 24px;
+  color: #901c1c;
+}
+
+.photograph-gallery article section i {
+  line-height: 18px;
 }
 /*---------- Price and like space ------*/
 .photograph-price {
@@ -93,6 +153,11 @@ body {
   right: 36px;
   font-weight: 500;
   font-size: 24px;
+}
+
+/* --------- Footer --------- */
+footer {
+  height: 100px;
 }
 
 /* --------- Modal Form --------- */
