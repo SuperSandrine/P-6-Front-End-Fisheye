@@ -2,7 +2,7 @@ a {
   text-decoration: none;
 }
 
-body {
+* {
   font-family: "DM Sans", sans-serif;
   margin: 0;
 }
@@ -11,7 +11,10 @@ body {
   display: none;
 }
 /* --------- Photograph Header --------- */
-.contact_button {
+
+/*Si on remet la div supplémentaire entre la factory et la page 
+photographe reprendre ce code*/
+/* .contact_button {
   font-size: 18px;
   font-weight: 700;
   color: white;
@@ -46,7 +49,7 @@ body {
 .photograph-header p {
   /* display: flex;
   flex-direction: column; */
-  padding-bottom: 4px;
+/*  padding-bottom: 4px;
   margin: 0;
 }
 .photograph-header_information h2 {
@@ -54,6 +57,66 @@ body {
   font-size: 64px;
   font-weight: 400;
   /* justify-content: center; */
+/*  display: flex;
+  margin: auto;
+}
+.city {
+  color: #901c1c;
+  font-size: 24px;
+  align-items: flex-start;
+}
+.tagline {
+  color: #000000;
+  font-size: 18px;
+  text-align: left;
+}
+
+.photograph-header img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background: #c4c4c4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+} */
+
+.contact_button {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 70px;
+  border: none;
+  background-color: #901c1c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.photograph-header {
+  background-color: #fafafa;
+  margin: 0 100px;
+  padding: calc(4%);
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.photograph-header_information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.photograph-header p {
+  padding-bottom: 4px;
+  margin: 0;
+}
+.photograph-header_information h2 {
+  color: #d3573c;
+  font-size: 64px;
+  font-weight: 400;
   display: flex;
   margin: auto;
 }
@@ -128,37 +191,43 @@ body {
   border-radius: 5px;
   object-fit: cover;
 }
-.photograph-gallery article section {
+.photograph-gallery article div {
   display: flex;
   justify-content: space-between;
 }
-.photograph-gallery article section h3,
-.photograph-gallery article section p {
+.photograph-gallery article div p,
+.photograph-gallery article div div {
   margin: 0;
   padding: 10px 0;
   font-weight: 400;
   font-size: 24px;
   color: #901c1c;
+  display: flex;
+  align-items: center;
 }
 
-.photograph-gallery article section i {
-  line-height: 18px;
+.photograph-gallery article div i {
+  font-size: 18px;
+  padding-left: 3px;
 }
 /*---------- Price and like space ------*/
 .photograph-price {
   background-color: #db8876;
-  padding: 10px 20px;
+  padding: 10px 25px;
   position: fixed;
   bottom: 0;
   right: 36px;
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 30px;
 }
 .photograph-price p {
   font-weight: 500;
   font-size: 24px;
   margin: 0;
+}
+.photograph-price p i {
+  font-size: 18px;
 }
 
 /* --------- Footer --------- */

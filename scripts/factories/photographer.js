@@ -25,7 +25,7 @@ function photographerFactory(data) {
   }
 
   function getPhotographHeader() {
-    const photographHeader = document.createElement("div");
+    const photographHeader = document.querySelector(".photograph-header");
     photographHeader.innerHTML = `<div class="photograph-header_information">
       <h2>${name}</h2>
       <p class="city">${city + ", " + country}</p>
@@ -38,12 +38,13 @@ function photographerFactory(data) {
     `;
     return photographHeader;
   }
-  // TODO: il y a la création d'une div autour des 3 balises avec la première
-  //ligne, peut-on l'enlever?
+  // Ok= TODO: il y a la création d'une div autour des 3 balises avec la première
+  //ligne, peut-on l'enlever? = au lieu de créer un enfant, j'appelle la classe directement
+  // et ne fait d'appendChild dans photograph.pages. Juste j'appelle ma const.
 
   function getPhotographPrice() {
     const photographPrice = document.querySelector(".photograph-price");
-    photographPrice.innerHTML = `<p>007 <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€/jour</p> `;
+    photographPrice.innerHTML = `<p>000 007 <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
     return photographPrice;
   }
 
