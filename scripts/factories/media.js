@@ -6,6 +6,15 @@ function mediaFactory(data) {
 
   // d'abord je récupère mes données
   const { date, id, image, likes, photographId, price, title, video } = data;
+  // je gère les fichiers image ou video
+  // avec une ternaire
+  // question ? vrai alors action : ou faux alors action;
+  // si image existe? affiche image : sinon affiche video
+  const pictureImage = `<img src="/assets/medias-vrac/min-${image}"/>`;
+  const pictureVideo = `<video width="350" height="300" poster>
+  <source src="/assets/medias-vrac/${video}#t=2.5" type="video/mp4">
+</video>`;
+  const picture = image == undefined ? pictureVideo : pictureImage;
 
   //  const picture = `assets/photographers/${portrait}`;
   //  const linkUrl = `photographer.html?id=${id}`;
@@ -14,7 +23,7 @@ function mediaFactory(data) {
   function getCardGallery() {
     const article = document.createElement("article");
     article.innerHTML = `<a href="#">
-        <img src="/assets/medias-vrac/min-${image}"/>
+        ${picture}
       </a>
       <div>
         <p>${title}</p>
