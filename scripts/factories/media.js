@@ -14,7 +14,7 @@ function mediaFactory(data) {
   function getCardGallery() {
     const article = document.createElement("article");
     article.innerHTML = `<a href="#">
-        <img src="/assets/medias-vrac/${image}"/>
+        <img src="/assets/medias-vrac/min-${image}"/>
       </a>
       <div>
         <p>${title}</p>
