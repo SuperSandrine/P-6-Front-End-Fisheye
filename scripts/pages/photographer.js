@@ -58,5 +58,6 @@ async function init() {
   photographerMedia = media.filter((el) => el.photographerId == parameterID);
   console.log(photographerMedia);
   displayMedia(photographerMedia);
+  giveModalAName(photographerData);
 }
 init();

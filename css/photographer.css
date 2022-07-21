@@ -184,6 +184,8 @@ photographe reprendre ce code*/
 .photograph-gallery article a {
   width: 350px;
   height: 300px;
+  background-color: #c4c4c4;
+  border-radius: 5px;
 }
 .photograph-gallery article a img {
   width: 350px;
@@ -191,6 +193,14 @@ photographe reprendre ce code*/
   border-radius: 5px;
   object-fit: cover;
 }
+
+video {
+  object-fit: cover;
+  border-radius: 5px;
+  width: 350px;
+  height: 300px;
+}
+
 .photograph-gallery article div {
   display: flex;
   justify-content: space-between;
@@ -219,6 +229,7 @@ photographe reprendre ce code*/
   right: 36px;
   display: flex;
   justify-content: space-between;
+  border-radius: 5px 5px 0 0;
   gap: 30px;
 }
 .photograph-price p {
@@ -236,6 +247,27 @@ footer {
 }
 
 /* --------- Modal Form --------- */
+/* .background {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: #e34e4e40;
+} */
+.position {
+  /* position: fixed; */
+  /* overflow: auto; */
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background-color: rgba(196, 196, 196, 0.4);
+  height: 100%;
+  width: 100%;
+}
 .modal {
   border-radius: 5px;
   background-color: #db8876;
@@ -246,27 +278,29 @@ footer {
   justify-content: space-between;
   padding: 35px;
   margin: auto;
+  margin-top: 70px;
+  overflow: scroll;
 }
 
-.modal header {
+.modal_header {
   justify-content: space-between;
   width: 100%;
+  display: flex;
+  flex-direction: row;
 }
-/* TODO: problème entre format de ce header 
-et police, pas du tout flex */
+.modal_header div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-/* This is the little design cross shape used as modal closure
-TODO: est-ce qu'il porte le bon titre? */
-.modal header img {
+.modal_header img {
   cursor: pointer;
 }
 
-/* TODO: Pourquoi ce h2 n'est pas contraint par le header 
-puisqu'il est dedans */
-.modal header h2 {
+.modal_header h2 {
   font-size: 64px;
   font-weight: normal;
-  text-align: center;
 }
 
 form {
@@ -286,14 +320,45 @@ form div {
   flex-direction: column;
   width: 100%;
   align-items: self-start;
-  margin-bottom: 26px;
+  margin-bottom: 15px;
 }
 
-form input {
+form input,
+.input_big {
   width: 100%;
-  height: 68px;
+  padding: 25px 0;
   border: none;
   border-radius: 5px;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 36px;
+  font-weight: 400;
+  text-indent: 20px;
+  overflow: scroll;
+}
+form input:focus {
+  outline: none;
+}
+.input_big {
+  min-height: 170px;
+}
+
+.formData[data-error]::after {
+  content: attr(data-error);
+  font-size: 1em;
+  color: #312e2e;
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  text-align: right;
+  line-height: 0.9;
+  opacity: 0;
+  transition: 0.3s;
+}
+.formData[data-error-visible="true"]::after {
+  opacity: 1;
+}
+.formData[data-error-visible="true"] .text-control {
+  border: 2px solid #312e2e;
 }
 
 /* --------- Modal Lightbox --------- */

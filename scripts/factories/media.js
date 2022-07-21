@@ -11,13 +11,12 @@ function mediaFactory(data) {
   // question ? vrai alors action : ou faux alors action;
   // si image existe? affiche image : sinon affiche video
   const pictureImage = `<img src="/assets/medias-vrac/min-${image}"/>`;
-  const pictureVideo = `<video width="350" height="300" poster>
-  <source src="/assets/medias-vrac/${video}#t=2.5" type="video/mp4">
+  const pictureVideo = `<video >
+  <source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
 </video>`;
   const picture = image == undefined ? pictureVideo : pictureImage;
-
-  //  const picture = `assets/photographers/${portrait}`;
-  //  const linkUrl = `photographer.html?id=${id}`;
+  // Thomas = est-ce que ces 3 const ne mériteraient pas d'être dans la fonction
+  // ci-dessous?
 
   // je crée une premiere fonction pour afficher la gallerie
   function getCardGallery() {
