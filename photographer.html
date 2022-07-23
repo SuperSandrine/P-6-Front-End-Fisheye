@@ -34,7 +34,7 @@
 
     <footer></footer>
 
-    <!-- *********** MODAL *********** -->
+    <!-- *********** MODAL form *********** -->
 
     <div id="contact_modal">
       <div class="position">
@@ -104,9 +104,33 @@
       </div>
     </div>
 
+    <!-- *********** MODAL Lightbox *********** -->
+
+    <div id="lightbox_modal">
+      <div class="position">
+        <div class="lightbox_modal">
+          <div class="lightbox_modal-previous">
+            <img src="/assets/icons/leftarrow.svg" />
+          </div>
+          <div class="lightbox_modal-content">
+            <img src="./assets/medias-vrac/Animals_Majesty.jpg" />
+            <p class="lightbox_modal-content-text">Titre</p>
+          </div>
+          <div class="lightbox_modal-closeornext">
+            <img
+              src="./assets/icons/redclose.svg"
+              onclick="closeLightboxModal()"
+            />
+            <img class="center" src="/assets/icons/rightarrow.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="/scripts/utils/contactForm.js"></script>
     <script src="/scripts/factories/photographer.js"></script>
     <script src="/scripts/factories/media.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/utils/lightbox.js"></script>
   </body>
 </html>

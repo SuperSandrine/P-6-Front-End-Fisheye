@@ -19,9 +19,21 @@ function mediaFactory(data) {
   // ci-dessous? = non pour propreté de la fonction ci-dessous
 
   // je crée une premiere fonction pour afficher la gallerie
+  // function getCardGallery() {
+  //   const article = document.createElement("article");
+  //   article.innerHTML = `<button onclick="displayLightboxModal()" >
+  //       ${media}
+  //     </button>
+  //     <div>
+  //       <p>${title}</p>
+  //       <div>${likes} <i class="fa-solid fa-heart heartSolid"> </i></div>
+  //     </div>`;
+  //   return article;
+  // }
+
   function getCardGallery() {
     const article = document.createElement("article");
-    article.innerHTML = `<a href="#">
+    article.innerHTML = `<a href="#" onclick="displayLightboxModal()" >
         ${media}
       </a>
       <div>
@@ -30,8 +42,24 @@ function mediaFactory(data) {
       </div>`;
     return article;
   }
+
+  // function getCardGallery() {
+  //   const article = document.createElement("article");
+  //   article.innerHTML = `<a href="#">
+  //       ${media}
+  //     </a>
+  //     <div>
+  //       <p>${title}</p>
+  //       <div>${likes} <i class="fa-solid fa-heart heartSolid"> </i></div>
+  //     </div>`;
+  //   return article;
+  // }
   // OK = todo: rajouter les liens
   // todo: rajouter le lien vers la lightbox
+
+  //<div class="photographer-header-button-box"><button class="contact_button" onclick="displayModal()">
+  // Contactez-moi
+  // </button></div>
 
   return {
     getCardGallery,
