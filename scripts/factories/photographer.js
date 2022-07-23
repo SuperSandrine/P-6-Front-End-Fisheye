@@ -31,10 +31,11 @@ function photographerFactory(data) {
       <p class="city">${city + ", " + country}</p>
       <p class="tagline">${tagline}</p>
     </div>
-    <button class="contact_button" onclick="displayModal()">
+    <div class="photographer-header-pictureAndButton-box">
+    <div class="photographer-header-button-box"><button class="contact_button" onclick="displayModal()">
           Contactez-moi
-        </button>
-        <img src="${picture}"/>
+        </button></div>
+        <img src="${picture}"/></div>
     `;
     return photographHeader;
   }

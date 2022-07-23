@@ -10,19 +10,19 @@ function mediaFactory(data) {
   // avec une ternaire
   // question ? vrai alors action : ou faux alors action;
   // si image existe? affiche image : sinon affiche video
-  const pictureImage = `<img src="/assets/medias-vrac/min-${image}"/>`;
-  const pictureVideo = `<video >
+  const mediaImage = `<img src="/assets/medias-vrac/min-${image}"/>`;
+  const mediaVideo = `<video >
   <source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
 </video>`;
-  const picture = image == undefined ? pictureVideo : pictureImage;
+  const media = image == undefined ? mediaVideo : mediaImage;
   // Thomas = est-ce que ces 3 const ne mériteraient pas d'être dans la fonction
-  // ci-dessous?
+  // ci-dessous? = non pour propreté de la fonction ci-dessous
 
   // je crée une premiere fonction pour afficher la gallerie
   function getCardGallery() {
     const article = document.createElement("article");
     article.innerHTML = `<a href="#">
-        ${picture}
+        ${media}
       </a>
       <div>
         <p>${title}</p>

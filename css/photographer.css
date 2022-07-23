@@ -5,6 +5,7 @@ a {
 * {
   font-family: "DM Sans", sans-serif;
   margin: 0;
+  box-sizing: border-box;
 }
 
 #contact_modal {
@@ -93,6 +94,11 @@ photographe reprendre ce code*/
   cursor: pointer;
 }
 
+.contact_button:hover {
+  background-color: #db8876;
+  color: #000000;
+}
+
 .photograph-header {
   background-color: #fafafa;
   margin: 0 100px;
@@ -139,6 +145,13 @@ photographe reprendre ce code*/
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   object-fit: cover;
 }
+.photographer-header-pictureAndButton-box {
+  display: flex;
+  align-items: center;
+}
+.photographer-header-button-box {
+  padding: 0 10px;
+}
 
 /*---------- Sorting space or selected box ---------------*/
 .photograph-sorting-gallery {
@@ -161,7 +174,6 @@ photographe reprendre ce code*/
   font-weight: 700;
   color: white;
   padding: 23px 60px 23px 20px;
-
   background-color: #901c1c;
   border-radius: 5px;
   cursor: pointer;
@@ -172,33 +184,57 @@ photographe reprendre ce code*/
   margin: 0 100px;
   display: flex;
   flex-wrap: wrap;
-  column-gap: calc(5%);
+  /* column-gap: calc(3%); */
   row-gap: 20px;
   justify-content: space-between;
 }
 .photograph-gallery article {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  max-width: 350px;
+  width: 32%;
 }
 .photograph-gallery article a {
-  width: 350px;
-  height: 300px;
+  /* width: 350px;
+  height: 300px; */
+  width: 100%;
+  padding-top: 85.7%;
   background-color: #c4c4c4;
   border-radius: 5px;
+  position: relative;
 }
 .photograph-gallery article a img {
-  width: 350px;
-  height: 300px;
-  border-radius: 5px;
+  /* width: 350px;
+  height: 300px; */
+  /* border-radius: 5px;
   object-fit: cover;
+  width: 100%;
+  padding-top: 85.7%; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 }
 
 video {
-  object-fit: cover;
+  /* object-fit: cover;
   border-radius: 5px;
   width: 350px;
-  height: 300px;
+  height: 300px; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 }
 
 .photograph-gallery article div {
@@ -259,14 +295,14 @@ footer {
   background-color: #e34e4e40;
 } */
 .position {
-  /* position: fixed; */
-  /* overflow: auto; */
+  position: fixed;
+  overflow: auto;
   z-index: 10;
   top: 0;
   left: 0;
   background-color: rgba(196, 196, 196, 0.4);
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 .modal {
   border-radius: 5px;
@@ -320,26 +356,32 @@ form div {
   flex-direction: column;
   width: 100%;
   align-items: self-start;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 form input,
-.input_big {
+textarea {
   width: 100%;
-  padding: 25px 0;
-  border: none;
+  padding: 25px;
+  border: 2px white solid;
   border-radius: 5px;
   color: rgba(0, 0, 0, 0.3);
   font-size: 36px;
   font-weight: 400;
-  text-indent: 20px;
+  /* text-indent: 20px; */
   overflow: scroll;
 }
-form input:focus {
+form input:focus,
+textarea:focus {
   outline: none;
 }
-.input_big {
+/* .input_big {
   min-height: 170px;
+} */
+
+textarea::placeholder {
+  color: #db8876;
+  opacity: 50%;
 }
 
 .formData[data-error]::after {

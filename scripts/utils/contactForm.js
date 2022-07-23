@@ -27,8 +27,12 @@ function giveModalAName(Array) {
 }
 
 const inputsText = document.querySelectorAll(".text-control");
-// 5 empty variables created to save the user datas:
+// 4 empty variables created to save the user datas:
 let firstName, lastName, email, message;
+let A = 0;
+let B = 0;
+let C = 0;
+let D = 0;
 
 //Then all the checker function:
 const firstNameChecker = (value) => {
@@ -170,11 +174,12 @@ const messageChecker = (value) => {
     message = null;
     D = 0;
     //inclure les chiffre avec espaces dans les erreurs
-  } else if (value.match(/^([0-9]+)$/)) {
+    // ^[0-9]+.|([0-9]+)|.+[0-9]+.|\w+$
+  } else if (value.match(/^([0-9]+.|([0-9]+)|.+[0-9]+.)$/)) {
     containerMessage.setAttribute("data-error-visible", true);
     containerMessage.setAttribute(
       "data-error",
-      "Veillez à ne pas entrer que des chiffres"
+      "Veuillez ne pas entrer que des chiffres et des espaces."
     );
     message = null;
     D = 0;
@@ -206,55 +211,78 @@ inputsText.forEach((input) => {
   });
 });
 
+//TODO: rajouter dans la fonction valider le cas où rien n'est
+// sélectionné, surement lié un eventlistener car quand on sélectionne
+// une chose ça marche mais si rien n'est sélectionné il ne se passe rien
+// TODO: pourquoi quand le message est ok, validate marche, mais pas les autres?
+// TOUN: Thomas: pourquoi est-ce attr required à bloquer mon formulaire comme
+// sus-cité? Car en enlevant les required, tout fonctionne.
 function validate() {
   if (A + B + C + D < 4) {
-    if (!D) {
-      containerQ.setAttribute("data-error-visible", true);
-      containerQ.setAttribute("data-error", "Vous devez choisir une quantité.");
+    if (!message) {
+      containerMessage.setAttribute("data-error-visible", true);
+      containerMessage.setAttribute(
+        "data-error",
+        "Vous devez entrer votre message."
+      );
     }
-    if (!C) {
-      containerE.setAttribute("data-error-visible", true);
-      containerE.setAttribute(
+    if (!email) {
+      containerEmail.setAttribute("data-error-visible", true);
+      containerEmail.setAttribute(
         "data-error",
         "Vous devez entrer une adresse email."
       );
     }
-    if (!B) {
-      containerLN.setAttribute("data-error-visible", true);
-      containerLN.setAttribute("data-error", "Vous devez entrer un nom.");
+    if (!lastName) {
+      containerLastName.setAttribute("data-error-visible", true);
+      containerLastName.setAttribute("data-error", "Vous devez entrer un nom.");
     }
-    if (!A) {
-      containerFN.setAttribute("data-error-visible", true);
-      containerFN.setAttribute("data-error", "Vous devez entrer un prénom.");
+    if (!firstName) {
+      containerFirstName.setAttribute("data-error-visible", true);
+      containerFirstName.setAttribute(
+        "data-error",
+        "Vous devez entrer un prénom."
+      );
     }
+    alert("Des champs sont vides");
     return false;
-  }
-  if (A + B + C + D == 4) {
+  } else if (A + B + C + D == 4) {
     modal.style.display = "none";
-    //modalConfirmation.style.display = "flex";
     document.querySelector("#contactForm").reset();
     // Previous part cleans inputs.
     // Next part cleans user datas.
-    A = 0;
-    B = 0;
-    C = 0;
-    D = 0;
-    E = 0;
-    firstName = null;
-    lastName = null;
-    email = null;
-    message = null;
+    alert("message envoyé");
+    console.log(
+      "prénom :" +
+        firstName +
+        `\n` +
+        "nom :" +
+        lastName +
+        `\n` +
+        "email :" +
+        email +
+        `\n` +
+        "cette personne a écrit le message :" +
+        message
+    );
     return true;
   } else {
-    alert("Il y a un autre problème, contactez l'administrateur du site.");
+    console.log("ERRORRRRRR");
     return false;
   }
 }
+// TOUN: thomas: est-ce que le return est utile? à quoi me sert la valeur?
 
-// btnModalConfirmation.addEventListener("click", (e) => {
-//   modalBg.style.display = "none";
-//   modalBody.style.display = "block";
-// });
+// function to avoid navigator bubble
+for (var i = 0; i < form.length; i++) {
+  form[i].addEventListener(
+    "invalid",
+    function (e) {
+      e.preventDefault();
+    },
+    true
+  );
+}
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();

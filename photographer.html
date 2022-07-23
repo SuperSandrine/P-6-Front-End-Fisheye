@@ -3,7 +3,7 @@
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
       rel="stylesheet"
@@ -27,17 +27,7 @@
         <nav>Popularité</nav>
       </div>
 
-      <div class="photograph-gallery">
-        <!-- <article>
-          <a href="#">
-            <img src="/assets/photographers/EllieRoseWilkens.jpg" />
-          </a>
-          <div>
-            <p>Title</p>
-            <div>14 <i class="fa-solid fa-heart heartSolid"></i></div>
-          </div>
-        </article> -->
-      </div>
+      <div class="photograph-gallery"></div>
 
       <div class="photograph-price"></div>
     </main>
@@ -45,8 +35,9 @@
     <footer></footer>
 
     <!-- *********** MODAL *********** -->
-    <div class="position">
-      <div id="contact_modal">
+
+    <div id="contact_modal">
+      <div class="position">
         <div class="modal">
           <div class="modal_header">
             <div>
@@ -55,7 +46,13 @@
             </div>
             <img src="./assets/icons/close.svg" onclick="closeModal()" />
           </div>
-          <form id="contactForm" name="contact" onsubmit="return validate();">
+          <form
+            id="contactForm"
+            name="contact"
+            method="get"
+            action="photographer.html"
+            onsubmit="return validate();"
+          >
             <div class="formData" data-error="&nbsp;">
               <label for="firstName">Prénom</label>
               <input
@@ -88,12 +85,13 @@
 
             <div class="formData" data-error="&nbsp;">
               <label for="message">Message</label>
-              <input
+              <textarea
                 class="input_big text-control"
-                type="text"
                 id="message"
+                rows="5"
+                placeholder="Ecrivez votre message."
                 name="message"
-              />
+              ></textarea>
             </div>
             <input
               class="btn-submit contact_button"
