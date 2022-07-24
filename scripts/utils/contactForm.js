@@ -274,7 +274,7 @@ function validate() {
 // TOUN: thomas: est-ce que le return est utile? à quoi me sert la valeur?
 
 // function to avoid navigator bubble
-for (var i = 0; i < form.length; i++) {
+for (let i = 0; i < form.length; i++) {
   form[i].addEventListener(
     "invalid",
     function (e) {

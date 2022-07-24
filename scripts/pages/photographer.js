@@ -43,11 +43,30 @@ async function displayData(photographer) {
 
 async function displayMedia(media) {
   const photographGalleryDiv = document.querySelector(".photograph-gallery");
+  const lightboxContent = document.querySelector(".lightbox_modal-content");
+
   media.forEach((id) => {
     const makeACard = mediaFactory(id);
     const printGallery = makeACard.getCardGallery();
     photographGalleryDiv.appendChild(printGallery);
   });
+
+  // media.forEach((id) => {
+  //   const makeACard = mediaFactory(id);
+  //   const printContentLightbox = makeACard.getCardLightbox();
+  //   lightboxContent.appendChild(printContentLightbox);
+  // });
+  // ça marche mais ça ressort le comportement pour chaque id. Je voudrai le comportement
+  // pour l'id de la carte cliqué.
+
+  // for (let i = 0; i < media.lenght; i++)
+  //   photographGalleryDiv[i].addEventListener("onclick", => {
+  //   const makeACard = mediaFactory(id);
+  //   const printContentLightbox = makeACard.getCardLightbox();
+  //   lightboxContent.appendChild(printContentLightbox);
+  //  });
+  // quand je clique sur la photo
+  //ça display déjà la modal, ça display la photo cliquée dans le content
 }
 
 async function init() {
@@ -59,5 +78,6 @@ async function init() {
   console.log(photographerMedia);
   displayMedia(photographerMedia);
   giveModalAName(photographerData);
+  // giveLightboxItsMedias(photographerMedia);
 }
 init();

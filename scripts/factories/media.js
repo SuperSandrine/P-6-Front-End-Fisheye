@@ -2,7 +2,11 @@ function mediaFactory(data) {
   //pour chaque index de l'array media,
   // j'affiche les images dans la gallerie avec titre et likes
   //      > images et vidéos > traitement avec une ternaire?
-  // j'affiche les images dans une lightbox
+  // pour chaque image de l'id du photographer
+  // quand je clique dessus dans la gallerie
+  // s'affiche en grand seule dans la lightbox
+  // dans la ligthbox je passe d'une image à l'autre avec les fleches.
+  // soit je navique dans un array avec les flèches.
 
   // d'abord je récupère mes données
   const { date, id, image, likes, photographId, price, title, video } = data;
@@ -33,7 +37,7 @@ function mediaFactory(data) {
 
   function getCardGallery() {
     const article = document.createElement("article");
-    article.innerHTML = `<a href="#" onclick="displayLightboxModal()" >
+    article.innerHTML = `<a href="#" onclick="displayLightboxModal(${id})" >
         ${media}
       </a>
       <div>
@@ -43,25 +47,20 @@ function mediaFactory(data) {
     return article;
   }
 
-  // function getCardGallery() {
-  //   const article = document.createElement("article");
-  //   article.innerHTML = `<a href="#">
-  //       ${media}
-  //     </a>
-  //     <div>
-  //       <p>${title}</p>
-  //       <div>${likes} <i class="fa-solid fa-heart heartSolid"> </i></div>
-  //     </div>`;
-  //   return article;
-  // }
-  // OK = todo: rajouter les liens
-  // todo: rajouter le lien vers la lightbox
+  const mediaBigImage = `<img src="/assets/medias-vrac/${image}"/>`;
+  const bigMedia = image == undefined ? mediaVideo : mediaBigImage;
 
-  //<div class="photographer-header-button-box"><button class="contact_button" onclick="displayModal()">
-  // Contactez-moi
-  // </button></div>
+  function getCardLightbox() {
+    //  const lightboxContent = document.querySelector(".lightbox_modal-content");
+    const article = document.createElement("article");
+    article.innerHTML = `${mediaBigImage}
+    <p class="lightbox_modal-content-text">Titre</p>`;
+    console.log("getcardlightbox marche");
+    return article;
+  }
 
   return {
     getCardGallery,
+    getCardLightbox,
   };
 }

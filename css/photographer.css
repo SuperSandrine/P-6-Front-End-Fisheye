@@ -409,6 +409,13 @@ textarea::placeholder {
 }
 
 /* --------- Modal Lightbox --------- */
+button {
+  border: none;
+  padding: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
 
 .lightbox_modal {
   border-radius: 5px;
@@ -422,14 +429,18 @@ textarea::placeholder {
   margin: auto;
   margin-top: 40px;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.lightbox_modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 20;
 }
 
 .lightbox_modal-previous,
-.lightbox_modal-closeornext {
-  display: flex;
-  flex-direction: column;
-}
-.lightbox_modal-previous img {
+.lightbox_modal-next {
   margin: auto;
 }
 
@@ -437,12 +448,11 @@ textarea::placeholder {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+  align-items: center;
+  /* justify-content: center; */
+  min-height: 100vh;
 }
 .lightbox_modal-content img {
   width: 100%;
-  height: 92%;
-}
-
-.lightbox_modal-closeornext .center {
-  margin: auto;
+  height: auto;
 }
