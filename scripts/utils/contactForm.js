@@ -211,12 +211,6 @@ inputsText.forEach((input) => {
   });
 });
 
-//TODO: rajouter dans la fonction valider le cas où rien n'est
-// sélectionné, surement lié un eventlistener car quand on sélectionne
-// une chose ça marche mais si rien n'est sélectionné il ne se passe rien
-// TODO: pourquoi quand le message est ok, validate marche, mais pas les autres?
-// TOUN: Thomas: pourquoi est-ce attr required à bloquer mon formulaire comme
-// sus-cité? Car en enlevant les required, tout fonctionne.
 function validate() {
   if (A + B + C + D < 4) {
     if (!message) {
@@ -250,7 +244,7 @@ function validate() {
     modal.style.display = "none";
     document.querySelector("#contactForm").reset();
     // Previous part cleans inputs.
-    // Next part cleans user datas.
+    // Next print in console the user datas ans message.
     alert("message envoyé");
     console.log(
       "prénom :" +

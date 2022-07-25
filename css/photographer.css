@@ -17,74 +17,6 @@ a {
 }
 /* --------- Photograph Header --------- */
 
-/*Si on remet la div supplémentaire entre la factory et la page 
-photographe reprendre ce code*/
-/* .contact_button {
-  font-size: 18px;
-  font-weight: 700;
-  color: white;
-  padding: 11px;
-  width: 170px;
-  height: 70px;
-  border: none;
-  background-color: #901c1c;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.photograph-header {
-  background-color: #fafafa;
-  margin: 0 100px;
-  padding: calc(4%);
-  margin-bottom: 20px;
-}
-
-.photograph-header div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.photograph-header div .photograph-header_information {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.photograph-header p {
-  /* display: flex;
-  flex-direction: column; */
-/*  padding-bottom: 4px;
-  margin: 0;
-}
-.photograph-header_information h2 {
-  color: #d3573c;
-  font-size: 64px;
-  font-weight: 400;
-  /* justify-content: center; */
-/*  display: flex;
-  margin: auto;
-}
-.city {
-  color: #901c1c;
-  font-size: 24px;
-  align-items: flex-start;
-}
-.tagline {
-  color: #000000;
-  font-size: 18px;
-  text-align: left;
-}
-
-.photograph-header img {
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  background: #c4c4c4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  object-fit: cover;
-} */
-
 .contact_button {
   font-size: 18px;
   font-weight: 700;
@@ -188,7 +120,6 @@ photographe reprendre ce code*/
   margin: 0 100px;
   display: flex;
   flex-wrap: wrap;
-  /* column-gap: calc(3%); */
   row-gap: 20px;
   justify-content: space-between;
 }
@@ -289,17 +220,7 @@ footer {
 }
 
 /* --------- Modal Form --------- */
-/* .background {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  background-color: #e34e4e40;
-} */
+
 .position {
   position: fixed;
   overflow: auto;
@@ -381,9 +302,6 @@ form input:focus,
 textarea:focus {
   outline: none;
 }
-/* .input_big {
-  min-height: 170px;
-} */
 
 textarea::placeholder {
   color: #db8876;
@@ -424,7 +342,6 @@ button {
   width: 90vw;
   height: 90vh;
   display: flex;
-  /* align-items: center;*/
   justify-content: space-between;
   padding: 35px; /* 20px?*/
   padding-bottom: 10px;

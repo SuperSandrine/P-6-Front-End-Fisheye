@@ -1,19 +1,22 @@
+// pour chaque image de la gallerie
+// quand je clique dessus
+// s'affiche en grand seule dans la lightbox
+// dans la ligthbox je passe d'une image à l'autre avec les fleches.
+// soit je navique dans un array avec les flèches.
+
 const lightboxModal = document.getElementById("lightbox_modal");
 let idMedia;
 let idArray;
-let indexIdMedia;
-let indexii;
-let completeImgSource;
 
+// en paramètre du display "e", j'ai appelé l'id du média dans media.js
+// quand je clique sur la photo, je récupère l'index de l'image pour afficher
+// ses informations et l'image dans la lightbox
 function displayLightboxModal(e) {
-  //e.preventDefault();
   lightboxModal.style.display = "block";
   idMedia = e;
-  console.log(idMedia);
-  //mediaFactory(media);
   getIndexofMediasForLightbox(photographerMedia);
+  console.log("voici l'index du media affiché : " + indexOfMedia);
   giveLightboxItsMedias(photographerMedia);
-  //getCardLightbox();
   return idMedia;
 }
 // to close modal
@@ -21,28 +24,21 @@ function closeLightboxModal() {
   lightboxModal.style.display = "none";
 }
 
-// const names = jungle.map((el) => el.name); // returns ['frog', 'monkey', 'gorilla', 'lion']
-// console.log(names.includes("gorilla")); // returns true
-// console.log(names.indexOf("lion")); // returns 3 - which corresponds correctly assuming no sorting was done
-
+// pour récupérer l'index de l'id de l'image, je dois découper le tableau avec
+// uniquement les ids, afin d'utiliser la méthode indexOf.
 function getIndexofMediasForLightbox(array) {
   idArray = array.map((el) => el.id);
-  console.log(idArray);
-  //  console.log(idArray.indexOf(idMedia));
-  indexii = idArray.indexOf(idMedia);
-  console.log(indexii);
-  return indexii;
+  indexOfMedia = idArray.indexOf(idMedia);
+  return indexOfMedia;
 }
 
-//prendre la valeur de indexii et l'injecter dans la formule ci-dessous
+//prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
+// pour afficher image, video et titre
 function giveLightboxItsMedias(array) {
-  console.log("Voici l'index" + indexii);
-  fillMediaSource = array[indexii].image;
-  fillMediaVideoSource = array[indexii].video;
-  fillMediaTitle = array[indexii].title;
-  console.log(fillMediaTitle);
-  console.log(fillMediaSource);
-  console.log(fillMediaVideoSource);
+  fillMediaSource = array[indexOfMedia].image;
+  fillMediaVideoSource = array[indexOfMedia].video;
+  fillMediaTitle = array[indexOfMedia].title;
+
   const mediaBigImage = `<img src="/assets/medias-vrac/${fillMediaSource}"/>`;
   const mediaBigVideo = `<video controls autoplay >
   <source src="/assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
@@ -51,36 +47,4 @@ function giveLightboxItsMedias(array) {
   const lightboxMedia = document.querySelector(".lightbox_modal-content");
   lightboxMedia.innerHTML = `${bigMedia}
      <p class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
-
-  //  printMedia = `array[${index}]["image"]`;
-  //const mediaImage = `<img src="/assets/medias-vrac/${printMedia}"/>`;
-
-  //  indexIdMedia = idArray.indexOf(idMedia);
-  // printMedia = `array[${index}]["image"]`;
-  //const mediaImage = photographerMedia[0]["image"];
-  //const mediaImage = `<img src="/assets/medias-vrac/${printMedia}"/>`;
-  //const mediaVideo = photographerMedia[0]["video"];
-  //const media = photographerMedia[0]["image"] == undefined ? mediaVideo : mediaImage;
-
-  //`<img src="/assets/medias-vrac/min-${image}"/>`;
-  //const mediaVideo = `<video >
-  //<source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
-  //</video>`;
 }
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-//function giveLightboxItsMedias(array) {
-//   //const mediaImage = photographerMedia[0]["image"];
-//   const mediaImage = `<img src="/assets/medias-vrac/${array[0]["image"]}"/>`;
-//   //const mediaVideo = photographerMedia[0]["video"];
-//   //const media = photographerMedia[0]["image"] == undefined ? mediaVideo : mediaImage;
-
-//   //`<img src="/assets/medias-vrac/min-${image}"/>`;
-//   //const mediaVideo = `<video >
-//   //<source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
-//   //</video>`;
-
-//   const lightboxMedia = document.querySelector(".lightbox_modal-content");
-//   lightboxMedia.innerHTML = `${mediaImage}
-//     <p class="lightbox_modal-content-text">Titre</p>`;
-// }
