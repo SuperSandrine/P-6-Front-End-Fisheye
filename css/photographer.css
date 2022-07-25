@@ -207,7 +207,8 @@ photographe reprendre ce code*/
   border-radius: 5px;
   position: relative;
 }
-.photograph-gallery article a img {
+.photograph-gallery article a img,
+.photograph-gallery article a video {
   /* width: 350px;
   height: 300px; */
   /* border-radius: 5px;
@@ -225,11 +226,11 @@ photographe reprendre ce code*/
   border-radius: 5px;
 }
 
-video {
+/* video {
   /* object-fit: cover;
   border-radius: 5px;
   width: 350px;
-  height: 300px; */
+  height: 300px; 
   position: absolute;
   top: 0;
   left: 0;
@@ -239,7 +240,7 @@ video {
   width: 100%;
   height: 100%;
   border-radius: 5px;
-}
+} */
 
 .photograph-gallery article div {
   display: flex;
@@ -411,7 +412,7 @@ textarea::placeholder {
 /* --------- Modal Lightbox --------- */
 button {
   border: none;
-  padding: none;
+  padding: 0;
   outline: none;
   background: none;
   cursor: pointer;
@@ -420,22 +421,23 @@ button {
 .lightbox_modal {
   border-radius: 5px;
   background-color: white;
-  width: 90%;
+  width: 90vw;
   height: 90vh;
   display: flex;
   /* align-items: center;*/
   justify-content: space-between;
   padding: 35px; /* 20px?*/
+  padding-bottom: 10px;
   margin: auto;
   margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   position: relative;
 }
 
 .lightbox_modal-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 35px;
+  right: 28px;
   z-index: 20;
 }
 
@@ -445,14 +447,17 @@ button {
 }
 
 .lightbox_modal-content {
-  display: flex;
-  flex-direction: column;
   padding: 0 20px;
-  align-items: center;
-  /* justify-content: center; */
-  min-height: 100vh;
-}
-.lightbox_modal-content img {
   width: 100%;
-  height: auto;
 }
+.lightbox_modal-content img,
+.lightbox_modal-content video {
+  width: 100%;
+  height: 93%;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: -8px;
+}
+/* .lightbox_modal-content video {
+  width: 100%;
+} */

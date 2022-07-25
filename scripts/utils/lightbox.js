@@ -10,8 +10,10 @@ function displayLightboxModal(e) {
   lightboxModal.style.display = "block";
   idMedia = e;
   console.log(idMedia);
+  //mediaFactory(media);
   getIndexofMediasForLightbox(photographerMedia);
   giveLightboxItsMedias(photographerMedia);
+  //getCardLightbox();
   return idMedia;
 }
 // to close modal
@@ -35,9 +37,21 @@ function getIndexofMediasForLightbox(array) {
 //prendre la valeur de indexii et l'injecter dans la formule ci-dessous
 function giveLightboxItsMedias(array) {
   console.log("Voici l'index" + indexii);
-  completeImgSource = array[indexii].image;
-  console.log(completeImgSource);
-  const mediaImage = `<img src="/assets/medias-vrac/${completeImgSource}"/>`;
+  fillMediaSource = array[indexii].image;
+  fillMediaVideoSource = array[indexii].video;
+  fillMediaTitle = array[indexii].title;
+  console.log(fillMediaTitle);
+  console.log(fillMediaSource);
+  console.log(fillMediaVideoSource);
+  const mediaBigImage = `<img src="/assets/medias-vrac/${fillMediaSource}"/>`;
+  const mediaBigVideo = `<video controls autoplay >
+  <source src="/assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
+</video>`;
+  const bigMedia = fillMediaSource == undefined ? mediaBigVideo : mediaBigImage;
+  const lightboxMedia = document.querySelector(".lightbox_modal-content");
+  lightboxMedia.innerHTML = `${bigMedia}
+     <p class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
+
   //  printMedia = `array[${index}]["image"]`;
   //const mediaImage = `<img src="/assets/medias-vrac/${printMedia}"/>`;
 
@@ -52,11 +66,8 @@ function giveLightboxItsMedias(array) {
   //const mediaVideo = `<video >
   //<source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
   //</video>`;
-
-  const lightboxMedia = document.querySelector(".lightbox_modal-content");
-  lightboxMedia.innerHTML = `${mediaImage}
-  <p class="lightbox_modal-content-text">Titre</p>`;
 }
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 //function giveLightboxItsMedias(array) {
 //   //const mediaImage = photographerMedia[0]["image"];

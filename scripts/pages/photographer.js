@@ -43,7 +43,6 @@ async function displayData(photographer) {
 
 async function displayMedia(media) {
   const photographGalleryDiv = document.querySelector(".photograph-gallery");
-  const lightboxContent = document.querySelector(".lightbox_modal-content");
 
   media.forEach((id) => {
     const makeACard = mediaFactory(id);

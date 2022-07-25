@@ -47,20 +47,55 @@ function mediaFactory(data) {
     return article;
   }
 
-  const mediaBigImage = `<img src="/assets/medias-vrac/${image}"/>`;
-  const bigMedia = image == undefined ? mediaVideo : mediaBigImage;
+  // function getCardLightbox() {
+  //   const bigMedia = image == undefined ? mediaBigVideo : mediaBigImage;
+  //   const lightboxMedia = document.querySelector(".lightbox_modal-content");
+  //   lightboxMedia.innerHTML = `${bigMedia}
+  //   <p class="lightbox_modal-content-text">Titre</p>`;
+  // }
+  // function giveLightboxItsMedias(array) {
+  //   console.log("Voici l'index" + indexii);
+  //   fillMediaSource = array[indexii].image;
+  //   console.log(fillMediaSource);
+  //   const mediaBigImage = `<img src="/assets/medias-vrac/${fillMediaSource}"/>`;
+  //   const mediaVideo = `<video >
+  //   <source src="/assets/medias-vrac/${fillMediaSource}#t=5.0" type="video/mp4">
+  // </video>`;
+  //   const Bigmedia = image == undefined ? mediaVideo : mediaBigImage;
 
-  function getCardLightbox() {
-    //  const lightboxContent = document.querySelector(".lightbox_modal-content");
-    const article = document.createElement("article");
-    article.innerHTML = `${mediaBigImage}
-    <p class="lightbox_modal-content-text">Titre</p>`;
-    console.log("getcardlightbox marche");
-    return article;
-  }
+  //   //  printMedia = `array[${index}]["image"]`;
+  //   //const mediaImage = `<img src="/assets/medias-vrac/${printMedia}"/>`;
+
+  //   //  indexIdMedia = idArray.indexOf(idMedia);
+  //   // printMedia = `array[${index}]["image"]`;
+  //   //const mediaImage = photographerMedia[0]["image"];
+  //   //const mediaImage = `<img src="/assets/medias-vrac/${printMedia}"/>`;
+  //   //const mediaVideo = photographerMedia[0]["video"];
+  //   //const media = photographerMedia[0]["image"] == undefined ? mediaVideo : mediaImage;
+
+  //   //`<img src="/assets/medias-vrac/min-${image}"/>`;
+  //   //const mediaVideo = `<video >
+  //   //<source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
+  //   //</video>`;
+
+  //   const lightboxMedia = document.querySelector(".lightbox_modal-content");
+  //   lightboxMedia.innerHTML = `${Bigmedia}
+  //   <p class="lightbox_modal-content-text">Titre</p>`;
+  // }
+  //********************************* */
+
+  // const mediaBigImage = `<img src="/assets/medias-vrac/${image}"/>`;
+  // const bigMedia = image == undefined ? mediaVideo : mediaBigImage;
+
+  // function getCardLightbox() {
+  //   //  const lightboxContent = document.querySelector(".lightbox_modal-content");
+  //   const article = document.createElement("article");
+  //   article.innerHTML = `${mediaBigImage}
+  //   <p class="lightbox_modal-content-text">Titre</p>`;
+  //   console.log("getcardlightbox marche");
+  //   return article;
 
   return {
     getCardGallery,
-    getCardLightbox,
   };
 }
