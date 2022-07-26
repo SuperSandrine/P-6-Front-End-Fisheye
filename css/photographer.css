@@ -92,7 +92,7 @@ a {
 /*---------- Sorting space or selected box ---------------*/
 .photograph-sorting-gallery {
   margin: 0 100px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   display: flex;
   justify-content: flex-start;
 }
@@ -105,7 +105,7 @@ a {
   align-items: center;
 }
 
-.photograph-sorting-gallery nav {
+/* .photograph-sorting-gallery nav {
   font-size: 18px;
   font-weight: 700;
   color: white;
@@ -113,7 +113,7 @@ a {
   background-color: #901c1c;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
 
 /*---------- Gallery ---------------*/
 .photograph-gallery {

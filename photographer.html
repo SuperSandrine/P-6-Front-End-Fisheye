@@ -22,10 +22,20 @@
     </header>
     <main id="main">
       <div class="photograph-header"></div>
-      <div class="photograph-sorting-gallery">
-        <label>Trier par </label>
-        <nav>Popularité</nav>
+      <div class="photograph-sorting-gallery"> 
+        <label for="filter-photo">Trier par </label>
+        <!-- <nav id="filter-photo">Popularité</nav> -->
+      <div class="custom-select">
+        <select id="filter-photo">
+          <option value="0">Filtrer:</option>
+          <option value="1">Popularité</option>
+          <option value="2">Date</option>
+          <option value="3">Titre</option>
+        </select>
+        </div>
+      
       </div>
+    </div>
 
       <div class="photograph-gallery"></div>
 
@@ -140,5 +150,6 @@
     <script src="/scripts/factories/media.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/lightbox.js"></script>
+    <script src="/scripts/utils/selectbox.js"></script>
   </body>
 </html>
