@@ -1,5 +1,5 @@
 let sortingMethodFromList;
-const bg = document.querySelector("body");
+// const bg = document.querySelector("body");
 
 let x, i, j, l, ll, selElmnt, a, b, c;
 /*look for any elements with the class "custom-select":*/
@@ -93,8 +93,6 @@ function closeAllSelect(elmnt) {
   }
 
   console.log("fin : " + sortingMethodFromList);
-
-  console.log("voici la div à rendre magique avec une fonction ");
   sortingMedias();
 }
 /*if the user clicks anywhere outside the select box,
@@ -111,12 +109,12 @@ selection.addEventListener("click", (e) => console.log(e));
 
 /* -------- SORTING FUNCTIONS -----------*/
 
-function changeBG() {
-  console.log("this" + sortingMethodFromList);
-  if (sortingMethodFromList === "Date") {
-    bg.style.backgroundColor = "blue";
-  }
-}
+// function changeBG() {
+//   console.log("this" + sortingMethodFromList);
+//   if (sortingMethodFromList === "Date") {
+//     bg.style.backgroundColor = "blue";
+//   }
+// }
 // attention à la casse
 
 function sortingMedias() {
@@ -190,14 +188,8 @@ function sortOnDate() {
 }
 
 //affiche sur la console l'array pour le vérifier
-function displayCars() {
-  for (let i = 0; i < photographerMedia.length; i++) {
-    console.log(photographerMedia[i].title + " " + `\n`);
-  }
-}
-
-function triParTitre() {}
-
-function triParPopularité() {}
-
-function triParDate() {}
+// function displayCars() {
+//   for (let i = 0; i < photographerMedia.length; i++) {
+//     console.log(photographerMedia[i].title + " " + `\n`);
+//   }
+// }
