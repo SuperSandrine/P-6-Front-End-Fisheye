@@ -36,13 +36,26 @@ async function displayData(photographer) {
   });
 }
 
+const photographGalleryDiv = document.querySelector(".photograph-gallery");
+
 async function displayMedia(media) {
-  const photographGalleryDiv = document.querySelector(".photograph-gallery");
+  //  const photographGalleryDiv = document.querySelector(".photograph-gallery");
+  //  photographGalleryDiv.removeChild();
+  while (photographGalleryDiv.hasChildNodes()) {
+    photographGalleryDiv.removeChild(photographGalleryDiv.firstChild);
+  }
   media.forEach((id) => {
     const makeACard = mediaFactory(id);
     const printGallery = makeACard.getCardGallery();
+    // if (photographGalleryDiv)
+    // photographGalleryDiv.removeChild();
     photographGalleryDiv.appendChild(printGallery);
   });
+}
+
+function cleanDisplayMedia() {
+  // await displayMedia;
+  photographGalleryDiv.removeChild();
 }
 
 //Cette fonction lance le traitement des fonctions asynchrone dans l'ordre

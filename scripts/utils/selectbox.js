@@ -1,3 +1,6 @@
+let sortingMethodFromList;
+const bg = document.querySelector("body");
+
 let x, i, j, l, ll, selElmnt, a, b, c;
 /*look for any elements with the class "custom-select":*/
 x = document.getElementsByClassName("custom-select");
@@ -18,6 +21,9 @@ for (i = 0; i < l; i++) {
     create a new DIV that will act as an option item:*/
     c = document.createElement("DIV");
     c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", (e) => {
+      console.log("voici la div à rendre magique avec une fonction " + e);
+    });
     c.addEventListener("click", function (e) {
       /*when an item is clicked, update the original select box,
         and the selected item:*/
@@ -31,6 +37,11 @@ for (i = 0; i < l; i++) {
         if (s.options[i].innerHTML == this.innerHTML) {
           s.selectedIndex = i;
           h.innerHTML = this.innerHTML;
+          sortingMethodFromList =
+            h.innerHTML; /* sortingMFL change à chaque clique */
+          console.log(sortingMethodFromList);
+          /* voici l'information dont j'ai besoin pour mon tri*/
+
           y = this.parentNode.getElementsByClassName("same-as-selected");
 
           yl = y.length;
@@ -80,6 +91,11 @@ function closeAllSelect(elmnt) {
       x[i].classList.add("select-hide");
     }
   }
+
+  console.log("fin : " + sortingMethodFromList);
+
+  console.log("voici la div à rendre magique avec une fonction ");
+  sortingMedias();
 }
 /*if the user clicks anywhere outside the select box,
 then close all select boxes:*/
@@ -92,3 +108,96 @@ et c'est ce m^me array qui est injecté dans la présentation de la lightbox
 */
 const selection = document.querySelector(".custom-select");
 selection.addEventListener("click", (e) => console.log(e));
+
+/* -------- SORTING FUNCTIONS -----------*/
+
+function changeBG() {
+  console.log("this" + sortingMethodFromList);
+  if (sortingMethodFromList === "Date") {
+    bg.style.backgroundColor = "blue";
+  }
+}
+// attention à la casse
+
+function sortingMedias() {
+  if (sortingMethodFromList === "Date") {
+    sortOnDate();
+    displayMedia(photographerMedia);
+    displayCars();
+    // fait un tri par date
+  }
+  if (sortingMethodFromList === "Titre") {
+    alphabeticalSortOnTitle();
+    displayMedia(photographerMedia);
+    // photographerMedia.title.sort();
+    // console.log("sorted array : " + photographerMedia);
+    // soit je fais des comparaison pour ranger mon tableau
+    // soit je crée un nouveau tableau que je mets dans l'ordre
+    // dans ce nouveau tableau je dois aussi mémoriser l'ancien et le nouvel index?
+
+    // fait un tri par Titre
+  }
+  if (sortingMethodFromList === "Popularité") {
+    sortOnPopularity();
+    displayMedia(photographerMedia);
+
+    // fait un tri par popularité
+  } else {
+    //ne fait rien
+  }
+}
+
+function sortOnPopularity() {
+  photographerMedia.sort(function (a, b) {
+    let x = a.likes;
+    let y = b.likes;
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function alphabeticalSortOnTitle() {
+  photographerMedia.sort(function (a, b) {
+    let x = a.title.toLowerCase();
+    let y = b.title.toLowerCase();
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function sortOnDate() {
+  photographerMedia.sort(function (a, b) {
+    let x = a.date;
+    let y = b.date;
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+//affiche sur la console l'array pour le vérifier
+function displayCars() {
+  for (let i = 0; i < photographerMedia.length; i++) {
+    console.log(photographerMedia[i].title + " " + `\n`);
+  }
+}
+
+function triParTitre() {}
+
+function triParPopularité() {}
+
+function triParDate() {}
