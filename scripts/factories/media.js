@@ -8,9 +8,9 @@ function mediaFactory(data) {
   // je gère les fichiers image ou video
   // avec une ternaire format :" question ? vrai alors action : ou faux alors action;"
   // si image existe? affiche image : sinon affiche video
-  const mediaImage = `<img src="/assets/medias-vrac/min-${image}"/>`;
+  const mediaImage = `<img src="./assets/medias-vrac/min-${image}"/>`;
   const mediaVideo = `<video >
-  <source src="/assets/medias-vrac/${video}#t=5.0" type="video/mp4">
+  <source src="./assets/medias-vrac/${video}#t=5.0" type="video/mp4">
 </video>`;
   const media = image == undefined ? mediaVideo : mediaImage;
 

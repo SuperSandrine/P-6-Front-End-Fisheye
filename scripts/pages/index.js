@@ -5,7 +5,7 @@
 // renvoie l'objet photographers
 async function getPhotographers() {
   let photographers = [];
-  await fetch("/data/photographers.json")
+  await fetch("./data/photographers.json")
     .then((response) => response.json())
     .then((response2) => {
       photographers = response2.photographers;
