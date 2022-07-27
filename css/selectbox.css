@@ -28,7 +28,7 @@
   height: 11px;
   /* border: 6px solid white; */
   /*border-color: #fff transparent transparent transparent; */
-  background: url(/assets/icons/uparrow.svg);
+  background: url(../assets/icons/uparrow.svg);
   transform: rotate(180deg);
 }
 
