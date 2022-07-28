@@ -14,7 +14,7 @@ console.log(parameterID); //TODO à supprimer avant livraison
 // puis remplie deux tableaux prédéclarés let photographers et let media
 // renvoie les objets photographers et media
 async function getPhotographers() {
-  await fetch("../../data/photographers.json")
+  await fetch("../data/photographers.json")
     .then((response) => response.json())
     .then((response2) => {
       photographers = response2.photographers;
