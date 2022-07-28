@@ -12,3 +12,13 @@
 // limiter les cliqk à un click?? un listener? une incrémentation avec condition
 //=>https://codepen.io/Eddy67/pen/ZEzrQMb?editors=0010
 // addEventlistener puis removeEventListener on click
+
+const likesDiv = document.querySelector(".likes");
+const numberOfLikes = document.querySelector(".likes p");
+const heartLikes = document.querySelector(":scope .likes i");
+console.log(heartLikes);
+
+// array.forEach((element) => {
+//   //pour chaque media
+//   //j'écoute et je n'écoute plus
+// });

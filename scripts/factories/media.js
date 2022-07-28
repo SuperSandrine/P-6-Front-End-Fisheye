@@ -22,7 +22,7 @@ function mediaFactory(data) {
       </a>
       <div>
         <p>${title}</p>
-        <div>${likes} <i class="fa-solid fa-heart heartSolid"> </i></div>
+        <div class="likes"><p>${likes} </p><i class="fa-solid fa-heart heartSolid"> </i></div>
       </div>`;
     return article;
   }
