@@ -22,12 +22,30 @@ function mediaFactory(data) {
       </a>
       <div>
         <p>${title}</p>
-        <div class="likes"><p>${likes} </p><i class="fa-solid fa-heart heartSolid"> </i></div>
+        <div class="likes-${id}"><p class="likesData">${likes} </p><i onclick="addALike(${likes},${id})"
+         class="fa-solid fa-heart heartSolid"> </i></div>
       </div>`;
     return article;
   }
 
+  // function addALike2media(nbOfLikes, photoId) {
+  //   let numberOfLikes = document.querySelector(".likes p").parentNode;
+
+  //   let previousNumberOfLikes = nbOfLikes;
+  //   console.log("ancien nb de like : " + previousNumberOfLikes);
+  //   console.log("test query selector: " + numberOfLikes);
+
+  //   if (!clicked) {
+  //     clicked = true;
+  //     previousNumberOfLikes++;
+  //     console.log("nouveau nb de like : " + previousNumberOfLikes);
+
+  //     document.querySelector(".likes p").innerHTML = previousNumberOfLikes;
+  //   }
+  // }
   return {
     getCardGallery,
   };
 }
+
+//<div class="likes-${id}"><p>${likes} </p><i onclick="addALike(${likes},${id})"

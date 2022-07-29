@@ -44,8 +44,9 @@ function photographerFactory(data) {
   // et ne fait d'appendChild dans photograph.pages. Juste j'appelle ma const.
 
   function getPhotographPrice() {
+    //AllLikesForOne();
     const photographPrice = document.querySelector(".photograph-price");
-    photographPrice.innerHTML = `<p>000 007 <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
+    photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
     return photographPrice;
   }
 

@@ -53,10 +53,10 @@ async function displayMedia(media) {
   });
 }
 
-function cleanDisplayMedia() {
-  // await displayMedia;
-  photographGalleryDiv.removeChild();
-}
+// function cleanDisplayMedia() {
+//   // await displayMedia;
+//   photographGalleryDiv.removeChild();
+// }
 
 //Cette fonction lance le traitement des fonctions asynchrone dans l'ordre
 async function init() {
@@ -67,5 +67,8 @@ async function init() {
   console.log(photographerMedia);
   displayMedia(photographerMedia);
   giveModalAName(photographerData);
+  AllLikesForOne();
+
+  //AllLikesForOne();
 }
 init();

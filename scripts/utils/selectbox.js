@@ -92,7 +92,7 @@ function closeAllSelect(elmnt) {
     }
   }
 
-  console.log("fin : " + sortingMethodFromList);
+  //  console.log("fin : " + sortingMethodFromList);
   sortingMedias();
 }
 /*if the user clicks anywhere outside the select box,
@@ -121,7 +121,7 @@ function sortingMedias() {
   if (sortingMethodFromList === "Date") {
     sortOnDate();
     displayMedia(photographerMedia);
-    displayCars();
+    //    displayCars();
     // fait un tri par date
   }
   if (sortingMethodFromList === "Titre") {
