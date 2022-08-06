@@ -43,9 +43,37 @@ function mediaFactory(data) {
   //     document.querySelector(".likes p").innerHTML = previousNumberOfLikes;
   //   }
   // }
+  // ----------
+  // vend 15:18, déjà présent dans photo.js
+  // let totalOfLikes = 0;
+  // let allLikes;
+
+  // function allLikesForOne() {
+  //   allLikes = document.querySelectorAll(".likesData");
+  //   console.log("liste des likes : " + allLikes);
+  //   for (let i = 0; i < allLikes.length; i++) {
+  //     totalOfLikes += parseInt(allLikes[i].innerHTML);
+  //     console.log("total : " + totalOfLikes);
+  //   }
+
+  //   return totalOfLikes;
+  // }
+  // function addALikeToTotal() {
+  //   totalOfLikes++;
+  //   console.log(" le total a changé : " + totalOfLikes);
+  // }
+
   return {
     getCardGallery,
+    //allLikesForOne,
+    //addALikeToTotal,
+    //getPhotographPrice,
+    //totalOfLikes,
+    //addALike,
+    //getPhotographPrice,
   };
 }
 
 //<div class="likes-${id}"><p>${likes} </p><i onclick="addALike(${likes},${id})"
+// const change = document.querySelector(".likesData").innerHTML;
+// change.addEventListener("change", addALikeToTotal);

@@ -1,42 +1,87 @@
-// chaque fois que je clique sur un coeur,
-//j'ajoute un coeur
-// par contre je ne peux cliquer qu'une fois sur un coeur
+// let totalOfLikes = 0;
+// function addALike(nbOfLikes, photoId) {
+//   nbOfLikes++;
+//   document.querySelector(`.likes-${photoId} p`).innerHTML = nbOfLikes;
+//   console.log("ça marche : " + nbOfLikes);
+//   totalOfLikes++;
+//   console.log("total" + totalOfLikes);
+//   return totalOfLikes;
+// }
 
-// tous les coeurs s'additionne à côté du prix
+// let allLikes;
+// let allLikesInt;
 
-//Thomas: je commence par quoi?
-//le total des coeurs qui capture la donnée par dans l'array mais celle affichée.
+// function allLikesForOne() {
+//   allLikes = document.querySelectorAll(".likesData");
+//   console.log("liste des likes : " + allLikes);
+//   for (let i = 0; i < allLikes.length; i++) {
+//     totalOfLikes += parseInt(allLikes[i].innerHTML);
+//     console.log("total : " + totalOfLikes);
+//   }
+// }
+//-------------
+// récupération du code de git 15:28
 
-//Thomas: l'ajout de coeur à partir de la donnée affichée OU l'array
+//ven 15h41 ça marche mais ça décrémente pas:
+// function addALike(nbOfLikes, photoId) {
+//   console.log("voici un clic");
+//   let clicked = false;
+//   if (!clicked) {
+//     clicked = true;
+//     nbOfLikes++;
+//     console.log(
+//       "ce qu'il y a avant : " +
+//         document.querySelector(`.likes-${photoId} p`).innerHTML
+//     );
+//     document.querySelector(`.likes-${photoId} p`).innerHTML = nbOfLikes;
+//   }
+//   //  si le nbOfLikes + le innerhtml, alors ++
+//   // sinon
+//   if ((clicked = true)) {
+//     clicked = false;
+//     nbOfLikes;
+//     document.querySelector(`.likes-${photoId} p`).innerHTML = nbOfLikes;
+//   }
+// }
+// les paramètres viennent de la media factory et donc du json
+// fonction marche en incrémentation et décrémentation ven à 16h13
+// let change = false;
+// function addALike(nbOfLikes, photoId) {
+//   console.log("je contacte ");
+//   const nbOfLikesInner = parseInt(
+//     document.querySelector(`.likes-${photoId} p`).innerHTML
+//   );
+//   //  console.log("ce qu'il y a avant : " + nbOfLikesInner);
+//   //  console.log(typeof nbOfLikesInner);
 
-// limiter les cliqk à un click?? un listener? une incrémentation avec condition
-//=>https://codepen.io/Eddy67/pen/ZEzrQMb?editors=0010
-// addEventlistener puis removeEventListener on click
-// const likesDiv = document.querySelector(".likes");
+//   const inside =
+//     nbOfLikes === nbOfLikesInner ? (nbOfLikes = nbOfLikes + 1) : nbOfLikes--;
+//   //  console.log("ce qu'il y a ds inside : " + inside);
+//   document.querySelector(`.likes-${photoId} p`).innerHTML = inside;
+//   change = true;
+//   return change;
 
-// const numberOfLikes = document.querySelector(".likes p");
-// const heartLikes = document.querySelector(":scope .likes i");
-// console.log(heartLikes);
-// console.log(numberOfLikes);
-// clicked = false;
-//const heartLikes = document.querySelector(":scope .likes i");
-
-function addALike(nbOfLikes, photoId) {
-  let clicked = false;
-  if (!clicked) {
-    clicked = true;
-    nbOfLikes++;
-    document.querySelector(`.likes-${photoId} p`).innerHTML = nbOfLikes;
-  }
-}
+// if (nbOfLikesInner === nbOfLikes) {
+//   nbOfLikes++;
+//   document.querySelector(`.likes-${photoId} p`).innerHTML = nbOfLikes;
+// }
+// if (nbOfLikesInner != nbOfLikes) {
+//   document.querySelector(`.likes-${photoId} p`).innerHTML = nbOfLikesInner;
+// }
+//}
 
 let allLikes = [];
 let totalOfLikes = 0;
-function AllLikesForOne() {
+function allLikesForTotal() {
   allLikes = document.querySelectorAll(".likesData");
   for (let i = 0; i < allLikes.length; i++) {
     totalOfLikes += parseInt(allLikes[i].innerHTML);
+    //    console.log("comptage en cours" + totalOfLikes);
   }
+  return totalOfLikes;
+}
+function displayAllLikesForTotal() {
+  //  console.log("voici les alllikes " + allLikes);
   const newChild = document.createElement("span");
   const textNode2 = document.createTextNode(`${totalOfLikes}`);
   newChild.appendChild(textNode2);
@@ -44,129 +89,35 @@ function AllLikesForOne() {
   const childHasBeen = document.querySelector(".parent span");
   paragrapheparent.replaceChild(newChild, childHasBeen);
 }
-// si la fonction entend un changement ou un click, alors elle ajoute un coeur.
 
-// let allLikes = [];
-// let totalOfLikes = 0;
-// function AllLikesForOne() {
-//   allLikes = document.querySelectorAll(".likesData");
-//   console.log("1er like : " + allLikes[6].innerHTML);
-//   for (let i = 0; i < allLikes.length; i++) {
-//     totalOfLikes += parseInt(allLikes[i].innerHTML);
-//     //totalOfLikes += allLikes[i].innerHTML;
-//   }
-//   //console.log("total : " + totalOfLikes);
+// Dans cette fonction, quand on clique sur un coeur, il doit y avaoir des ajouts et des
+// retraits dans les cartes (nbOfLikes) et dans l'encart du bas de page (totalOfLikes)
+function addALike(nbOfLikes, photoId) {
+  //  console.log("je check : " + totalOfLikes);
+  const nbOfLikesInner = parseInt(
+    document.querySelector(`.likes-${photoId} p`).innerHTML
+  );
+  const insideCard =
+    nbOfLikes === nbOfLikesInner ? (nbOfLikes = nbOfLikes + 1) : nbOfLikes--;
+  //  console.log("ce qu'il y a ds inside : " + inside);
+  document.querySelector(`.likes-${photoId} p`).innerHTML = insideCard;
+  //document.querySelector(`.likes-${photoId} p`).style.backgroundColor = "blue";
+  console.log("voici le insideCard" + insideCard);
+  if (nbOfLikes > nbOfLikesInner) {
+    totalOfLikes++;
+  } else {
+    totalOfLikes--;
+  }
+  console.log("voici le total après click :" + totalOfLikes);
+  displayAllLikesForTotal();
+}
+//THOMAS: ça fonctionne, sauf quand je filtre. il doit y avoir un problème avec mon protocole
+// d'affichage aller voir le display media dans photographer.js/pages et la selectbox.
 
-//   const newNode2 = document.createElement("span");
-//   const textNode2 = document.createTextNode(`${totalOfLikes}`);
-//   newNode2.appendChild(textNode2);
-//   //console.log(newNode2);
-//   //const paragrapheparent = document.getElementsByClassName("likesTotal");
-//   const paragrapheparent = document.querySelector(".parent");
-//   const childHasBeen = document.querySelector(".parent span");
-//   //console.log(childHasBeen);
-//   // le  premier p est london/UK, ciblé le p avec une classe
-
-//   const paragrapheenfant = document.querySelector("#parent.i");
-//   //console.log(paragrapheenfant);
-
-//   //paragrapheparent.insertBefore(newNode2, paragrapheenfant);
-
-//   paragrapheparent.replaceChild(newNode2, childHasBeen);
-
-//   //   const photographPrice = document.querySelector(".photograph-price i");
-//   //   console.log( "controle balise : " + photographPrice);
-//   //   const textNode = document.createTextNode(`${totalOfLikes}`);
-//   //   console.log( "controle textnodes : " + textNode);
-
-//   // return totalOfLikes;
-// }
-
-// const photographPrice = document.querySelector(".photograph-price");
-// photographPrice.innerHTML = `<p><i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
-// return photographPrice;
-
-// const list = document.getElementById("myList");
-// list.insertBefore(newNode, list.children[0]);
-
-//   //while (likesData.hasChildNodes()){}
-//   photographerMedia.forEach((element) => {
-//     console.log([element].likes);
-//   });
-
-// // fonction qui marche et testé avec des consoles logs
-// function addALike(nbOfLikes, photoId) {
-//   let numberOfLikes = document.querySelector(`.likes-${photoId} p`).innerHTML;
-
-//   let previousNumberOfLikes = nbOfLikes;
-//   console.log("ancien nb de like : " + previousNumberOfLikes);
-//   console.log("test query selector: " + numberOfLikes);
-//   let clicked = false;
-
-//   if (!clicked) {
-//     clicked = true;
-//     previousNumberOfLikes++;
-//     console.log("nouveau nb de like : " + previousNumberOfLikes);
-
-//     document.querySelector(`.likes-${photoId} p`).innerHTML =
-//       previousNumberOfLikes;
-//   }
-// }
-
-// essai avec e (le mettre aussi dans l'appel de la fonc en l25 de media.js)
-// function addALike(nbOfLikes, photoId, e) {
-//     let numberOfLikes = document.querySelector(`.likes-${photoId} p`).innerHTML;
-//     let re = e.target.value;
-//     console.log("event : " + re);
-
-//     let previousNumberOfLikes = nbOfLikes;
-//     console.log("ancien nb de like : " + previousNumberOfLikes);
-//     console.log("test query selector: " + numberOfLikes);
-
-//     if (!clicked) {
-//       clicked = true;
-//       previousNumberOfLikes++;
-//       console.log("nouveau nb de like : " + previousNumberOfLikes);
-
-//       document.querySelector(`.likes-${photoId} p`).innerHTML =
-//         previousNumberOfLikes;
-//     }
-//   }
-
-//const heartLikes = document.querySelector(":scope .likes i");
-//heartLikes.addEventListener("click",(addALike(${likes},${id})));
-
-// récupérer un identifiant pour le queryselector
-
-// function addALike(e) {
-//     let previousNumberOfLikes = e;
-//     let numberOfLikes = document.querySelector(".likes p").innerHTML;
-//     console.log("nb de likes originel : " + previousNumberOfLikes);
-
-//     if (!clicked) {
-//       clicked = true;
-//       previousNumberOfLikes += 1;
-//       document.querySelector(".likes p").innerHTML = previousNumberOfLikes;
-//     }
-//   }
-
-// quand je clique sur n'importe quel coeur, ça ajoute au premier coeur
-// faire un query seletor specifique our récupérer une target
-
-// voir la gallerie qui a des images cliquables
-
-// array.forEach((element) => {
-//   //pour chaque media
-//   //j'écoute et je n'écoute plus
-// });
-
-// var button = document.getElementById("clickme"),
-//   count = 0;
-// var clicked = false;
-
-// button.onclick = function () {
-//   if (!clicked) {
-//     clicked = true;
-//     count += 1;
-//     button.innerHTML = "Click me: " + count;
-//   }
+// dans mon protocole de filtre, j'appelais la fonctin DisplayMedia qui removeChild avant appendChild.
+// Mais du coup, il n'y a pas de mémoire des nbofLikes ou totalOfLikes.
+// Thomas: est-ce que je crée un nouvel affichage de l'array photographerMedia une fois qu'il est trié
+// mais comment je fais ça? (j'ai commencé à écrire une fonction dans la selectBox dit displayOnceSorted.
+// (et j'ai commenté ce qui fonctionnait mais avec bug d'affichage au tri et like))
+// Ou est-ce que je modifie cette array quand je modifie mes likes? (pas qu'en innerHTML comme je le fais)
+// Ou est-ce qu'il y a une autre méthode?

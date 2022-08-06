@@ -1,6 +1,7 @@
 let sortingMethodFromList;
-// const bg = document.querySelector("body");
 
+// Function select, use a select to create a dynamic div section and hide the select afterward
+// custom select box sourced from W3S
 let x, i, j, l, ll, selElmnt, a, b, c;
 /*look for any elements with the class "custom-select":*/
 x = document.getElementsByClassName("custom-select");
@@ -22,7 +23,9 @@ for (i = 0; i < l; i++) {
     c = document.createElement("DIV");
     c.innerHTML = selElmnt.options[j].innerHTML;
     c.addEventListener("click", (e) => {
-      console.log("voici la div à rendre magique avec une fonction " + e);
+      console.log(
+        "voici la div à rendre magique avec une fonction " + e.target.value
+      );
     });
     c.addEventListener("click", function (e) {
       /*when an item is clicked, update the original select box,
@@ -38,8 +41,8 @@ for (i = 0; i < l; i++) {
           s.selectedIndex = i;
           h.innerHTML = this.innerHTML;
           sortingMethodFromList =
-            h.innerHTML; /* sortingMFL change à chaque clique */
-          console.log(sortingMethodFromList);
+            h.innerHTML; /* sortingMFL change à chaque clic */
+          //          console.log(sortingMethodFromList);
           /* voici l'information dont j'ai besoin pour mon tri*/
 
           y = this.parentNode.getElementsByClassName("same-as-selected");
@@ -95,51 +98,107 @@ function closeAllSelect(elmnt) {
   //  console.log("fin : " + sortingMethodFromList);
   sortingMedias();
 }
-/*if the user clicks anywhere outside the select box,
-then close all select boxes:*/
+/*if the user clicks anywhere outside the select box, then this line close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
 
+// ----------- plan pour le tri --------//
 /* quand je clique sur la popularité, 
 l'array photographerMedia se trie 
-ensuite ce nouvelle array est injecté dans la présentation de la gallerie
-et c'est ce m^me array qui est injecté dans la présentation de la lightbox
+ensuite ce nouvelle array est injecté dans la présentation de la galerie
+et c'est ce même array qui est injecté dans la présentation de la lightbox
 */
+
 const selection = document.querySelector(".custom-select");
-selection.addEventListener("click", (e) => console.log(e));
+//selection.addEventListener("click", (e) => console.log(e));
 
 /* -------- SORTING FUNCTIONS -----------*/
 
-// function changeBG() {
-//   console.log("this" + sortingMethodFromList);
+// // vvvvvvvvvvvv au dessous fonctionne avant samedi
+// function sortingMedias() {
 //   if (sortingMethodFromList === "Date") {
-//     bg.style.backgroundColor = "blue";
+//     sortOnDate();
+//     displayMedia(photographerMedia);
+//     //    displayCars();
+//     // fait un tri par date
+//   }
+//   if (sortingMethodFromList === "Titre") {
+//     alphabeticalSortOnTitle();
+//     displayMedia(photographerMedia);
+//     // photographerMedia.title.sort();
+//     // console.log("sorted array : " + photographerMedia);
+//     // soit je fais des comparaison pour ranger mon tableau
+//     // soit je crée un nouveau tableau que je mets dans l'ordre
+//     // dans ce nouveau tableau je dois aussi mémoriser l'ancien et le nouvel index?
+
+//     // fait un tri par Titre
+//   }
+//   if (sortingMethodFromList === "Popularité") {
+//     sortOnPopularity();
+//     displayMedia(photographerMedia);
+
+//     // fait un tri par popularité
+//   } else {
+//     //ne fait rien
 //   }
 // }
-// attention à la casse
 
+// function sortOnPopularity() {
+//   photographerMedia.sort(function (a, b) {
+//     let x = a.likes;
+//     let y = b.likes;
+//     if (x < y) {
+//       return -1;
+//     }
+//     if (x > y) {
+//       return 1;
+//     }
+//     return 0;
+//   });
+// }
+
+// function alphabeticalSortOnTitle() {
+//   photographerMedia.sort(function (a, b) {
+//     let x = a.title.toLowerCase();
+//     let y = b.title.toLowerCase();
+//     if (x < y) {
+//       return -1;
+//     }
+//     if (x > y) {
+//       return 1;
+//     }
+//     return 0;
+//   });
+// }
+
+// function sortOnDate() {
+//   photographerMedia.sort(function (a, b) {
+//     let x = a.date;
+//     let y = b.date;
+//     if (x < y) {
+//       return -1;
+//     }
+//     if (x > y) {
+//       return 1;
+//     }
+//     return 0;
+//   });
+// }
+// // ^^^^^^^au-dessus fonctionne avant samedi
+
+//vvvvvvvvvvvv nouvel essai de samedi
 function sortingMedias() {
   if (sortingMethodFromList === "Date") {
     sortOnDate();
-    displayMedia(photographerMedia);
-    //    displayCars();
-    // fait un tri par date
+    displayOnceSorted();
+    //    displayMedia(photographerMedia);
   }
   if (sortingMethodFromList === "Titre") {
     alphabeticalSortOnTitle();
-    displayMedia(photographerMedia);
-    // photographerMedia.title.sort();
-    // console.log("sorted array : " + photographerMedia);
-    // soit je fais des comparaison pour ranger mon tableau
-    // soit je crée un nouveau tableau que je mets dans l'ordre
-    // dans ce nouveau tableau je dois aussi mémoriser l'ancien et le nouvel index?
-
-    // fait un tri par Titre
+    displayOnceSorted();
   }
   if (sortingMethodFromList === "Popularité") {
     sortOnPopularity();
-    displayMedia(photographerMedia);
-
-    // fait un tri par popularité
+    displayOnceSorted();
   } else {
     //ne fait rien
   }
@@ -187,9 +246,7 @@ function sortOnDate() {
   });
 }
 
-//affiche sur la console l'array pour le vérifier
-// function displayCars() {
-//   for (let i = 0; i < photographerMedia.length; i++) {
-//     console.log(photographerMedia[i].title + " " + `\n`);
-//   }
-// }
+function displayOnceSorted() {
+  console.log("fait qqchose avec photoMedia : " + photographerMedia);
+}
+// ^^^^^^^nouvel essai de samedi

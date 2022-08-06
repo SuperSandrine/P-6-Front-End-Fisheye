@@ -25,6 +25,7 @@ async function getPhotographers() {
 
 // Cette fonction affiche les infos du photographes en jouant
 // les fonctions écrites dans la factory en asynchrone
+//test du dimanche
 async function displayData(photographer) {
   console.log(photographer);
   photographer.forEach((id) => {
@@ -36,39 +37,48 @@ async function displayData(photographer) {
   });
 }
 
-const photographGalleryDiv = document.querySelector(".photograph-gallery");
+// °°°°°°°°°°° travail en cours sur cette partie °°°°°°°°°°°°°°
+
+const photographGalleryDiv = document.querySelector(".photograph-gallery ");
+
+// TODO, THOMAS >> plutôt que d'effacer la galerie et réinjecter le tableau modifié,
+// comment la rendre dynamique, c'est à dire, qu'elle
+// change en même temps que son tableau change: le tableau photographerMedia.
+
+// ----------------sauvegarde : fonctionne avec le sort commenté dans selectbox avant samedi
+// async function displayMedia(media) {
+//   //  const photographGalleryDiv = document.querySelector(".photograph-gallery");
+//   //  photographGalleryDiv.removeChild();
+//   while (photographGalleryDiv.hasChildNodes()) {
+//     photographGalleryDiv.removeChild(photographGalleryDiv.firstChild);
+//   }
+//   media.forEach((id) => {
+//     const makeACard = mediaFactory(id);
+//     const printGallery = makeACard.getCardGallery();
+//     // if (photographGalleryDiv)
+//     // photographGalleryDiv.removeChild();
+//     photographGalleryDiv.appendChild(printGallery);
+//   });
+// }
 
 async function displayMedia(media) {
-  //  const photographGalleryDiv = document.querySelector(".photograph-gallery");
-  //  photographGalleryDiv.removeChild();
-  while (photographGalleryDiv.hasChildNodes()) {
-    photographGalleryDiv.removeChild(photographGalleryDiv.firstChild);
-  }
   media.forEach((id) => {
     const makeACard = mediaFactory(id);
     const printGallery = makeACard.getCardGallery();
-    // if (photographGalleryDiv)
-    // photographGalleryDiv.removeChild();
     photographGalleryDiv.appendChild(printGallery);
   });
 }
 
-// function cleanDisplayMedia() {
-//   // await displayMedia;
-//   photographGalleryDiv.removeChild();
-// }
-
-//Cette fonction lance le traitement des fonctions asynchrone dans l'ordre
+//Cette fonction lance le traitement des fonctions asynchrones dans l'ordre
 async function init() {
   const { photographers, media } = await getPhotographers();
   photographerData = photographers.filter((el) => el.id == parameterID);
   photographerMedia = media.filter((el) => el.photographerId == parameterID);
   displayData(photographerData);
-  console.log(photographerMedia);
   displayMedia(photographerMedia);
+  console.log(photographerMedia);
+  allLikesForTotal();
+  displayAllLikesForTotal();
   giveModalAName(photographerData);
-  AllLikesForOne();
-
-  //AllLikesForOne();
 }
 init();

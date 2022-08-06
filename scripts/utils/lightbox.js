@@ -1,4 +1,4 @@
-// plan: quand je clique sur une une image de la gallerie
+// plan: quand je clique sur une une image de la galerie
 // cette image s'affiche en grand seule dans la lightbox
 // dans la ligthbox je passe d'une image à l'autre avec les fleches.
 // soit je navigue dans un array avec les flèches.
