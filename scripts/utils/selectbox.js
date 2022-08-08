@@ -189,16 +189,21 @@ const selection = document.querySelector(".custom-select");
 function sortingMedias() {
   if (sortingMethodFromList === "Date") {
     sortOnDate();
-    displayOnceSorted();
-    //    displayMedia(photographerMedia);
+    //displayMediaSecondTimes(photographerMedia);
+    //    displayOnceSorted();
+    displayMedia(photographerMedia);
   }
   if (sortingMethodFromList === "Titre") {
     alphabeticalSortOnTitle();
-    displayOnceSorted();
+    displayMedia(photographerMedia);
+
+    //    displayOnceSorted();
   }
   if (sortingMethodFromList === "Popularité") {
     sortOnPopularity();
-    displayOnceSorted();
+    displayMedia(photographerMedia);
+
+    //  displayOnceSorted();
   } else {
     //ne fait rien
   }

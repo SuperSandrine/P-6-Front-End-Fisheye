@@ -46,6 +46,8 @@ const photographGalleryDiv = document.querySelector(".photograph-gallery ");
 // change en même temps que son tableau change: le tableau photographerMedia.
 
 // ----------------sauvegarde : fonctionne avec le sort commenté dans selectbox avant samedi
+//---------------mais crée un bug d'affichage avec le tri et les likes, juste le tri fonctionne
+// --------------avec le code ci-dessous
 // async function displayMedia(media) {
 //   //  const photographGalleryDiv = document.querySelector(".photograph-gallery");
 //   //  photographGalleryDiv.removeChild();
@@ -62,12 +64,25 @@ const photographGalleryDiv = document.querySelector(".photograph-gallery ");
 // }
 
 async function displayMedia(media) {
+  photographGalleryDiv.innerHTML = "";
+
   media.forEach((id) => {
     const makeACard = mediaFactory(id);
     const printGallery = makeACard.getCardGallery();
     photographGalleryDiv.appendChild(printGallery);
   });
 }
+
+// function displayMediaSecondTimes(media) {
+//   photographGalleryDiv.innerHTML = "";
+//   media.forEach((id) => {
+//     const makeACard = mediaFactory(id);
+//     const printGallery = makeACard.getCardGallery();
+//     photographGalleryDiv.replaceWith(photographGalleryDiv, printGallery);
+//   });
+// }
+
+// à tester : document.quelerySelector("monElementAReset").innerHTML=""
 
 //Cette fonction lance le traitement des fonctions asynchrones dans l'ordre
 async function init() {

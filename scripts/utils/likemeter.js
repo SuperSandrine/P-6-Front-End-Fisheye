@@ -8,6 +8,7 @@ function allLikesForTotal() {
   }
   return totalOfLikes;
 }
+
 function displayAllLikesForTotal() {
   //  console.log("voici les alllikes " + allLikes);
   const newChild = document.createElement("span");
@@ -18,16 +19,20 @@ function displayAllLikesForTotal() {
   paragrapheparent.replaceChild(newChild, childHasBeen);
 }
 
-// Dans cette fonction, quand on clique sur un coeur, il doit y avaoir des ajouts et des
+// Dans cette fonction, quand on clique sur un coeur, il doit y avoir des ajouts et des
 // retraits dans les cartes (nbOfLikes) et dans l'encart du bas de page (totalOfLikes)
+// en paramètre, on récupère le nbOfLikes présent dans le fichier json
 function addALike(nbOfLikes, photoId) {
   //  console.log("je check : " + totalOfLikes);
   const nbOfLikesInner = parseInt(
     document.querySelector(`.likes-${photoId} p`).innerHTML
   );
+  //Est-ce que le nbOfLikes du json égale le nbdeLikes dans le innerHtml? si oui, on rajoute 1,
+  //sinon on décrémente.
+
   const insideCard =
     nbOfLikes === nbOfLikesInner ? (nbOfLikes = nbOfLikes + 1) : nbOfLikes--;
-  //  console.log("ce qu'il y a ds inside : " + inside);
+  console.log("ce qu'il y a ds inside : " + inside);
   document.querySelector(`.likes-${photoId} p`).innerHTML = insideCard;
   //document.querySelector(`.likes-${photoId} p`).style.backgroundColor = "blue";
   console.log("voici le insideCard" + insideCard);
