@@ -23,27 +23,32 @@ function displayAllLikesForTotal() {
 // retraits dans les cartes (nbOfLikes) et dans l'encart du bas de page (totalOfLikes)
 // en paramètre, on récupère le nbOfLikes présent dans le fichier json
 function addALike(nbOfLikes, photoId) {
+  let shortClassLikes = document.querySelector(`.likes-${photoId} p`).innerHTML;
   //  console.log("je check : " + totalOfLikes);
-  const nbOfLikesInner = parseInt(
-    document.querySelector(`.likes-${photoId} p`).innerHTML
-  );
-  //Est-ce que le nbOfLikes du json égale le nbdeLikes dans le innerHtml? si oui, on rajoute 1,
-  //sinon on décrémente.
+  const nbOfLikesInner = parseInt(shortClassLikes);
+  console.log("je check le nblikes en inner : " + nbOfLikesInner);
+  console.log("short : " + shortClassLikes);
 
+  //la const insideCard demande: Est-ce que le nbOfLikes du json égale le nbdeLikes dans le innerHtml? si oui, on rajoute 1,
+  //sinon on décrémente.
   const insideCard =
     nbOfLikes === nbOfLikesInner ? (nbOfLikes = nbOfLikes + 1) : nbOfLikes--;
-  console.log("ce qu'il y a ds inside : " + inside);
-  document.querySelector(`.likes-${photoId} p`).innerHTML = insideCard;
-  //document.querySelector(`.likes-${photoId} p`).style.backgroundColor = "blue";
+  //shortClassLikes = insideCard; >>> Thomas >>> Pourquoi ça marche pas?
   console.log("voici le insideCard" + insideCard);
+  document.querySelector(`.likes-${photoId} p`).innerHTML = insideCard;
+  document.querySelector(`.likes-${photoId} p`).style.backgroundColor = "blue";
   if (nbOfLikes > nbOfLikesInner) {
     totalOfLikes++;
   } else {
     totalOfLikes--;
   }
+
   console.log("voici le total après click :" + totalOfLikes);
   displayAllLikesForTotal();
 }
+// pourquoi quand je filtre, je ne peux plus injecter mon code dans le tableau filtré? C'est à dire qu'une
+// filtré la ligne 39 et 40 ne marche plus? ()
+
 //THOMAS: ça fonctionne, sauf quand je filtre. il doit y avoir un problème avec mon protocole
 // d'affichage aller voir le display media dans photographer.js/pages et la selectbox.
 
