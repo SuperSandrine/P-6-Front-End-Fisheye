@@ -10,10 +10,11 @@ function photographerFactory(data) {
     const article = document.createElement("article");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
+    img.setAttribute("alt", "");
     const h2 = document.createElement("h2");
     h2.textContent = name;
     const text = document.createElement("p");
-    text.innerHTML = `<div class="article_information">
+    text.innerHTML = `<div tabindex="0" class="article_information">
     <p class="city">${city + ", " + country} </p>
     <p class="tagline">${tagline}</p>
     <p class="price">${price}€/jour</p></div>`;
