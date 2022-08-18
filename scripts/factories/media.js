@@ -8,7 +8,7 @@ function mediaFactory(data) {
   // je gère les fichiers image ou video
   // avec une ternaire format :" question ? vrai alors action : ou faux alors action;"
   // si image existe? affiche image : sinon affiche video
-  const mediaImage = `<img src="./assets/medias-vrac/min-${image}"/>`;
+  const mediaImage = `<img src="./assets/medias-vrac/min-${image}"/ alt="${title}" lang="en">`;
   const mediaVideo = `<video >
   <source src="./assets/medias-vrac/${video}#t=5.0" type="video/mp4">
 </video>`;
@@ -16,17 +16,33 @@ function mediaFactory(data) {
 
   // je crée une premiere fonction pour afficher la gallerie
   function getCardGallery() {
+    let parameterForLikesLikes = likes;
+    let parameterForLikesId = id;
+    console.log(
+      "les paramètres pour add : " +
+        parameterForLikesLikes +
+        " , " +
+        parameterForLikesId
+    );
     const article = document.createElement("article");
-    article.innerHTML = `<a href="#" onclick="displayLightboxModal(${id})" >
+    article.innerHTML = `<a tabindex="9" alt="ouvrir une modale du média pour avoir un apperçu" href="#" onclick="displayLightboxModal(${id})" >
         ${media}
       </a>
       <div>
-        <p>${title}</p>
-        <div class="likes-${id}"><p class="likesData">${likes} </p><i onclick="addALike(${likes},${id})"
-         class="fa-solid fa-heart heartSolid"> </i></div>
+        <p tabindex="9">${title}</p>
+        <div tabindex="9" class="likes-${id}" aria-label="likes"><p class="likesData">${likes} </p><button class="button-likes-${id}">
+        <i onclick="addALike(${likes},${id})" 
+        class="fa-solid fa-heart heartSolid"> </i></button></div>
       </div>`;
-    return article;
+    return { article, parameterForLikesId, parameterForLikesLikes };
   }
+
+  // travail de jeudi 18:-------------------
+  //<i onclick="addALike(${likes},${id})" >>>sauvegarde ligne 26 >>jeudi 18 à 22h >> remis à 1h15
+  // tentaive d'ajour d'un event listener avec création d'une fonction playaddaLikes à la
+  // fin de likemeter.js, non fonctionnelle
+  // pour se faire, ajout de return sur la fonction getCarGallery, utilité, non avérée.
+  //------------------------------
 
   // function addALike2media(nbOfLikes, photoId) {
   //   let numberOfLikes = document.querySelector(".likes p").parentNode;

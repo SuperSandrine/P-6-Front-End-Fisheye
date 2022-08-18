@@ -1,5 +1,6 @@
 let allLikes = [];
 let totalOfLikes = 0;
+
 function allLikesForTotal() {
   allLikes = document.querySelectorAll(".likesData");
   for (let i = 0; i < allLikes.length; i++) {
@@ -46,6 +47,7 @@ function addALike(nbOfLikes, photoId) {
   console.log("voici le total après click :" + totalOfLikes);
   displayAllLikesForTotal();
 }
+
 // pourquoi quand je filtre, je ne peux plus injecter mon code dans le tableau filtré? C'est à dire qu'une
 // filtré la ligne 39 et 40 ne marche plus? ()
 
@@ -59,3 +61,39 @@ function addALike(nbOfLikes, photoId) {
 // (et j'ai commenté ce qui fonctionnait mais avec bug d'affichage au tri et like))
 // Ou est-ce que je modifie cette array quand je modifie mes likes? (pas qu'en innerHTML comme je le fais)
 // Ou est-ce qu'il y a une autre méthode?
+
+// activer la fonction addALike avec un event listener à la place du onclick html
+// function displayAddALike(photographerMedia){
+// photographerMedia.forEach((id)) =>{
+// const makeACard = mediaFactory(id);
+// const printGallery = makeACard.getCardGallery();
+// const buttonForLikes = document.querySelector(`.likes-${id} button`);
+//     console.log(buttonForLikes);
+//     buttonForLikes.addEventListener(
+//     "click",
+//      addALike(
+//        printGallery.parameterForLikesLikes,
+//        printGallery.parameterForLikesId
+//      )
+//       );}
+
+// }
+
+// const buttonForLikes = document.querySelector(`.likes-${id} button`);
+// console.log(buttonForLikes);
+// buttonForLikes.addEventListener(
+//   "click",
+//   addALike(
+//     printGallery.parameterForLikesLikes,
+//     printGallery.parameterForLikesId
+//   )
+// );
+
+// activer la fonction addALike avec un event listener à la place du onclick html
+// TODO pour faire fonctionner: la id n'est pas reconnue.
+function playAddAclick() {
+  let paramId = mediaFactory(id).getCardGallery().parameterForLikesId;
+  let paramLikes = mediaFactory(id).getCardGallery().parameterForLikesLikes;
+  const buttonForLikes = document.getElementsByClassName(`.likes-${id} button`);
+  buttonForLikes.addEventListener("click", addAlike(paramLikes, paramId));
+}

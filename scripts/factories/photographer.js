@@ -7,6 +7,7 @@ function photographerFactory(data) {
   function getUserCardDOM() {
     const link = document.createElement("a");
     link.setAttribute("href", linkUrl);
+    link.setAttribute("title", `${name} - nouvelle fenêtre`);
     const article = document.createElement("article");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
@@ -28,15 +29,16 @@ function photographerFactory(data) {
   function getPhotographHeader() {
     const photographHeader = document.querySelector(".photograph-header");
     photographHeader.innerHTML = `<div class="photograph-header_information">
-      <h2>${name}</h2>
+      <h2 tabindex="2">${name}</h2>
+      <div tabindex="3">
       <p class="city">${city + ", " + country}</p>
-      <p class="tagline">${tagline}</p>
+      <p class="tagline">${tagline}</p></div>
     </div>
     <div class="photographer-header-pictureAndButton-box">
-    <div class="photographer-header-button-box"><button class="contact_button" onclick="displayModal()">
+    <div tabindex="4" class="photographer-header-button-box"><button class="contact_button" onclick="displayModal()">
           Contactez-moi
         </button></div>
-        <img src="${picture}"/></div>
+        <img tabindex="5" src="${picture}"/></div>
     `;
     return photographHeader;
   }

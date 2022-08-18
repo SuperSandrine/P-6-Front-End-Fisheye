@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
@@ -12,20 +12,19 @@
       src="https://kit.fontawesome.com/ba64d1ea0b.js"
       crossorigin="anonymous"
     ></script>
-    <title>Fisheye - photographe</title>
+    <title>Fisheye - photographe et sa gallerie photo</title>
   </head>
   <body>
     <header>
-      <a href="./index.html">
-        <img src="./assets/images/logo.png" class="logo"
+      <a tabindex="1" href="./index.html" alt="Aller à la page d'accueil de Fisheye">
+        <img src="./assets/images/logo.png" alt="Logo de Fisheye" class="logo"
       /></a>
     </header>
     <main id="main">
-      <div class="photograph-header"></div>
+      <header class="photograph-header" role="banner"></header>
       <div class="photograph-sorting-gallery"> 
-        <label for="filter-photo">Trier par </label>
-        <!-- <nav id="filter-photo">Popularité</nav> -->
-      <div class="custom-select">
+        <label tabindex="7" for="filter-photo">Trier par </label>
+      <div tabindex="8" class="custom-select">
         <select id="filter-photo">
           <option value="0">Filtrer:</option>
           <option value="1">Popularité</option>
@@ -39,7 +38,7 @@
 
       <div class="photograph-gallery"></div>
 
-      <div class="photograph-price"></div>
+      <div tabindex="6" class="photograph-price"></div>
     </main>
 
     <footer></footer>

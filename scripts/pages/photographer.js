@@ -27,7 +27,7 @@ async function getPhotographers() {
 // les fonctions écrites dans la factory en asynchrone
 //test du dimanche
 async function displayData(photographer) {
-  console.log(photographer);
+  console.log("photographer : " + photographer);
   photographer.forEach((id) => {
     const photographerModel = photographerFactory(id);
     const printPhotographHeader = photographerModel.getPhotographHeader();
@@ -64,12 +64,25 @@ const photographGalleryDiv = document.querySelector(".photograph-gallery ");
 // }
 
 async function displayMedia(media) {
+  //console.log("media : " + media);
   photographGalleryDiv.innerHTML = "";
 
   media.forEach((id) => {
     const makeACard = mediaFactory(id);
+    //console.log(id);
+    // id correspond à id du média
     const printGallery = makeACard.getCardGallery();
-    photographGalleryDiv.appendChild(printGallery);
+    //console.log(printGallery.article);
+    photographGalleryDiv.appendChild(printGallery.article);
+    //const buttonForLikes = document.querySelector(`.likes-${id} button`);
+    //console.log(buttonForLikes);
+    //buttonForLikes.addEventListener(
+    // "click",
+    // addALike(
+    //   printGallery.parameterForLikesLikes,
+    //   printGallery.parameterForLikesId
+    // )
+    //  );
   });
 }
 
@@ -95,5 +108,6 @@ async function init() {
   allLikesForTotal();
   displayAllLikesForTotal();
   giveModalAName(photographerData);
+  //playAddAclick();
 }
 init();
