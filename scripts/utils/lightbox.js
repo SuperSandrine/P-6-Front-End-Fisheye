@@ -84,9 +84,9 @@ function previousMedia(array) {
 //prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
 // pour afficher image, video et titre
 function giveLightboxItsMedias() {
-  const mediaBigImage = `<img src="/assets/medias-vrac/${fillMediaImageSource}"/>`;
-  const mediaBigVideo = `<video controls autoplay >
-  <source src="/assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
+  const mediaBigImage = `<img src="./assets/medias-vrac/${fillMediaImageSource}"/>`;
+  const mediaBigVideo = `<video controls >
+  <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
 </video>`;
   const bigMedia =
     fillMediaImageSource == undefined ? mediaBigVideo : mediaBigImage;
