@@ -55,7 +55,7 @@ a {
   padding-bottom: 4px;
   margin: 0;
 }
-.photograph-header_information h2 {
+.photograph-header_information h1 {
   color: #d3573c;
   font-size: 64px;
   font-weight: 400;
@@ -342,6 +342,9 @@ textarea::placeholder {
 }
 
 /* --------- Modal Lightbox --------- */
+.no-scroll {
+  overflow: hidden;
+}
 
 .lightbox_modal {
   border-radius: 5px;

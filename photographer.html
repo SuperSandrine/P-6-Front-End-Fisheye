@@ -12,16 +12,16 @@
       src="https://kit.fontawesome.com/ba64d1ea0b.js"
       crossorigin="anonymous"
     ></script>
-    <title>Fisheye - photographe et sa gallerie photo</title>
+    <title>Fisheye - photographe en titre et sa gallerie photo</title>
   </head>
-  <body>
-    <header>
-      <a tabindex="1" href="./index.html" alt="Aller à la page d'accueil de Fisheye">
-        <img src="./assets/images/logo.png" alt="Logo de Fisheye" class="logo"
+  <body id="body">
+    <header lang="en">
+      <a tabindex="1" href="./index.html" role="image link" alt="Fisheye home page" role="banner">
+        <img src="./assets/images/logo.png" alt="" class="logo"
       /></a>
     </header>
     <main id="main">
-      <header class="photograph-header" role="banner"></header>
+      <header role="heading" class="photograph-header"></header>
       <div class="photograph-sorting-gallery"> 
         <label tabindex="7" for="filter-photo">Trier par </label>
       <div tabindex="8" class="custom-select">
@@ -115,7 +115,7 @@
 
     <!-- *********** MODAL Lightbox *********** -->
 
-    <div id="lightbox_modal">
+    <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-describedby="Lightbox">
       <div class="position">
         <div class="lightbox_modal">
           <div class="lightbox_modal-previous">
@@ -127,10 +127,10 @@
           </div>
           <div class="lightbox_modal-close">
             <button>
-              <img
+              <img id="close-lightbox"
                 src="./assets/icons/redclose.svg"
-                onclick="closeLightboxModal()"
-              />
+              />                 <!-- onclick="closeLightboxModal()" -->
+
             </button>
           </div>
           <div class="lightbox_modal-next">
@@ -140,7 +140,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </aside>
 
     <script src="./scripts/utils/contactForm.js"></script>
     <script src="./scripts/factories/photographer.js"></script>

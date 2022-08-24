@@ -8,30 +8,57 @@ function mediaFactory(data) {
   // je gère les fichiers image ou video
   // avec une ternaire format :" question ? vrai alors action : ou faux alors action;"
   // si image existe? affiche image : sinon affiche video
-  const mediaImage = `<img src="./assets/medias-vrac/min-${image}"/ alt="${title}" lang="en">`;
+  const mediaImage = `<img src="./assets/medias-vrac/min-${image}"/ alt="${title}" >`;
   const mediaVideo = `<video >
   <source src="./assets/medias-vrac/${video}#t=5.0" type="video/mp4">
 </video>`;
   const media = image == undefined ? mediaVideo : mediaImage;
 
   // je crée une premiere fonction pour afficher la gallerie
+  //suit= sauvegarde pour ajouter eventlistener pour la lightbox
+  // function getCardGallery() {
+  //   let parameterForLikesLikes = likes;
+  //   let parameterForLikesId = id;
+  //   // console.log(
+  //   //   "les paramètres pour add : " +
+  //   //     parameterForLikesLikes +
+  //   //     " , " +
+  //   //     parameterForLikesId
+  //   // );
+  //   const article = document.createElement("article");
+  //   article.setAttribute("lang", "en");
+  //   article.innerHTML = `<a tabindex="9" alt="${title}, closeup view" href="#" onclick="displayLightboxModal(${id})" >
+  //       ${media}
+  //     </a>
+  //     <div>
+  //       <p tabindex="9">${title}</p>
+  //       <div tabindex="9" class="likes-${id}" ><p class="likesData">${likes} </p><button class="button-likes-${id}">
+  //       <i aria-label="likes" onclick="addALike(${likes},${id})"
+  //       class="fa-solid fa-heart heartSolid"> </i></button></div>
+  //     </div>`;
+  //   return { article, parameterForLikesId, parameterForLikesLikes };
+  // }
+  //avant : fin lightbox
+  //j'ai rajouté des attributs pour récupérer le Id et le Likes, autre solution?
+
   function getCardGallery() {
     let parameterForLikesLikes = likes;
     let parameterForLikesId = id;
-    console.log(
-      "les paramètres pour add : " +
-        parameterForLikesLikes +
-        " , " +
-        parameterForLikesId
-    );
+    // console.log(
+    //   "les paramètres pour add : " +
+    //     parameterForLikesLikes +
+    //     " , " +
+    //     parameterForLikesId
+    // );
     const article = document.createElement("article");
-    article.innerHTML = `<a tabindex="9" alt="ouvrir une modale du média pour avoir un apperçu" href="#" onclick="displayLightboxModal(${id})" >
+    article.setAttribute("lang", "en");
+    article.innerHTML = `<a tabindex="9" alt="${title}, closeup view" href="#" class="display-lightbox" data-id="${id}">
         ${media}
       </a>
       <div>
         <p tabindex="9">${title}</p>
-        <div tabindex="9" class="likes-${id}" aria-label="likes"><p class="likesData">${likes} </p><button class="button-likes-${id}">
-        <i onclick="addALike(${likes},${id})" 
+        <div tabindex="9" class="likes-${id}" ><p class="likesData">${likes} </p><button class="button-likes-${id} play-addALike" data-id="${id}" data-likes="${likes}" >
+        <i aria-label="likes"
         class="fa-solid fa-heart heartSolid"> </i></button></div>
       </div>`;
     return { article, parameterForLikesId, parameterForLikesLikes };

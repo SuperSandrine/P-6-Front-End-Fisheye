@@ -84,18 +84,31 @@ async function displayMedia(media) {
     // )
     //  );
   });
+  const links = document.querySelectorAll(".display-lightbox");
+  links.forEach((a) => {
+    a.addEventListener("click", (e) => {
+      let target = e.target.parentNode;
+      displayLightboxModal(parseInt(target.getAttribute("data-id")));
+    });
+  });
+
+  const buttonLike = document.querySelectorAll(".play-addALike");
+  buttonLike.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      let target = e.target.parentNode;
+      let parameterId = parseInt(target.getAttribute("data-id"));
+      let parameterLikes = parseInt(target.getAttribute("data-likes"));
+      addALike(parameterLikes, parameterId);
+    });
+  });
 }
-
-// function displayMediaSecondTimes(media) {
-//   photographGalleryDiv.innerHTML = "";
-//   media.forEach((id) => {
-//     const makeACard = mediaFactory(id);
-//     const printGallery = makeACard.getCardGallery();
-//     photographGalleryDiv.replaceWith(photographGalleryDiv, printGallery);
-//   });
-// }
-
-// à tester : document.quelerySelector("monElementAReset").innerHTML=""
+//const links: sélectionne tous les liens de la gallerie et forme avec le querySelector
+// une collection HTML (différent d'un nodeList avec un getelement), j'ai un tableau
+// pour chaque lien du tableau j'ajoute un eventlistener.
+// au click, la fonction va chercher le parentNode de la cible (e.target correspond à l'image)
+// une fois que j'ai la target, je peux jouer la fonction en récupérant l'attribut contenant
+//l'ID, Mais c'est une string, alors je la transforme en numer avec parseInt
+// même principe pour buttonLikes
 
 //Cette fonction lance le traitement des fonctions asynchrones dans l'ordre
 async function init() {

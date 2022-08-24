@@ -5,6 +5,10 @@
 
 const lightboxModal = document.getElementById("lightbox_modal");
 const lightboxMedia = document.querySelector(".lightbox_modal-content");
+const main = document.querySelector("#body");
+const closeId = document.querySelector("#close-lightbox");
+const displayId = document.getElementsByClassName("display-lightbox");
+console.log(displayId);
 
 let idMedia; // pour stocker l'id du média onclick sur la gallerie
 let idArray; // pour stocker un tableau de tous les id des media d'un photographe
@@ -19,7 +23,12 @@ let fillMediaTitle;
 // ses informations et l'image dans la lightbox
 function displayLightboxModal(e) {
   lightboxModal.style.display = "block";
+  lightboxModal.removeAttribute("aria-hidden");
+  lightboxModal.setAttribute("aria-modal", "true");
+  lightboxModal.setAttribute("tabindex", "1");
+  main.classList.add("no-scroll");
   idMedia = e;
+  console.log(idMedia);
   getIndexofMediasForLightbox(photographerMedia);
   giveLightboxItsMedias(photographerMedia);
   return idMedia;
@@ -27,6 +36,9 @@ function displayLightboxModal(e) {
 // to close modal
 function closeLightboxModal() {
   lightboxModal.style.display = "none";
+  lightboxModal.setAttribute("aria-hidden", "true");
+  lightboxModal.removeAttribute("aria-modal");
+  main.classList.remove("no-scroll");
 }
 
 // pour récupérer l'index de l'id de l'image, je dois découper le tableau avec
@@ -51,10 +63,10 @@ function nextMedia(array) {
   if (indexOfMedia - 1 == quantityOfIndex) {
     indexOfMedia = 0;
   } else {
+    fillMediaImageSource = array[indexOfMedia].image;
+    fillMediaVideoSource = array[indexOfMedia].video;
+    fillMediaTitle = array[indexOfMedia].title;
   }
-  fillMediaImageSource = array[indexOfMedia].image;
-  fillMediaVideoSource = array[indexOfMedia].video;
-  fillMediaTitle = array[indexOfMedia].title;
   return {
     indexOfMedia,
     fillMediaImageSource,
@@ -69,10 +81,10 @@ function previousMedia(array) {
   if (indexOfMedia + 1 == 0) {
     indexOfMedia = quantityOfIndex;
   } else {
+    fillMediaImageSource = array[indexOfMedia].image;
+    fillMediaVideoSource = array[indexOfMedia].video;
+    fillMediaTitle = array[indexOfMedia].title;
   }
-  fillMediaImageSource = array[indexOfMedia].image;
-  fillMediaVideoSource = array[indexOfMedia].video;
-  fillMediaTitle = array[indexOfMedia].title;
   return {
     indexOfMedia,
     fillMediaImageSource,
@@ -112,3 +124,65 @@ lightboxModalPrevious.addEventListener("click", (e) => {
   previousMedia(photographerMedia);
   giveLightboxItsMedias();
 });
+
+//pourquoi ça marche pas?
+closeId.addEventListener("click", (e) => {
+  //  closeId.style.backgroundColor = "blue";
+  closeLightboxModal();
+});
+
+// Array.from(displayId).forEach((el, index, arr) => {
+//   console.log(el);
+// });
+
+// let article = document.querySelectorAll("a");
+// console.log(article);
+
+// article.forEach((a) => {
+//   a.addEventListener("click", (e) => {
+//     alert(e.target.getAttribute("data-id"));
+//   });
+// });
+// displayId.addEventListener("click", (e) => {
+//   displayId.style.backgroundColor = "red";
+//   //displayLightboxModal();
+// });
+
+// document.querySelector(".displayLightbox-623534343").forEach((a) => {
+//   a.addEventListener("click", alert("ça marche"));
+//   a.preventDefault();
+// });
+// const test = document.getElementsByClassName("displayLightbox");
+// test.addEventListener("click", (e) => {
+//   alert("ça marche");
+// });
+
+// function displayLightboxModal(e) {
+//   lightboxModal.style.display = "block";
+//   lightboxModal.removeAttribute("aria-hidden");
+//   lightboxModal.setAttribute("aria-modal", "true");
+//   lightboxModal.setAttribute("tabindex", "1");
+//   main.classList.add("no-scroll");
+//   console.log("id : " + e);
+//   console.log(e.target); //j'ai pas compris (renvoie:undefined)
+//   idMedia = e;
+//   getIndexofMediasForLightbox(photographerMedia);
+//   giveLightboxItsMedias(photographerMedia);
+//   return idMedia;
+// }
+// // to close modal
+// function closeLightboxModal() {
+//   lightboxModal.style.display = "none";
+//   lightboxModal.setAttribute("aria-hidden", "true");
+//   lightboxModal.removeAttribute("aria-modal");
+//   main.classList.remove("no-scroll");
+// }
+
+// console.log(document.getElementsByClassName("linkToLightbox"));
+// let links = document.getElementsByClassName("linkToLightbox"); // tableau avec index et lien
+
+// links.forEach(linkEventListener());
+
+// function linkEventListener() {
+//   a.addEventListener("click", displayLightboxModal());
+// }

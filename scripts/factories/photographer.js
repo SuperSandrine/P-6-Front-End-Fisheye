@@ -28,17 +28,17 @@ function photographerFactory(data) {
 
   function getPhotographHeader() {
     const photographHeader = document.querySelector(".photograph-header");
-    photographHeader.innerHTML = `<div class="photograph-header_information">
-      <h2 tabindex="2">${name}</h2>
+    photographHeader.innerHTML = `<section class="photograph-header_information">
+      <h1 tabindex="2">${name}</h1>
       <div tabindex="3">
       <p class="city">${city + ", " + country}</p>
       <p class="tagline">${tagline}</p></div>
-    </div>
+    </section>
     <div class="photographer-header-pictureAndButton-box">
-    <div tabindex="4" class="photographer-header-button-box"><button class="contact_button" onclick="displayModal()">
+    <div tabindex="4" class="photographer-header-button-box"><button alt="contact me" class="contact_button" onclick="displayModal()">
           Contactez-moi
         </button></div>
-        <img tabindex="5" src="${picture}"/></div>
+        <img tabindex="5" src="${picture}" alt="portrait de ${name}"/> </div>
     `;
     return photographHeader;
   }
@@ -80,7 +80,7 @@ function photographerFactory(data) {
   function getPhotographPrice() {
     const photographPrice = document.querySelector(".photograph-price");
     //photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
-    photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
+    photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span> <i aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `;
     return photographPrice;
   }
   // pour afficher le nombre de likes, cette fonction doit être jouer après l'affichage de la galerie
