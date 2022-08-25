@@ -117,24 +117,24 @@
 
     <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-describedby="Lightbox">
       <div class="position">
-        <div class="lightbox_modal">
+        <div class="lightbox_modal" tabindex="1">
           <div class="lightbox_modal-previous">
-            <button id="lightbox_modal-previous-button">
+            <button tabindex="4" aria-label="previous image" id="lightbox_modal-previous-button">
               <img src="./assets/icons/leftarrow.svg" />
             </button>
           </div>
           <div class="lightbox_modal-content">
           </div>
           <div class="lightbox_modal-close">
-            <button>
-              <img id="close-lightbox"
+            <button tabindex="6" aria-label="close dialog" id="close-lightbox">
+              <img  
                 src="./assets/icons/redclose.svg"
-              />                 <!-- onclick="closeLightboxModal()" -->
+              />
 
             </button>
           </div>
           <div class="lightbox_modal-next">
-            <button id="lightbox_modal-next-button">
+            <button tabindex="5" aria-label="next image" id="lightbox_modal-next-button">
               <img class="center" src="./assets/icons/rightarrow.svg" />
             </button>
           </div>

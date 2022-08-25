@@ -1,11 +1,12 @@
-a {
-  text-decoration: none;
-}
-
 * {
-  font-family: "DM Sans", sans-serif;
+  font-family: "DM Sans", sans- serif;
   margin: 0;
   box-sizing: border-box;
+}
+
+*:focus {
+  box-shadow: 0 0 10px #d3573c;
+  /* border: solid #d3573c; */
 }
 
 #contact_modal {
@@ -197,7 +198,7 @@ a {
 button {
   border: none;
   padding: 0;
-  outline: none;
+  /* outline: none; */
   background: none;
   cursor: pointer;
   color: #901c1c;

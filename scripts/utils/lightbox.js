@@ -8,7 +8,10 @@ const lightboxMedia = document.querySelector(".lightbox_modal-content");
 const main = document.querySelector("#body");
 const closeId = document.querySelector("#close-lightbox");
 const displayId = document.getElementsByClassName("display-lightbox");
-console.log(displayId);
+const tabindexLightbox =
+  "div[tabindex],button[tabindex],img[tabindex],p[tabindex]";
+let focusablesLightbox = [];
+let previouslyFocusedElement = null;
 
 let idMedia; // pour stocker l'id du média onclick sur la gallerie
 let idArray; // pour stocker un tableau de tous les id des media d'un photographe
@@ -17,28 +20,54 @@ let idArray; // pour stocker un tableau de tous les id des media d'un photograph
 let fillMediaImageSource;
 let fillMediaVideoSource;
 let fillMediaTitle;
+let displayedLB = false;
 
 // en paramètre du display "e", j'ai appelé l'id du média dans media.js
 // quand je clique sur la photo, je récupère l'index de l'image pour afficher
 // ses informations et l'image dans la lightbox
 function displayLightboxModal(e) {
+  displayedLB = true;
   lightboxModal.style.display = "block";
+  //  lightboxModal.focus();
   lightboxModal.removeAttribute("aria-hidden");
   lightboxModal.setAttribute("aria-modal", "true");
-  lightboxModal.setAttribute("tabindex", "1");
   main.classList.add("no-scroll");
+  main.setAttribute("aria-hidden", "true");
   idMedia = e;
   console.log(idMedia);
   getIndexofMediasForLightbox(photographerMedia);
   giveLightboxItsMedias(photographerMedia);
+  // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
+  focusablesLightbox = Array.from(
+    lightboxModal.querySelectorAll(tabindexLightbox)
+  );
+  // on range le tableau en fonction des tabindex
+  focusablesLightbox.sort(function (a, b) {
+    let x = a.getAttribute("tabindex");
+    let y = b.getAttribute("tabindex");
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  });
+  previouslyFocusedElement = document.querySelector(":focus");
+  console.log(previouslyFocusedElement);
+  focusablesLightbox[0].focus();
   return idMedia;
 }
+
 // to close modal
 function closeLightboxModal() {
+  if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
+  displayedLB = false;
   lightboxModal.style.display = "none";
   lightboxModal.setAttribute("aria-hidden", "true");
   lightboxModal.removeAttribute("aria-modal");
   main.classList.remove("no-scroll");
+  main.removeAttribute("aria-hidden");
 }
 
 // pour récupérer l'index de l'id de l'image, je dois découper le tableau avec
@@ -96,14 +125,14 @@ function previousMedia(array) {
 //prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
 // pour afficher image, video et titre
 function giveLightboxItsMedias() {
-  const mediaBigImage = `<img src="./assets/medias-vrac/${fillMediaImageSource}"/>`;
+  const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`;
   const mediaBigVideo = `<video controls >
   <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
 </video>`;
   const bigMedia =
     fillMediaImageSource == undefined ? mediaBigVideo : mediaBigImage;
   lightboxMedia.innerHTML = `${bigMedia}
-     <p class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
+     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
 }
 
 //_________________ Navigation
@@ -131,6 +160,38 @@ closeId.addEventListener("click", (e) => {
   closeLightboxModal();
 });
 
+const stopPropagation = function (e) {
+  e.stopPropagation();
+};
+
+function focusInLightbox(e) {
+  e.preventDefault();
+  let index = focusablesLightbox.findIndex(
+    (f) => f === lightboxModal.querySelector(":focus")
+  );
+  if (e.shiftKey === true) {
+    index--;
+  } else {
+    index++;
+  }
+  if (index >= focusablesLightbox.length) {
+    index = 0;
+  }
+  if (index < 0) {
+    index = focusablesLightbox.length - 1;
+  }
+  focusablesLightbox[index].focus();
+}
+
+window.addEventListener("keydown", function (e) {
+  console.log(e.key);
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeLightboxModal(e);
+  }
+  if (e.key === "Tab" && displayedLB === true) {
+    focusInLightbox(e);
+  }
+});
 // Array.from(displayId).forEach((el, index, arr) => {
 //   console.log(el);
 // });
