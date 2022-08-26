@@ -7,7 +7,7 @@ function photographerFactory(data) {
   function getUserCardDOM() {
     const link = document.createElement("a");
     link.setAttribute("href", linkUrl);
-    link.setAttribute("title", `${name} - nouvelle fenêtre`);
+    link.setAttribute("title", `${name} - nouvelle page`);
     const article = document.createElement("article");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
@@ -35,7 +35,7 @@ function photographerFactory(data) {
       <p class="tagline">${tagline}</p></div>
     </section>
     <div class="photographer-header-pictureAndButton-box">
-    <div tabindex="4" class="photographer-header-button-box"><button alt="contact me" class="contact_button" onclick="displayModal()">
+    <div tabindex="4" class="photographer-header-button-box"><button alt="contact me" class="contact_button" id="display-contact-modal" >
           Contactez-moi
         </button></div>
         <img tabindex="5" src="${picture}" alt="portrait de ${name}"/> </div>

@@ -1,4 +1,5 @@
 // DOM Elements
+// const main = document.querySelector("#body");
 const form = document.querySelector("form");
 const modal = document.getElementById("contact_modal");
 
@@ -7,23 +8,66 @@ const containerEmail = document.querySelector("#email").parentNode;
 const containerLastName = document.querySelector("#lastName").parentNode;
 const containerFirstName = document.querySelector(".formData");
 
+const tabindexContactForm =
+  "div[tabindex],h1[tabindex],img[tabindex],label[tabindex], input[tabindex],  textarea[tabindex]";
+let focusablesContactForm = [];
+let previouslyCMFocusedElement = null;
+
+let displayedCM = false;
 // event listener = both following functions are played in the
 // photographer.html with attr onclick
 // to lauch modal
-function displayModal() {
+function displayContactModal() {
+  displayedCM = true;
   modal.style.display = "block";
+  modal.removeAttribute("aria-hidden");
+  modal.setAttribute("aria-modal", "true");
+  main.classList.add("no-scroll");
+  main.setAttribute("aria-hidden", "true");
+  focusablesContactForm = Array.from(
+    modal.querySelectorAll(tabindexContactForm)
+  );
+  // on range le tableau en fonction des tabindex
+  //  focusablesContactForm[0].attributes.tabindex.value
+  focusablesContactForm.sort(function (a, b) {
+    a = a.attributes.tabindex.value;
+    b = b.attributes.tabindex.value;
+    return a - b;
+  });
+  // TOUN, Thomas, ce sort ne marche pas
+  // focusablesContactForm.sort(function (a, b) {
+  //   let x = a.getAttribute("tabindex.value");
+  //   console.log(x);
+  //   let y = b.getAttribute("tabindex.value");
+  //   if (x < y) {
+  //     return -1;
+  //   }
+  //   if (x > y) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // });
+  console.log(focusablesContactForm);
+  previouslyCMFocusedElement = document.querySelector(":focus");
+  console.log(previouslyCMFocusedElement);
+  focusablesContactForm[0].focus();
 }
 // to close modal
-function closeModal() {
+function closeContactModal() {
+  displayedCM = false;
   modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+  modal.removeAttribute("aria-modal");
+  main.classList.remove("no-scroll");
+  main.removeAttribute("aria-hidden");
 }
 
 // to complete the Modal Header with the photographer name
 // the function is played in init/photographer.js/pages
 function giveModalAName(Array) {
   const PhotographerName = Array[0]["name"];
-  const NameH2 = document.querySelector("#contact_modal_photograph-name");
-  NameH2.innerHTML = `${PhotographerName}`;
+  const NameH2 = document.querySelector("#form-title");
+  NameH2.insertAdjacentHTML("beforeend", `<br> ${PhotographerName}`);
 }
 
 const inputsText = document.querySelectorAll(".text-control");
@@ -280,4 +324,38 @@ for (let i = 0; i < form.length; i++) {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+});
+
+const closeIdCM = document.querySelector("#close-contact_modal");
+closeIdCM.addEventListener("click", (e) => {
+  closeContactModal();
+});
+
+function focusInContactModal(e) {
+  e.preventDefault();
+  let index = focusablesContactForm.findIndex(
+    (f) => f === modal.querySelector(":focus")
+  );
+  if (e.shiftKey === true) {
+    index--;
+  } else {
+    index++;
+  }
+  if (index >= focusablesContactForm.length) {
+    index = 0;
+  }
+  if (index < 0) {
+    index = focusablesContactForm.length - 1;
+  }
+  focusablesContactForm[index].focus();
+}
+
+window.addEventListener("keydown", function (e) {
+  console.log(e.key);
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeContactModal(e);
+  }
+  if (e.key === "Tab" && displayedCM === true) {
+    focusInContactModal(e);
+  }
 });

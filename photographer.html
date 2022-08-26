@@ -45,15 +45,12 @@
 
     <!-- *********** MODAL form *********** -->
 
-    <div id="contact_modal">
+    <aside id="contact_modal" role="dialog" aria-hidden="true" aria-labelledby="form-title">
       <div class="position">
-        <div class="modal">
-          <div class="modal_header">
-            <div>
-              <h2>Contactez-moi</h2>
-              <h2 id="contact_modal_photograph-name"></h2>
-            </div>
-            <img src="./assets/icons/close.svg" onclick="closeModal()" />
+        <div class="contact_modal" tabindex="1">
+          <div class="contact_modal_header">
+            <h1 tabindex="2" id="form-title">Contactez-moi</h1>
+            <img tabindex="12" role="button" aria-label="close contact form" id="close-contact_modal" src="./assets/icons/close.svg"  />
           </div>
           <form
             id="contactForm"
@@ -63,59 +60,70 @@
             onsubmit="return validate();"
           >
             <div class="formData" data-error="&nbsp;">
-              <label for="firstName">Prénom</label>
+              <label tabindex="3" id="3" for="firstName">Prénom</label>
               <input
                 class="text-control"
                 type="text"
                 id="firstName"
                 name="first"
+                tabindex="4"
+                aria-labelledby="3"
               />
             </div>
 
             <div class="formData" data-error="&nbsp;">
-              <label for="lastName">Nom</label>
+              <label tabindex="5" id="5"  for="lastName">Nom</label>
               <input
                 class="text-control"
                 type="text"
                 id="lastName"
                 name="last"
+                tabindex="6"
+                aria-labelledby="5"
               />
             </div>
 
             <div class="formData" data-error="&nbsp;">
-              <label for="email">Adresse e-mail</label>
+              <label tabindex="7" id="7" for="email">Adresse e-mail</label>
               <input
                 class="text-control"
                 type="email"
                 id="email"
                 name="email"
+                tabindex="8"
+                aria-labelledby="7"
               />
             </div>
 
             <div class="formData" data-error="&nbsp;">
-              <label for="message">Message</label>
+              <label tabindex="9" id="9" for="message">Votre message</label>
               <textarea
                 class="input_big text-control"
                 id="message"
                 rows="5"
                 placeholder="Ecrivez votre message."
                 name="message"
+                tabindex="10"
+                aria-labelledby="9"
               ></textarea>
             </div>
             <input
+              tabindex="11"
               class="btn-submit contact_button"
               type="submit"
               value="Envoyer"
+              role="button"
+              aria-label="Send"
             />
             <!-- <button class="contact_button">Envoyer</button> -->
           </form>
         </div>
       </div>
-    </div>
+    </aside>
 
     <!-- *********** MODAL Lightbox *********** -->
 
-    <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-describedby="Lightbox">
+    <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-label="image closeup view">
       <div class="position">
         <div class="lightbox_modal" tabindex="1">
           <div class="lightbox_modal-previous">

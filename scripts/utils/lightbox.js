@@ -6,7 +6,6 @@
 const lightboxModal = document.getElementById("lightbox_modal");
 const lightboxMedia = document.querySelector(".lightbox_modal-content");
 const main = document.querySelector("#body");
-const closeId = document.querySelector("#close-lightbox");
 const displayId = document.getElementsByClassName("display-lightbox");
 const tabindexLightbox =
   "div[tabindex],button[tabindex],img[tabindex],p[tabindex]";
@@ -55,7 +54,7 @@ function displayLightboxModal(e) {
   });
   previouslyFocusedElement = document.querySelector(":focus");
   console.log(previouslyFocusedElement);
-  focusablesLightbox[0].focus();
+  focusablesLightbox[1].focus();
   return idMedia;
 }
 
@@ -154,15 +153,11 @@ lightboxModalPrevious.addEventListener("click", (e) => {
   giveLightboxItsMedias();
 });
 
-//pourquoi ça marche pas?
+const closeId = document.querySelector("#close-lightbox");
 closeId.addEventListener("click", (e) => {
   //  closeId.style.backgroundColor = "blue";
   closeLightboxModal();
 });
-
-const stopPropagation = function (e) {
-  e.stopPropagation();
-};
 
 function focusInLightbox(e) {
   e.preventDefault();
@@ -191,7 +186,18 @@ window.addEventListener("keydown", function (e) {
   if (e.key === "Tab" && displayedLB === true) {
     focusInLightbox(e);
   }
+  if (e.key === "ArrowLeft" && displayedLB === true) {
+    previousMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+  if (e.key === "ArrowRight" && displayedLB === true) {
+    nextMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
 });
+// todo: BUG, le premier arrowleft ne fonctionne pas,
+//voir comment le tableau est lu la première fois
+
 // Array.from(displayId).forEach((el, index, arr) => {
 //   console.log(el);
 // });
