@@ -86,14 +86,22 @@ function getIndexofMediasForLightbox(array) {
 }
 
 function nextMedia(array) {
-  indexOfMedia = indexOfMedia + 1;
-  let quantityOfIndex = array.length - 1;
-  if (indexOfMedia - 1 == quantityOfIndex) {
+  indexOfMedia++;
+  if (indexOfMedia >= array.length) {
     indexOfMedia = 0;
-  } else {
-    fillMediaImageSource = array[indexOfMedia].image;
-    fillMediaVideoSource = array[indexOfMedia].video;
-    fillMediaTitle = array[indexOfMedia].title;
+    (fillMediaImageSource = array[indexOfMedia].image),
+      (fillMediaVideoSource = array[indexOfMedia].video),
+      (fillMediaTitle = array[indexOfMedia].title);
+  }
+  // if (indexOfMedia < 0) {
+  //   indexOfMedia = array.length - 1;
+  //   (fillMediaImageSource = array[indexOfMedia].image),
+  //     (fillMediaVideoSource = array[indexOfMedia].video),
+  //     (fillMediaTitle = array[indexOfMedia].title);
+  else {
+    (fillMediaImageSource = array[indexOfMedia].image),
+      (fillMediaVideoSource = array[indexOfMedia].video),
+      (fillMediaTitle = array[indexOfMedia].title);
   }
   return {
     indexOfMedia,
@@ -103,15 +111,59 @@ function nextMedia(array) {
   };
 }
 
+// function nextMedia(array) {
+//   indexOfMedia = indexOfMedia + 1;
+//   let quantityOfIndex = array.length - 1;
+//   if (indexOfMedia - 1 === quantityOfIndex) {
+//     indexOfMedia = 0;
+//   } else {
+//     fillMediaImageSource = array[indexOfMedia].image;
+//     fillMediaVideoSource = array[indexOfMedia].video;
+//     fillMediaTitle = array[indexOfMedia].title;
+//   }
+//   return {
+//     indexOfMedia,
+//     fillMediaImageSource,
+//     fillMediaVideoSource,
+//     fillMediaTitle,
+//   };
+// }
+
+// function previousMedia(array) {
+//   indexOfMedia = indexOfMedia - 1;
+//   let quantityOfIndex = array.length - 1;
+//   if (indexOfMedia + 1 === 0) {
+//     indexOfMedia = quantityOfIndex;
+//   } else {
+//     fillMediaImageSource = array[indexOfMedia].image;
+//     fillMediaVideoSource = array[indexOfMedia].video;
+//     fillMediaTitle = array[indexOfMedia].title;
+//   }
+//   return {
+//     indexOfMedia,
+//     fillMediaImageSource,
+//     fillMediaVideoSource,
+//     fillMediaTitle,
+//   };
+// }
+
 function previousMedia(array) {
-  indexOfMedia = indexOfMedia - 1;
-  let quantityOfIndex = array.length - 1;
-  if (indexOfMedia + 1 == 0) {
-    indexOfMedia = quantityOfIndex;
+  indexOfMedia--;
+  // if (indexOfMedia >= array.length) {
+  //   indexOfMedia = 0;
+  //   (fillMediaImageSource = array[indexOfMedia].image),
+  //     (fillMediaVideoSource = array[indexOfMedia].video),
+  //     (fillMediaTitle = array[indexOfMedia].title);
+  // }
+  if (indexOfMedia < 0) {
+    indexOfMedia = array.length - 1;
+    (fillMediaImageSource = array[indexOfMedia].image),
+      (fillMediaVideoSource = array[indexOfMedia].video),
+      (fillMediaTitle = array[indexOfMedia].title);
   } else {
-    fillMediaImageSource = array[indexOfMedia].image;
-    fillMediaVideoSource = array[indexOfMedia].video;
-    fillMediaTitle = array[indexOfMedia].title;
+    (fillMediaImageSource = array[indexOfMedia].image),
+      (fillMediaVideoSource = array[indexOfMedia].video),
+      (fillMediaTitle = array[indexOfMedia].title);
   }
   return {
     indexOfMedia,
