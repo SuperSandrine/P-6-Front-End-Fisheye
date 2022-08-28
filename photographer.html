@@ -23,8 +23,8 @@
     <main id="main">
       <header role="heading" class="photograph-header"></header>
       <div class="photograph-sorting-gallery"> 
-        <label tabindex="7" for="filter-photo">Trier par </label>
-      <div tabindex="8" class="custom-select">
+        <label tabindex="7" id="labelledSort" for="filter-photo">Trier par </label>
+      <div tabindex="8" class="custom-select" aria-labelledby="labelledSort">
         <select id="filter-photo">
           <option value="0">Filtrer:</option>
           <option value="1">Popularité</option>

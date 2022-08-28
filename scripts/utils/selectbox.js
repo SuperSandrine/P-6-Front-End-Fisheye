@@ -102,7 +102,7 @@ let sortingMethodFromList;
 // document.addEventListener("click", closeAllSelect);
 
 // ------------ nettoyage selectbox, le 27/08/22 ----------------------
-let customSelectClassElmnt, j, l, ll, selectTagElmnt, a, b, c;
+let customSelectClassElmnt, j, l, ll, selectTagElmnt, selectedDiv, b, c;
 /*look for any elements with the class "custom-select":*/
 customSelectClassElmnt = document.querySelector(".custom-select");
 //l = customSelectClassElmnt.length;
@@ -113,64 +113,94 @@ console.log(selectTagElmnt); // il s'agit des options
 ll = selectTagElmnt.length;
 console.log(ll); //'4'
 /*for each element, create a new DIV that will act as the selected item:*/
-a = document.createElement("DIV");
-console.log(a);
-a.setAttribute("class", "select-selected");
-a.innerHTML = selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML;
-customSelectClassElmnt.appendChild(a);
-console.log(a.innerHTML);
+selectedDiv = document.createElement("DIV");
+console.log(selectedDiv);
+selectedDiv.setAttribute("class", "select-selected");
+selectedDiv.setAttribute("role", "button");
+selectedDiv.setAttribute("aria-haspopup", "listbox"); // indicates the button opens a menu
+
+selectedDiv.innerHTML =
+  selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML;
+console.log(selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML); //'filtrer'
+
+customSelectClassElmnt.appendChild(selectedDiv);
 /*for each element, create a new DIV that will contain the option list:*/
-b = document.createElement("DIV");
-b.setAttribute("class", "select-items select-hide");
+optionsBoxDiv = document.createElement("DIV");
+optionsBoxDiv.setAttribute("class", "select-items select-hide");
 for (j = 1; j < ll; j++) {
-  /*for each option in the original select element,
+  /*for each option in the original select element except the [0] option which is "filtrer",
     create a new DIV that will act as an option item:*/
-  c = document.createElement("DIV");
-  c.innerHTML = selectTagElmnt.options[j].innerHTML;
-  c.addEventListener("click", (e) => {
-    console.log(
-      "voici la div à rendre magique avec une fonction " + e.target.value
-    );
-  });
-  c.addEventListener("click", function (e) {
-    /*when an item is clicked, update the original select box,
-        and the selected item:*/
-    let y, i, k, s, h, sl, yl;
-    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-    /* s est un tableau des options disponibles*/
-    sl = s.length;
-    h = this.parentNode.previousSibling;
+  optionDiv = document.createElement("DIV");
+  optionDiv.setAttribute("role", "option");
+  optionDiv.setAttribute("id", "");
+
+  optionDiv.innerHTML = selectTagElmnt.options[j].innerHTML;
+  // optionDiv.addEventListener("click", (e) => {
+  //   console.log(
+  //     "voici la div à rendre magique avec une fonction " + e.target.value
+  //   );
+  // });
+  optionDiv.setAttribute("id", `${optionDiv.innerHTML}`);
+
+  optionDiv.addEventListener("click", function (e) {
+    /*when an item is clicked, update the original select box, and the selected item:*/
+    let oldSelection, i, originalSelectTag, changeSelectedDiv, sl;
+    /* this. correspond à l'élément clické, soit la div date, div pop, div titre.*/
+    originalSelectTag =
+      this.parentNode.parentNode.getElementsByTagName("select")[0];
+    console.log(originalSelectTag);
+
+    sl = originalSelectTag.length;
+    changeSelectedDiv = this.parentNode.previousSibling;
     /*h est la div contenant .select-items et .select-hide*/
+    console.log(changeSelectedDiv);
     for (i = 0; i < sl; i++) {
-      if (s.options[i].innerHTML == this.innerHTML) {
-        s.selectedIndex = i;
-        h.innerHTML = this.innerHTML;
+      if (originalSelectTag.options[i].innerHTML == this.innerHTML) {
+        originalSelectTag.selectedIndex = i;
+        console.log(changeSelectedDiv.innerHTML);
+        changeSelectedDiv.innerHTML = this.innerHTML;
+        console.log(changeSelectedDiv.innerHTML);
+        changeSelectedDiv.setAttribute(
+          "aria-activedescendant",
+          `${this.innerHTML}`
+        );
         sortingMethodFromList =
-          h.innerHTML; /* sortingMFL change à chaque clic */
-        //          console.log(sortingMethodFromList);
-        /* voici l'information dont j'ai besoin pour mon tri*/
+          changeSelectedDiv.innerHTML; /* sortingMFL change à chaque clic */
+        //console.log(sortingMethodFromList);
+        /* voici l'information dont j'ai besoin pour jouer mon tri*/
+        // ternaire :
+        //s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
+        // ternaire
 
-        y = this.parentNode.getElementsByClassName("same-as-selected");
+        oldSelection = this.parentNode.querySelector(".same-as-selected");
+        oldSelection !== null
+          ? oldSelection.removeAttribute("class") &
+            oldSelection.removeAttribute("aria-selected") &
+            this.setAttribute("class", "same-as-selected") &
+            this.setAttribute("aria-selected", "true")
+          : this.setAttribute("class", "same-as-selected") &
+            this.setAttribute("aria-selected", "true");
+        // OK TODO: pour quoi une ternaire ne fait pas le travail ? >>> il ne faut pas mettre
+        // & mais &&
 
-        yl = y.length;
-        for (k = 0; k < yl; k++) {
-          y[k].removeAttribute("class");
-        }
-        this.setAttribute("class", "same-as-selected");
+        //this.setAttribute("class", "same-as-selected");
         break;
       }
     }
-    h.click();
+    changeSelectedDiv.click();
   });
-  b.appendChild(c);
+
+  optionsBoxDiv.appendChild(optionDiv);
 }
-customSelectClassElmnt.appendChild(b);
-a.addEventListener("click", function (e) {
+
+customSelectClassElmnt.appendChild(optionsBoxDiv);
+selectedDiv.addEventListener("click", function (e) {
   /*when the select box is clicked, close any other select boxes,
       and open/close the current select box:*/
   e.stopPropagation();
   closeAllSelect(this);
   this.nextSibling.classList.toggle("select-hide");
+  this.nextSibling.toggleAttribute("aria-expanded");
   this.classList.toggle("select-arrow-active");
 });
 
