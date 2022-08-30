@@ -8,6 +8,16 @@ const containerEmail = document.querySelector("#email").parentNode;
 const containerLastName = document.querySelector("#lastName").parentNode;
 const containerFirstName = document.querySelector(".formData");
 
+const keyboardNavigationOnContactModal = function (e) {
+  console.log(e.key);
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeContactModal(e);
+  }
+  if (e.key === "Tab" && displayedCM === true) {
+    focusInContactModal(e);
+  }
+};
+
 const tabindexContactForm =
   "div[tabindex],h1[tabindex],img[tabindex],label[tabindex], input[tabindex],  textarea[tabindex]";
 let focusablesContactForm = [];
@@ -51,6 +61,7 @@ function displayContactModal() {
   previouslyCMFocusedElement = document.querySelector(":focus");
   console.log(previouslyCMFocusedElement);
   focusablesContactForm[0].focus();
+  window.addEventListener("keydown", keyboardNavigationOnContactModal);
 }
 // to close modal
 function closeContactModal() {
@@ -60,6 +71,7 @@ function closeContactModal() {
   modal.removeAttribute("aria-modal");
   main.classList.remove("no-scroll");
   main.removeAttribute("aria-hidden");
+  window.removeEventListener("keydown", keyboardNavigationOnContactModal);
 }
 
 // to complete the Modal Header with the photographer name
@@ -350,12 +362,12 @@ function focusInContactModal(e) {
   focusablesContactForm[index].focus();
 }
 
-window.addEventListener("keydown", function (e) {
-  console.log(e.key);
-  if (e.key === "Escape" || e.key === "Esc") {
-    closeContactModal(e);
-  }
-  if (e.key === "Tab" && displayedCM === true) {
-    focusInContactModal(e);
-  }
-});
+// window.addEventListener("keydown", function (e) {
+//   console.log(e.key);
+//   if (e.key === "Escape" || e.key === "Esc") {
+//     closeContactModal(e);
+//   }
+//   if (e.key === "Tab" && displayedCM === true) {
+//     focusInContactModal(e);
+//   }
+// });

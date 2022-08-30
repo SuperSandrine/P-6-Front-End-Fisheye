@@ -21,6 +21,25 @@ let fillMediaVideoSource;
 let fillMediaTitle;
 let displayedLB = false;
 
+const keyboardNavigationOnLightbox = function (e) {
+  e.preventDefault();
+  console.log(e.key);
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeLightboxModal(e);
+  }
+  if (e.key === "Tab" && displayedLB === true) {
+    focusInLightbox(e);
+  }
+  if (e.key === "ArrowLeft" && displayedLB === true) {
+    previousMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+  if (e.key === "ArrowRight" && displayedLB === true) {
+    nextMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+};
+
 // en paramètre du display "e", j'ai appelé l'id du média dans media.js
 // quand je clique sur la photo, je récupère l'index de l'image pour afficher
 // ses informations et l'image dans la lightbox
@@ -54,19 +73,23 @@ function displayLightboxModal(e) {
   });
   previouslyFocusedElement = document.querySelector(":focus");
   console.log(previouslyFocusedElement);
-  focusablesLightbox[1].focus();
+  focusablesLightbox[0].focus();
+  window.addEventListener("keydown", keyboardNavigationOnLightbox);
   return idMedia;
 }
 
 // to close modal
 function closeLightboxModal() {
-  if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
-  displayedLB = false;
-  lightboxModal.style.display = "none";
-  lightboxModal.setAttribute("aria-hidden", "true");
-  lightboxModal.removeAttribute("aria-modal");
-  main.classList.remove("no-scroll");
-  main.removeAttribute("aria-hidden");
+  if (previouslyFocusedElement !== null) {
+    previouslyFocusedElement.focus();
+    displayedLB = false;
+    lightboxModal.style.display = "none";
+    lightboxModal.setAttribute("aria-hidden", "true");
+    lightboxModal.removeAttribute("aria-modal");
+    main.classList.remove("no-scroll");
+    main.removeAttribute("aria-hidden");
+    window.removeEventListener("keydown", keyboardNavigationOnLightbox);
+  }
 }
 
 // pour récupérer l'index de l'id de l'image, je dois découper le tableau avec
@@ -230,23 +253,32 @@ function focusInLightbox(e) {
   focusablesLightbox[index].focus();
 }
 
-window.addEventListener("keydown", function (e) {
-  console.log(e.key);
-  if (e.key === "Escape" || e.key === "Esc") {
-    closeLightboxModal(e);
-  }
-  if (e.key === "Tab" && displayedLB === true) {
-    focusInLightbox(e);
-  }
-  if (e.key === "ArrowLeft" && displayedLB === true) {
-    previousMedia(photographerMedia);
-    giveLightboxItsMedias();
-  }
-  if (e.key === "ArrowRight" && displayedLB === true) {
-    nextMedia(photographerMedia);
-    giveLightboxItsMedias();
-  }
-});
+// je voudra écouter seulement dans la lightbox est ouverte
+//keyboardNavLB;
+
+//function keyboardNavigationOnLightbox() {
+//window.addEventListener("keydown", keyboardNavLB);
+
+// function keyboardNavigationOnLightbox() {
+//   window.addEventListener("keydown", function (e) {
+//     console.log(e.key);
+//     if (e.key === "Escape" || e.key === "Esc") {
+//       closeLightboxModal(e);
+//     }
+//     if (e.key === "Tab" && displayedLB === true) {
+//       focusInLightbox(e);
+//     }
+//     if (e.key === "ArrowLeft" && displayedLB === true) {
+//       previousMedia(photographerMedia);
+//       giveLightboxItsMedias();
+//     }
+//     if (e.key === "ArrowRight" && displayedLB === true) {
+//       nextMedia(photographerMedia);
+//       giveLightboxItsMedias();
+//     }
+//   });
+// }
+
 // todo: BUG, le premier arrowleft ne fonctionne pas,
 //voir comment le tableau est lu la première fois
 

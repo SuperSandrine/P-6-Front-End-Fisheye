@@ -102,7 +102,14 @@ let sortingMethodFromList;
 // document.addEventListener("click", closeAllSelect);
 
 // ------------ nettoyage selectbox, le 27/08/22 ----------------------
-let customSelectClassElmnt, j, l, ll, selectTagElmnt, selectedDiv, b, c;
+let customSelectClassElmnt,
+  j,
+  l,
+  ll,
+  selectTagElmnt,
+  selectedDiv,
+  optionsBoxDiv,
+  optionDiv;
 /*look for any elements with the class "custom-select":*/
 customSelectClassElmnt = document.querySelector(".custom-select");
 //l = customSelectClassElmnt.length;
@@ -117,7 +124,11 @@ selectedDiv = document.createElement("DIV");
 console.log(selectedDiv);
 selectedDiv.setAttribute("class", "select-selected");
 selectedDiv.setAttribute("role", "button");
+selectedDiv.setAttribute("id", "selectedButton");
 selectedDiv.setAttribute("aria-haspopup", "listbox"); // indicates the button opens a menu
+selectedDiv.setAttribute("aria-labelledby", "labelledSort");
+selectedDiv.setAttribute("tabindex", "0");
+selectedDiv.setAttribute("aria-controls", "listboxSort"); // indicates the button opens a menu
 
 selectedDiv.innerHTML =
   selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML;
@@ -127,12 +138,16 @@ customSelectClassElmnt.appendChild(selectedDiv);
 /*for each element, create a new DIV that will contain the option list:*/
 optionsBoxDiv = document.createElement("DIV");
 optionsBoxDiv.setAttribute("class", "select-items select-hide");
+optionsBoxDiv.setAttribute("role", "listbox");
+optionsBoxDiv.setAttribute("aria-labelledby", "labelledSort");
+optionsBoxDiv.setAttribute("id", "listboxSort");
+optionsBoxDiv.setAttribute("tabindex", "-1");
 for (j = 1; j < ll; j++) {
   /*for each option in the original select element except the [0] option which is "filtrer",
     create a new DIV that will act as an option item:*/
   optionDiv = document.createElement("DIV");
   optionDiv.setAttribute("role", "option");
-  optionDiv.setAttribute("id", "");
+  optionDiv.setAttribute("tabindex", "0");
 
   optionDiv.innerHTML = selectTagElmnt.options[j].innerHTML;
   // optionDiv.addEventListener("click", (e) => {
@@ -142,6 +157,61 @@ for (j = 1; j < ll; j++) {
   // });
   optionDiv.setAttribute("id", `${optionDiv.innerHTML}`);
 
+  const RemplaceClickparEnter = function (e) {
+    e.preventDefault();
+    if (e.key === "Enter" || e.key === " ") {
+      /*when an item is clicked, update the original select box, and the selected item:*/
+      let oldSelection, i, originalSelectTag, changeSelectedDiv, sl;
+      /* this. correspond à l'élément clické, soit la div date, div pop, div titre.*/
+      originalSelectTag =
+        this.parentNode.parentNode.getElementsByTagName("select")[0];
+      console.log(originalSelectTag);
+
+      sl = originalSelectTag.length;
+      changeSelectedDiv = this.parentNode.previousSibling;
+      /*h est la div contenant .select-items et .select-hide*/
+      console.log(changeSelectedDiv);
+      for (i = 0; i < sl; i++) {
+        if (originalSelectTag.options[i].innerHTML == this.innerHTML) {
+          originalSelectTag.selectedIndex = i;
+          console.log(changeSelectedDiv.innerHTML);
+          changeSelectedDiv.innerHTML = this.innerHTML;
+          console.log(changeSelectedDiv.innerHTML);
+          changeSelectedDiv.setAttribute(
+            "aria-activedescendant",
+            `${this.innerHTML}`
+          );
+          sortingMethodFromList =
+            changeSelectedDiv.innerHTML; /* sortingMFL change à chaque clic */
+          //console.log(sortingMethodFromList);
+          /* voici l'information dont j'ai besoin pour jouer mon tri*/
+          // ternaire :
+          //s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
+          // ternaire
+
+          oldSelection = this.parentNode.querySelector(".same-as-selected");
+          oldSelection !== null
+            ? oldSelection.removeAttribute("class") &
+              oldSelection.removeAttribute("aria-selected") &
+              this.setAttribute("class", "same-as-selected") &
+              this.setAttribute("aria-selected", "true")
+            : this.setAttribute("class", "same-as-selected") &
+              this.setAttribute("aria-selected", "true");
+          // OK TODO: pour quoi une ternaire ne fait pas le travail ? >>> il ne faut pas mettre
+          // & mais &&
+
+          //this.setAttribute("class", "same-as-selected");
+          break;
+        }
+      }
+      changeSelectedDiv.click();
+    }
+  };
+
+  //  optionDiv.addEventListener("click",RemplaceClickparEnter);
+  optionDiv.addEventListener("keydown", RemplaceClickparEnter);
+
+  // --- pour simplifer dessous et mettre un keydown listener mardi------
   optionDiv.addEventListener("click", function (e) {
     /*when an item is clicked, update the original select box, and the selected item:*/
     let oldSelection, i, originalSelectTag, changeSelectedDiv, sl;
@@ -189,20 +259,224 @@ for (j = 1; j < ll; j++) {
     }
     changeSelectedDiv.click();
   });
+  // ---- fin de simplification ----
 
   optionsBoxDiv.appendChild(optionDiv);
 }
 
 customSelectClassElmnt.appendChild(optionsBoxDiv);
+
+// const Deploiement = function (e) {
+//   /*when the select box is clicked, close any other select boxes,
+//       and open/close the current select box:*/
+//   focusablesSortingMenu[0].style.backgroundColor = "blue";
+
+//   if (e.key === "ArrowDown" || e.key === " " || e.key === "Enter") {
+//     e.stopPropagation();
+//     closeAllSelect(this);
+//     this.nextSibling.classList.toggle("select-hide");
+//     this.nextSibling.toggleAttribute("aria-expanded");
+//     this.classList.toggle("select-arrow-active");
+//     focusablesSortingMenu[0].focus();
+//   }
+//   if (e.key === "ArrowUp") {
+//     closeAllSelect(selectedDiv);
+//     e.preventDefault();
+//     selectedDiv.nextSibling.classList.remove("select-hide");
+//     selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+//     selectedDiv.classList.add("select-arrow-active");
+//     focusablesSortingMenu[2].focus();
+//   }
+// };
+
+// function ouvrir() {
+//   console.log("ça s'ouvre?");
+//   if (selectedDiv.focus()) {
+//     selectedDiv.addEventListener("keydown", Deploiement);
+//     console.log("ouvert?");
+//   }
+// }
+
 selectedDiv.addEventListener("click", function (e) {
   /*when the select box is clicked, close any other select boxes,
       and open/close the current select box:*/
   e.stopPropagation();
   closeAllSelect(this);
   this.nextSibling.classList.toggle("select-hide");
-  this.nextSibling.toggleAttribute("aria-expanded");
+  this.nextSibling.setAttribute("aria-expanded", "true");
   this.classList.toggle("select-arrow-active");
 });
+
+// en sauvegarde mardi 30 :23h
+// //quand la selectBox est focus,
+// // je peux l'ouvrir avec keydown
+// // cette version fonctionne, mais utilise une seule fois keyUp et keydown
+customSelectClassElmnt.addEventListener("focus", function (e) {
+  customSelectClassElmnt.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") {
+    } else {
+      closeAllSelect(selectedDiv);
+      e.preventDefault();
+      if (e.key === " " || e.key === "Enter") {
+        selectedDiv.nextSibling.classList.remove("select-hide");
+        selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+        selectedDiv.classList.add("select-arrow-active");
+        focusablesSortingMenu[0].focus();
+        // } else if (e.key === "ArrowUp") {
+        //   selectedDiv.nextSibling.classList.remove("select-hide");
+        //   selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+        //   selectedDiv.classList.add("select-arrow-active");
+        //   focusablesSortingMenu[2].focus();
+        // }
+      }
+      focusInSortingMenu(e);
+    }
+  });
+});
+
+//quand la selectBox est focus,
+// je peux l'ouvrir avec keydown
+// customSelectClassElmnt.addEventListener("focus", function (e) {
+//   customSelectClassElmnt.addEventListener("keydown", function (e) {
+//     closeAllSelect(selectedDiv);
+//     e.preventDefault();
+//     console.log(optionsBoxDiv.getAttribute("aria-expanded"));
+//     if (e.key === "Tab") {
+//     }
+
+//     if (
+//       optionsBoxDiv.getAttribute("aria-expanded") === null &&
+//       (e.key === "ArrowDown" || e.key === " " || e.key === "Enter")
+//     ) {
+//       selectedDiv.nextSibling.classList.remove("select-hide");
+//       selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+//       selectedDiv.classList.add("select-arrow-active");
+//       focusablesSortingMenu[0].focus();
+//     }
+//     console.log(optionsBoxDiv.getAttribute("aria-expanded"));
+
+//     if (
+//       optionsBoxDiv.getAttribute("aria-expanded") === null &&
+//       e.key === "ArrowUp"
+//     ) {
+//       selectedDiv.nextSibling.classList.remove("select-hide");
+//       selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+//       selectedDiv.classList.add("select-arrow-active");
+//       focusablesSortingMenu[2].focus();
+//     }
+
+//     if (optionsBoxDiv.getAttribute("aria-expanded") === true) {
+//       console.log("ça marche");
+//       focusInSortingMenu(e);
+//       console.log("ça marche bien");
+//     }
+//   });
+// });
+
+let focusablesSortingMenu = [];
+let optionsSortingMenu = "div[role='option']";
+focusablesSortingMenu = Array.from(
+  customSelectClassElmnt.querySelectorAll(optionsSortingMenu)
+);
+console.log(focusablesSortingMenu);
+
+function focusInSortingMenu(e) {
+  //if (e.key === "Tab") {
+  //} else {
+  e.preventDefault();
+  let index = focusablesSortingMenu.findIndex(
+    (f) => f === selectedDiv.nextSibling.querySelector(":focus")
+  );
+  //    console.log(selectedDiv.nextSibling.querySelector(":focus"));
+  // TODO = Y a une erreur dans cette ligne, car une fois que selectedDiv a
+  // le focus, il faudrait qu'elle se déplie si on entre et pas que
+  // que ça bloque s'il y a le :focus.>>> défaut résolut en rajoutant un ignore
+  // sur le "tab", du coup ça ne se bloque plus mais le déploiement est ailleurs
+  if (e.key === "ArrowUp") {
+    index--;
+    if (index < 0) {
+      index = focusablesSortingMenu.length - 1;
+    }
+    focusablesSortingMenu[index].focus();
+  }
+  if (e.key === "ArrowDown") {
+    index++;
+    if (index >= focusablesSortingMenu.length) {
+      index = 0;
+    }
+    focusablesSortingMenu[index].focus();
+  }
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeAllSelect();
+    selectedDiv.focus();
+
+    //DONE : mettre le focus sur le bouton de menu
+  }
+}
+//}
+
+//window.addEventListener("keydown", keyboardNavInMenu);
+
+// const keyboardNavInMenu = function (e) {
+//   e.stopPropagation();
+//   console.log(e.key);
+//   OpenMenuDrop(e);}
+//if aria expanded = true,
+
+//--------------- test de lundi, moyen fonctionnel---------------
+// const selectedButtonfocused = document.getElementById("selectedButton").focus();
+// console.log(selectedButtonfocused);
+// selectedButtonfocused;
+// console.log(selectedButtonfocused);
+
+// let selectedDivIsExpanded = false;
+
+// let focusablesSortingMenu = [];
+// let optionsSortingMenu = "div[role='option']";
+// focusablesSortingMenu = Array.from(
+//   customSelectClassElmnt.querySelectorAll(optionsSortingMenu)
+// );
+// console.log(focusablesSortingMenu[0]);
+
+// window.addEventListener("keydown", function (e) {
+//   e.stopPropagation();
+//   console.log(e.key);
+//   OpenMenuDrop(e);
+//   //if aria expanded = true,
+//   customSelectClassElmnt.addEventListener("keydown", function (e) {
+//     console.log(e.key);
+//     MenuOnKeydown(e);
+//   });
+// });
+
+// function MenuOnKeydown(e) {
+//   e.preventDefault();
+
+//   let index = focusablesSortingMenu.findIndex(
+//     (f) => f === selectedDiv.nextSibling.querySelector(":focus")
+//   );
+//   //  console.log("fin" + index);
+
+//   if (e.key === "ArrowUp") {
+//     index--;
+//     if (index < 0) {
+//       index = focusablesSortingMenu.length - 1;
+//     }
+//   }
+//   if (e.key === "ArrowDown") {
+//     index++;
+//     if (index >= focusablesSortingMenu.length) {
+//       index = 0;
+//     }
+//   }
+//   console.log("fin" + index);
+//   focusablesSortingMenu[index].focus();
+// }
+
+//function
+
+//source pour navigation clavier:
+// https://www.w3.org/WAI/ARIA/apg/example-index/menu-button/menu-button-links.html
 
 function closeAllSelect(elmnt) {
   /*a function that will close all select boxes in the document,
@@ -227,6 +501,7 @@ function closeAllSelect(elmnt) {
   for (i = 0; i < xl; i++) {
     if (arrNo.indexOf(i)) {
       x[i].classList.add("select-hide");
+      x[i].removeAttribute("aria-expanded");
     }
   }
 
@@ -234,7 +509,9 @@ function closeAllSelect(elmnt) {
   sortingMedias();
 }
 /*if the user clicks anywhere outside the select box, then this line close all select boxes:*/
-document.addEventListener("click", closeAllSelect);
+window.addEventListener("click", closeAllSelect);
+// TOUN, c'est marrant ça, on ne met pas de () après l'appel de
+//cett fonction
 
 // ----------- plan pour le tri --------//
 /* quand je clique sur la popularité, 
@@ -385,3 +662,64 @@ function sortOnDate() {
 //role=”button”, aria-haspopup=”listbox”, aria-expanded.
 // Liste d’options : role=”listbox”, aria-activedescendant,
 //aria-selected, aria-labelledby qui pointe vers l’input label
+
+const sortingMenu = document.querySelector(".photo-sorting-gallery");
+console.log(sortingMenu);
+//const tabindexSortingMenu
+
+// function focusInSortingMenu(e) {
+//   e.preventDefault();
+//   let index = focusablesSortingMenu.findIndex(
+//     (f) => f === sortingMenu.querySelector(":focus")
+//   );
+//   // if (e.shiftKey === true) {
+//   //   index--;
+//   // } else {
+//   //   index++;
+//   // }
+//   // if (index >= focusablesLightbox.length) {
+//   //   index = 0;
+//   // }
+//   // if (index < 0) {
+//   //   index = focusablesLightbox.length - 1;
+//   // }
+//   focusablesSortingMenu[index].focus();
+// }
+// customSelectClassElmnt.addEventListener("keydown", function (e) {
+//   console.log(e.key);
+//   // focusInSortingMenu(e);
+//   //  ouvrir();
+//   //OpenMenuDrop(e);
+//   focusInSortingMenu(e);
+// });
+
+// utilisation en ressource pour navigation clavier de
+// https://www.w3.org/WAI/ARIA/apg/example-index/menu-button/menu-button-links.html
+// document.addEventListener(
+//   "keydown",
+function OpenMenuDrop(e) {
+  if (e.key === "ArrowDown" || e.key === " " || e.key === "Enter") {
+    closeAllSelect(selectedDiv);
+    e.preventDefault();
+    selectedDiv.nextSibling.classList.remove("select-hide");
+    selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+    selectedDiv.classList.add("select-arrow-active");
+    focusablesSortingMenu[0].focus();
+    //  focusablesSortingMenu[0].style.backgroundColor = "blue";
+    //document.removeEventListener("keydown", OpenMenuDrop(e));
+  }
+  if (e.key === "ArrowUp") {
+    closeAllSelect(selectedDiv);
+    e.preventDefault();
+    selectedDiv.nextSibling.classList.remove("select-hide");
+    selectedDiv.nextSibling.setAttribute("aria-expanded", "true");
+    selectedDiv.classList.add("select-arrow-active");
+    focusablesSortingMenu[2].focus();
+    //document.removeEventListener("keydown", OpenMenuDrop(e));
+
+    //    focusablesSortingMenu[2].style.backgroundColor = "red";
+  }
+}
+//,
+// { once: true }
+//);

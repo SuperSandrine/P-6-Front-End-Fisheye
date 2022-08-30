@@ -14,7 +14,8 @@
 .select-selected {
   background-color: #901c1c;
 }
-.select-selected:hover {
+.select-selected:hover,
+.select-selected:focus {
   background-color: #d3573c;
 }
 
@@ -66,6 +67,7 @@
 }
 
 .select-items div:hover,
+.select-items div:focus,
 .same-as-selected {
   background-color: #d3573c;
   color: black;

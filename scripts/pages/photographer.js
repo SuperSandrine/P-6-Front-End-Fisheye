@@ -122,7 +122,7 @@ async function init() {
   displayAllLikesForTotal();
   giveModalAName(photographerData);
   //playAddAclick();
-
+  //  OpenMenuDrop();
   const openContactModal = document.querySelector("#display-contact-modal");
   openContactModal.addEventListener("click", (e) => {
     displayContactModal();
