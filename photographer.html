@@ -14,14 +14,16 @@
     ></script>
     <title>Fisheye - photographe en titre et sa gallerie photo</title>
   </head>
+
+
   <body id="body">
     <header lang="en">
-      <a tabindex="1" href="./index.html" role="image link" alt="Fisheye home page" role="banner">
-        <img src="./assets/images/logo.png" alt="" class="logo"
+      <a tabindex="1" href="./index.html" alt="Fisheye home page" role="link">
+        <img src="./assets/images/logo.png" alt="Fisheye Logo" class="logo"
       /></a>
     </header>
     <main id="main">
-      <header role="heading" class="photograph-header"></header>
+      <header role="heading" aria-level="1" class="photograph-header"></header>
       <div class="photograph-sorting-gallery"> 
         <label tabindex="7" id="labelledSort" for="filter-photo">Trier par </label>
       <div tabindex="8" class="custom-select">
@@ -43,7 +45,7 @@
 
     <footer></footer>
 
-    <!-- *********** MODAL form *********** -->
+    <!-- *********** MODAL contact form *********** -->
 
     <aside id="contact_modal" role="dialog" aria-hidden="true" aria-labelledby="form-title">
       <div class="position">

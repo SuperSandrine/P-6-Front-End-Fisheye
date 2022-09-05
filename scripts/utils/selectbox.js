@@ -6,102 +6,103 @@
 let sortingMethodFromList;
 
 // ***************** partie animation dynamique ******************
-let customSelectClassElmnt,
-  j,
-  l,
-  ll,
-  selectTagElmnt,
-  selectedDiv,
-  optionsBoxDiv,
-  optionDiv;
+let customSelectClassElmnt;
+let j;
+let l;
+let ll;
+let selectTagElmnt;
+let selectedDiv;
+let optionsBoxDiv;
+let optionDiv;
 
-/*look for element with the class "custom-select":*/
-customSelectClassElmnt = document.querySelector(".custom-select");
-selectTagElmnt = customSelectClassElmnt.getElementsByTagName("select")[0]; // original options index [0]
+/* look for element with the class "custom-select": */
+customSelectClassElmnt = document.querySelector('.custom-select');
+selectTagElmnt = customSelectClassElmnt.getElementsByTagName('select')[0]; // original options index [0]
 ll = selectTagElmnt.length; // number of options :'4'
-/*for each element, create a new DIV that will act as the selected item, or the main button:*/
-selectedDiv = document.createElement("DIV");
-selectedDiv.setAttribute("class", "select-selected");
-selectedDiv.setAttribute("role", "button");
-selectedDiv.setAttribute("id", "selectedButton");
-selectedDiv.setAttribute("aria-haspopup", "listbox"); // indicates the button opens a menu
-selectedDiv.setAttribute("aria-labelledby", "labelledSort");
-selectedDiv.setAttribute("tabindex", "0");
-selectedDiv.setAttribute("aria-controls", "listboxSort");
-selectedDiv.innerHTML =
-  selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML; // fill the div inner HTML with let selecTagElmnt : 'filtr' at first
+/* for each element, create a new DIV that will act as the selected item, or the main button: */
+selectedDiv = document.createElement('DIV');
+selectedDiv.setAttribute('class', 'select-selected');
+selectedDiv.setAttribute('role', 'button');
+selectedDiv.setAttribute('id', 'selectedButton');
+selectedDiv.setAttribute('aria-haspopup', 'listbox'); // indicates the button opens a menu
+selectedDiv.setAttribute('aria-labelledby', 'labelledSort');
+selectedDiv.setAttribute('tabindex', '0');
+selectedDiv.setAttribute('aria-controls', 'listboxSort');
+selectedDiv.innerHTML = selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML; // fill the div inner HTML with let selecTagElmnt : 'filtr' at first
 
 customSelectClassElmnt.appendChild(selectedDiv);
 
-selectedDiv.addEventListener("click", function (e) {
-  /*when the select box is clicked, close any other select boxes,
-      and open/close the current select box:*/
+selectedDiv.addEventListener('click', function (e) {
+  /* when the select box is clicked, close any other select boxes,
+      and open/close the current select box: */
   e.stopPropagation();
   closeAllSelect(this);
-  this.nextSibling.classList.toggle("select-hide");
-  this.nextSibling.setAttribute("aria-expanded", "true");
-  this.classList.toggle("select-arrow-active");
+  this.nextSibling.classList.toggle('select-hide');
+  this.nextSibling.setAttribute('aria-expanded', 'true');
+  this.classList.toggle('select-arrow-active');
 });
 
-/* create a new DIV that will contain the options list:*/
-optionsBoxDiv = document.createElement("DIV");
-optionsBoxDiv.setAttribute("class", "select-items select-hide");
-optionsBoxDiv.setAttribute("role", "listbox");
-optionsBoxDiv.setAttribute("aria-labelledby", "labelledSort");
-optionsBoxDiv.setAttribute("id", "listboxSort");
-optionsBoxDiv.setAttribute("tabindex", "-1");
+/* create a new DIV that will contain the options list: */
+optionsBoxDiv = document.createElement('DIV');
+optionsBoxDiv.setAttribute('class', 'select-items select-hide');
+optionsBoxDiv.setAttribute('role', 'listbox');
+optionsBoxDiv.setAttribute('aria-labelledby', 'labelledSort');
+optionsBoxDiv.setAttribute('id', 'listboxSort');
+optionsBoxDiv.setAttribute('tabindex', '-1');
 
 for (j = 1; j < ll; j++) {
-  /*for each option in the original select element except the [0] option which is "filtrer",
-    create a new DIV that will act as an option item:*/
-  optionDiv = document.createElement("DIV");
-  optionDiv.setAttribute("role", "option");
-  optionDiv.setAttribute("tabindex", "0");
+  /* for each option in the original select element except the [0] option which is "filtrer",
+    create a new DIV that will act as an option item: */
+  optionDiv = document.createElement('DIV');
+  optionDiv.setAttribute('role', 'option');
+  optionDiv.setAttribute('tabindex', '0');
 
   optionDiv.innerHTML = selectTagElmnt.options[j].innerHTML;
 
-  optionDiv.setAttribute("id", `${optionDiv.innerHTML}`);
+  optionDiv.setAttribute('id', `${optionDiv.innerHTML}`);
 
   // --- pour simplifer dessous et mettre un keydown listener mardi------
-  optionDiv.addEventListener("click", function (e) {
-    /*when an item is clicked, update the original select box, and the selected item:*/
-    let oldSelection, i, originalSelectTag, changeSelectedDiv, sl;
-    /* this. correspond à l'élément clické, soit la div date, div pop, div titre.*/
-    originalSelectTag =
-      this.parentNode.parentNode.getElementsByTagName("select")[0];
+  optionDiv.addEventListener('click', function (e) {
+    /* when an item is clicked, update the original select box, and the selected item: */
+    let oldSelection;
+    let i;
+    let originalSelectTag;
+    let changeSelectedDiv;
+    let sl;
+    /* this. correspond à l'élément clické, soit la div date, div pop, div titre. */
+    originalSelectTag = this.parentNode.parentNode.getElementsByTagName('select')[0];
     //    console.log(originalSelectTag); // 'filtrer'
     sl = originalSelectTag.length;
     changeSelectedDiv = this.parentNode.previousSibling;
     //    console.log(changeSelectedDiv);
-    /*h est la div contenant .select-items et .select-hide*/
+    /* h est la div contenant .select-items et .select-hide */
     //  console.log(changeSelectedDiv);
     for (i = 0; i < sl; i++) {
       if (originalSelectTag.options[i].innerHTML == this.innerHTML) {
         originalSelectTag.selectedIndex = i;
-        //console.log(changeSelectedDiv.innerHTML);//'filtrer'
+        // console.log(changeSelectedDiv.innerHTML);//'filtrer'
         changeSelectedDiv.innerHTML = this.innerHTML;
-        //console.log(changeSelectedDiv.innerHTML);//'Popularité'
+        // console.log(changeSelectedDiv.innerHTML);//'Popularité'
         changeSelectedDiv.setAttribute(
-          "aria-activedescendant",
-          `${this.innerHTML}`
+          'aria-activedescendant',
+          `${this.innerHTML}`,
         );
-        sortingMethodFromList =
-          changeSelectedDiv.innerHTML; /* sortingMFL change à chaque clic */
-        //console.log(sortingMethodFromList);
-        /* voici l'information dont j'ai besoin pour jouer mon tri*/
+        sortingMethodFromList = changeSelectedDiv.innerHTML; /* sortingMFL change à chaque clic */
+        // console.log(sortingMethodFromList);
+        /* voici l'information dont j'ai besoin pour jouer mon tri */
         // ternaire :
-        //s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
+        // s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
         // ternaire
 
-        oldSelection = this.parentNode.querySelector(".same-as-selected");
+        oldSelection = this.parentNode.querySelector('.same-as-selected');
 
         oldSelection !== null
-          ? oldSelection.removeAttribute("class") &
-            oldSelection.removeAttribute("aria-selected") &
-            this.setAttribute("class", "same-as-selected") &
-            this.setAttribute("aria-selected", "true")
-          : this.setAttribute("class", "same-as-selected") &
-            this.setAttribute("aria-selected", "true");
+          ? oldSelection.removeAttribute('class')
+            & oldSelection.removeAttribute('aria-selected')
+            & this.setAttribute('class', 'same-as-selected')
+            & this.setAttribute('aria-selected', 'true')
+          : this.setAttribute('class', 'same-as-selected')
+            & this.setAttribute('aria-selected', 'true');
         // OK DONE: pour quoi une ternaire ne fait pas le travail ? >>> il ne faut pas mettre
         // & mais &&
 
@@ -118,41 +119,41 @@ for (j = 1; j < ll; j++) {
 customSelectClassElmnt.appendChild(optionsBoxDiv);
 
 function closeAllSelect(elmnt) {
-  console.log("ça ferme");
-  /*a function that will close all select boxes in the document,
-  except the current select box:*/
-  let i,
-    xl,
-    yl,
-    arrNo = [];
+  console.log('ça ferme');
+  /* a function that will close all select boxes in the document,
+  except the current select box: */
+  let i;
+  let xl;
+  let yl;
+  const arrNo = [];
   xl = optionsBoxDiv.length;
   yl = selectedDiv.length;
   for (i = 0; i < yl; i++) {
     if (elmnt == selectedDiv[i]) {
       arrNo.push(i);
     } else {
-      selectedDiv[i].classList.remove("select-arrow-active");
+      selectedDiv[i].classList.remove('select-arrow-active');
     }
   }
   for (i = 0; i < xl; i++) {
     if (arrNo.indexOf(i)) {
-      optionsBoxDiv[i].classList.add("select-hide");
-      optionsBoxDiv[i].removeAttribute("aria-expanded");
+      optionsBoxDiv[i].classList.add('select-hide');
+      optionsBoxDiv[i].removeAttribute('aria-expanded');
     }
   }
   sortingMedias();
-  console.log("oui ça ferme");
+  console.log('oui ça ferme');
   console.log(arrNo);
 }
 
-/*if the user clicks anywhere outside the select box, then this line close all select boxes:*/
-window.addEventListener("click", closeAllSelect);
+/* if the user clicks anywhere outside the select box, then this line close all select boxes: */
+window.addEventListener('click', closeAllSelect);
 
 // ***************** partie Sort ******************
 function sortOnPopularity() {
-  photographerMedia.sort(function (a, b) {
-    let x = a.likes;
-    let y = b.likes;
+  photographerMedia.sort((a, b) => {
+    const x = a.likes;
+    const y = b.likes;
     if (x < y) {
       return -1;
     }
@@ -164,9 +165,9 @@ function sortOnPopularity() {
 }
 
 function alphabeticalSortOnTitle() {
-  photographerMedia.sort(function (a, b) {
-    let x = a.title.toLowerCase();
-    let y = b.title.toLowerCase();
+  photographerMedia.sort((a, b) => {
+    const x = a.title.toLowerCase();
+    const y = b.title.toLowerCase();
     if (x < y) {
       return -1;
     }
@@ -178,9 +179,9 @@ function alphabeticalSortOnTitle() {
 }
 
 function sortOnDate() {
-  photographerMedia.sort(function (a, b) {
-    let x = a.date;
-    let y = b.date;
+  photographerMedia.sort((a, b) => {
+    const x = a.date;
+    const y = b.date;
     if (x < y) {
       return -1;
     }
@@ -192,19 +193,19 @@ function sortOnDate() {
 }
 
 function sortingMedias() {
-  if (sortingMethodFromList === "Date") {
+  if (sortingMethodFromList === 'Date') {
     sortOnDate();
     displayMedia(photographerMedia);
   }
-  if (sortingMethodFromList === "Titre") {
+  if (sortingMethodFromList === 'Titre') {
     alphabeticalSortOnTitle();
     displayMedia(photographerMedia);
   }
-  if (sortingMethodFromList === "Popularité") {
+  if (sortingMethodFromList === 'Popularité') {
     sortOnPopularity();
     displayMedia(photographerMedia);
   } else {
-    //ne fait rien
+    // ne fait rien
   }
 }
 // ***************** partie navigation clavier ******************
@@ -217,61 +218,61 @@ function sortingMedias() {
 //                                                    - remet le :focus sur le bon tabindex
 
 let focusablesSortingMenu = [];
-let optionsSortingMenu = "div[role='option']";
+const optionsSortingMenu = "div[role='option']";
 focusablesSortingMenu = Array.from(
-  customSelectClassElmnt.querySelectorAll(optionsSortingMenu)
+  customSelectClassElmnt.querySelectorAll(optionsSortingMenu),
 );
 console.log(focusablesSortingMenu);
 
-customSelectClassElmnt.addEventListener("focus", function (a) {
+customSelectClassElmnt.addEventListener('focus', function (a) {
   console.log("j'ai le focus");
   console.log(a.target);
   console.log(this.children[1]);
   // THOMAS: c'est marrant, a.target marche mais pas this?
-  a.target.addEventListener("keydown", function (e) {
+  a.target.addEventListener('keydown', function (e) {
     console.log("quelq'un a appuyé sur un bouton");
     console.log(e.target.children[1]);
     console.log(this.children[2]);
-    if (e.key === "Tab") {
-    } else if (optionsBoxDiv.matches(".select-hide") == true) {
-      if (e.key === "ArrowDown" || e.key === " " || e.key === "Enter") {
-        this.children[1].nextSibling.classList.remove("select-hide");
-        this.children[1].setAttribute("aria-expanded", "true");
-        this.children[1].classList.add("select-arrow-active");
+    if (e.key === 'Tab') {
+    } else if (optionsBoxDiv.matches('.select-hide') == true) {
+      if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
+        this.children[1].nextSibling.classList.remove('select-hide');
+        this.children[1].setAttribute('aria-expanded', 'true');
+        this.children[1].classList.add('select-arrow-active');
         focusablesSortingMenu[0].focus();
       }
-      if (e.key === "ArrowUp") {
-        this.children[1].nextSibling.classList.remove("select-hide");
-        this.children[1].setAttribute("aria-expanded", "true");
-        this.children[1].classList.add("select-arrow-active");
+      if (e.key === 'ArrowUp') {
+        this.children[1].nextSibling.classList.remove('select-hide');
+        this.children[1].setAttribute('aria-expanded', 'true');
+        this.children[1].classList.add('select-arrow-active');
         focusablesSortingMenu[2].focus();
       }
-    } else if (optionsBoxDiv.matches(".select-hide") == false) {
+    } else if (optionsBoxDiv.matches('.select-hide') == false) {
       e.preventDefault();
       let index = focusablesSortingMenu.findIndex(
-        (f) => f === selectedDiv.nextSibling.querySelector(":focus")
+        (f) => f === selectedDiv.nextSibling.querySelector(':focus'),
       );
-      if (e.key === "ArrowUp") {
+      if (e.key === 'ArrowUp') {
         index--;
         if (index < 0) {
           index = focusablesSortingMenu.length - 1;
         }
         focusablesSortingMenu[index].focus();
       }
-      if (e.key === "ArrowDown") {
+      if (e.key === 'ArrowDown') {
         index++;
         if (index >= focusablesSortingMenu.length) {
           index = 0;
         }
         focusablesSortingMenu[index].focus();
       }
-      if (e.key === "Enter" || e.key === " ") {
+      if (e.key === 'Enter' || e.key === ' ') {
         focusablesSortingMenu[index].click();
       }
-      if (e.key === "Escape" || e.key === "Esc") {
-        this.children[1].classList.remove("select-arrow-active");
-        this.children[1].nextSibling.classList.add("select-hide");
-        this.children[1].removeAttribute("aria-expanded");
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        this.children[1].classList.remove('select-arrow-active');
+        this.children[1].nextSibling.classList.add('select-hide');
+        this.children[1].removeAttribute('aria-expanded');
 
         this.focus();
       }
@@ -333,7 +334,7 @@ customSelectClassElmnt.addEventListener("focus", function (a) {
 //   });
 // });
 
-//pas utilisé
+// pas utilisé
 // function focusInSortingMenu(e) {
 //   //if (e.key === "Tab") {
 //   //} else {
@@ -369,7 +370,7 @@ customSelectClassElmnt.addEventListener("focus", function (a) {
 //   }
 // }
 
-//pas utilisé
+// pas utilisé
 // function openDropMenuOnKey(e) {
 //   /*when the select box is clicked, close any other select boxes,
 //       and open/close the current select box:*/
@@ -394,10 +395,10 @@ customSelectClassElmnt.addEventListener("focus", function (a) {
 //   this.classList.add("select-arrow-active");
 // }
 
-//let deployed = false; à la place j'utilise matches:
+// let deployed = false; à la place j'utilise matches:
 // si false = deployed
 // si true = hide
-//optionsBoxDiv.matches(".select-hide")
+// optionsBoxDiv.matches(".select-hide")
 
 // corrigé, partiellement utilise à réécrire
 // customSelectClassElmnt.addEventListener("focus", function (e) {

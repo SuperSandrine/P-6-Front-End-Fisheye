@@ -1,22 +1,24 @@
-function photographerFactory(data) {
-  const { name, city, id, country, tagline, price, portrait } = data;
+export default function photographerFactory(data) {
+  const {
+    name, city, id, country, tagline, price, portrait,
+  } = data;
 
   const picture = `assets/photographers/${portrait}`;
   const linkUrl = `photographer.html?id=${id}`;
 
   function getUserCardDOM() {
-    const link = document.createElement("a");
-    link.setAttribute("href", linkUrl);
-    link.setAttribute("title", `${name} - nouvelle page`);
-    const article = document.createElement("article");
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
-    img.setAttribute("alt", "");
-    const h2 = document.createElement("h2");
+    const link = document.createElement('a');
+    link.setAttribute('href', linkUrl);
+    link.setAttribute('title', `${name} - nouvelle page`);
+    const article = document.createElement('article');
+    const img = document.createElement('img');
+    img.setAttribute('src', picture);
+    img.setAttribute('alt', '');
+    const h2 = document.createElement('h2');
     h2.textContent = name;
-    const text = document.createElement("p");
+    const text = document.createElement('p');
     text.innerHTML = `<div tabindex="0" class="article_information">
-    <p class="city">${city + ", " + country} </p>
+    <p class="city">${`${city}, ${country}`} </p>
     <p class="tagline">${tagline}</p>
     <p class="price">${price}€/jour</p></div>`;
     article.appendChild(link);
@@ -27,11 +29,11 @@ function photographerFactory(data) {
   }
 
   function getPhotographHeader() {
-    const photographHeader = document.querySelector(".photograph-header");
+    const photographHeader = document.querySelector('.photograph-header');
     photographHeader.innerHTML = `<section class="photograph-header_information">
       <h1 tabindex="2">${name}</h1>
       <div tabindex="3">
-      <p class="city">${city + ", " + country}</p>
+      <p class="city">${`${city}, ${country}`}</p>
       <p class="tagline">${tagline}</p></div>
     </section>
     <div class="photographer-header-pictureAndButton-box">
@@ -44,10 +46,10 @@ function photographerFactory(data) {
   }
 
   // Ok= TODO: il y a la création d'une div autour des 3 balises avec la première
-  //ligne, peut-on l'enlever? = au lieu de créer un enfant, j'appelle la classe directement
+  // ligne, peut-on l'enlever? = au lieu de créer un enfant, j'appelle la classe directement
   // et ne fait d'appendChild dans photograph.pages. Juste j'appelle ma const.
 
-  //test du dimanche:
+  // test du dimanche:
   // function getPhotographPrice() {
   //   //AllLikesForOne();
   //   const photographPrice = document.querySelector(".photograph-price");
@@ -78,8 +80,8 @@ function photographerFactory(data) {
   // }
 
   function getPhotographPrice() {
-    const photographPrice = document.querySelector(".photograph-price");
-    //photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
+    const photographPrice = document.querySelector('.photograph-price');
+    // photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
     photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span> <i aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `;
     return photographPrice;
   }
@@ -88,11 +90,11 @@ function photographerFactory(data) {
   return {
     name,
     picture,
-    //totalOfLikes,
-    //allLikesForOne,
+    // totalOfLikes,
+    // allLikesForOne,
     getUserCardDOM,
     getPhotographHeader,
     getPhotographPrice,
-    //addALikeToTotal,
+    // addALikeToTotal,
   };
 }

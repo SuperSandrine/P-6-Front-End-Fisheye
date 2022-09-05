@@ -1,10 +1,12 @@
 function mediaFactory(data) {
-  //pour chaque index de l'array media,
+  // pour chaque index de l'array media,
   // j'affiche les images dans la gallerie avec titre et likes
   //      > images et vidéos > traitement avec une ternaire
 
   // d'abord je récupère mes données
-  const { date, id, image, likes, photographId, price, title, video } = data;
+  const {
+    date, id, image, likes, photographId, price, title, video,
+  } = data;
   // je gère les fichiers image ou video
   // avec une ternaire format :" question ? vrai alors action : ou faux alors action;"
   // si image existe? affiche image : sinon affiche video
@@ -15,7 +17,7 @@ function mediaFactory(data) {
   const media = image == undefined ? mediaVideo : mediaImage;
 
   // je crée une premiere fonction pour afficher la gallerie
-  //suit= sauvegarde pour ajouter eventlistener pour la lightbox
+  // suit= sauvegarde pour ajouter eventlistener pour la lightbox
   // function getCardGallery() {
   //   let parameterForLikesLikes = likes;
   //   let parameterForLikesId = id;
@@ -38,34 +40,34 @@ function mediaFactory(data) {
   //     </div>`;
   //   return { article, parameterForLikesId, parameterForLikesLikes };
   // }
-  //avant : fin lightbox
-  //j'ai rajouté des attributs pour récupérer le Id et le Likes, autre solution?
+  // avant : fin lightbox
+  // j'ai rajouté des attributs pour récupérer le Id et le Likes, autre solution?
 
   function getCardGallery() {
-    let parameterForLikesLikes = likes;
-    let parameterForLikesId = id;
+    const parameterForLikesLikes = likes;
+    const parameterForLikesId = id;
     // console.log(
     //   "les paramètres pour add : " +
     //     parameterForLikesLikes +
     //     " , " +
     //     parameterForLikesId
     // );
-    const article = document.createElement("article");
-    article.setAttribute("lang", "en");
+    const article = document.createElement('article');
+    article.setAttribute('lang', 'en');
     article.innerHTML = `<a tabindex="9" alt="${title}, closeup view" href="#" class="display-lightbox" data-id="${id}">
         ${media}
       </a>
       <div>
         <p tabindex="9">${title}</p>
-        <div tabindex="9" class="likes-${id}" ><p class="likesData">${likes} </p><button class="button-likes-${id} play-addALike" data-id="${id}" data-likes="${likes}" >
-        <i aria-label="likes"
+        <div tabindex="9" class="likes-${id}" ><p class="likesData">${likes} </p><button aria-label="likes" class="button-likes-${id} play-addALike" data-id="${id}" data-likes="${likes}" >
+        <i 
         class="fa-solid fa-heart heartSolid"> </i></button></div>
       </div>`;
     return { article, parameterForLikesId, parameterForLikesLikes };
   }
 
   // travail de jeudi 18:-------------------
-  //<i onclick="addALike(${likes},${id})" >>>sauvegarde ligne 26 >>jeudi 18 à 22h >> remis à 1h15
+  // <i onclick="addALike(${likes},${id})" >>>sauvegarde ligne 26 >>jeudi 18 à 22h >> remis à 1h15
   // tentaive d'ajour d'un event listener avec création d'une fonction playaddaLikes à la
   // fin de likemeter.js, non fonctionnelle
   // pour se faire, ajout de return sur la fonction getCarGallery, utilité, non avérée.
@@ -108,15 +110,15 @@ function mediaFactory(data) {
 
   return {
     getCardGallery,
-    //allLikesForOne,
-    //addALikeToTotal,
-    //getPhotographPrice,
-    //totalOfLikes,
-    //addALike,
-    //getPhotographPrice,
+    // allLikesForOne,
+    // addALikeToTotal,
+    // getPhotographPrice,
+    // totalOfLikes,
+    // addALike,
+    // getPhotographPrice,
   };
 }
 
-//<div class="likes-${id}"><p>${likes} </p><i onclick="addALike(${likes},${id})"
+// <div class="likes-${id}"><p>${likes} </p><i onclick="addALike(${likes},${id})"
 // const change = document.querySelector(".likesData").innerHTML;
 // change.addEventListener("change", addALikeToTotal);

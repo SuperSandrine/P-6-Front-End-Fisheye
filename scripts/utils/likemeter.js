@@ -2,7 +2,7 @@ let allLikes = [];
 let totalOfLikes = 0;
 
 function allLikesForTotal() {
-  allLikes = document.querySelectorAll(".likesData");
+  allLikes = document.querySelectorAll('.likesData');
   for (let i = 0; i < allLikes.length; i++) {
     totalOfLikes += parseInt(allLikes[i].innerHTML);
     //    console.log("comptage en cours" + totalOfLikes);
@@ -12,11 +12,11 @@ function allLikesForTotal() {
 
 function displayAllLikesForTotal() {
   //  console.log("voici les alllikes " + allLikes);
-  const newChild = document.createElement("span");
+  const newChild = document.createElement('span');
   const textNode2 = document.createTextNode(`${totalOfLikes}`);
   newChild.appendChild(textNode2);
-  const paragrapheparent = document.querySelector(".parent");
-  const childHasBeen = document.querySelector(".parent span");
+  const paragrapheparent = document.querySelector('.parent');
+  const childHasBeen = document.querySelector('.parent span');
   paragrapheparent.replaceChild(newChild, childHasBeen);
 }
 
@@ -24,34 +24,35 @@ function displayAllLikesForTotal() {
 // retraits dans les cartes (nbOfLikes) et dans l'encart du bas de page (totalOfLikes)
 // en paramètre, on récupère le nbOfLikes présent dans le fichier json
 function addALike(nbOfLikes, photoId) {
-  let shortClassLikes = document.querySelector(`.likes-${photoId} p`).innerHTML;
+  const shortClassLikes = document.querySelector(
+    `.likes-${photoId} p`,
+  ).innerHTML;
   //  console.log("je check : " + totalOfLikes);
   const nbOfLikesInner = parseInt(shortClassLikes);
-  console.log("je check le nblikes en inner : " + nbOfLikesInner);
-  console.log("short : " + shortClassLikes);
+  console.log(`je check le nblikes en inner : ${nbOfLikesInner}`);
+  console.log(`short : ${shortClassLikes}`);
 
-  //la const insideCard demande: Est-ce que le nbOfLikes du json égale le nbdeLikes dans le innerHtml? si oui, on rajoute 1,
-  //sinon on décrémente.
-  const insideCard =
-    nbOfLikes === nbOfLikesInner ? (nbOfLikes = nbOfLikes + 1) : nbOfLikes--;
-  //shortClassLikes = insideCard; >>> Thomas >>> Pourquoi ça marche pas?
-  console.log("voici le insideCard" + insideCard);
+  // la const insideCard demande: Est-ce que le nbOfLikes du json égale le nbdeLikes dans le innerHtml? si oui, on rajoute 1,
+  // sinon on décrémente.
+  const insideCard = nbOfLikes === nbOfLikesInner ? (nbOfLikes += 1) : nbOfLikes--;
+  // shortClassLikes = insideCard; >>> Thomas >>> Pourquoi ça marche pas?
+  console.log(`voici le insideCard${insideCard}`);
   document.querySelector(`.likes-${photoId} p`).innerHTML = insideCard;
-  document.querySelector(`.likes-${photoId} p`).style.backgroundColor = "blue";
+  document.querySelector(`.likes-${photoId} p`).style.backgroundColor = 'blue';
   if (nbOfLikes > nbOfLikesInner) {
     totalOfLikes++;
   } else {
     totalOfLikes--;
   }
 
-  console.log("voici le total après click :" + totalOfLikes);
+  console.log(`voici le total après click :${totalOfLikes}`);
   displayAllLikesForTotal();
 }
 
 // pourquoi quand je filtre, je ne peux plus injecter mon code dans le tableau filtré? C'est à dire qu'une
 // filtré la ligne 39 et 40 ne marche plus? ()
 
-//THOMAS: ça fonctionne, sauf quand je filtre. il doit y avoir un problème avec mon protocole
+// THOMAS: ça fonctionne, sauf quand je filtre. il doit y avoir un problème avec mon protocole
 // d'affichage aller voir le display media dans photographer.js/pages et la selectbox.
 
 // dans mon protocole de filtre, j'appelais la fonctin DisplayMedia qui removeChild avant appendChild.
@@ -92,8 +93,8 @@ function addALike(nbOfLikes, photoId) {
 // activer la fonction addALike avec un event listener à la place du onclick html
 // TODO pour faire fonctionner: la id n'est pas reconnue.
 function playAddAclick() {
-  let paramId = mediaFactory(id).getCardGallery().parameterForLikesId;
-  let paramLikes = mediaFactory(id).getCardGallery().parameterForLikesLikes;
+  const paramId = mediaFactory(id).getCardGallery().parameterForLikesId;
+  const paramLikes = mediaFactory(id).getCardGallery().parameterForLikesLikes;
   const buttonForLikes = document.getElementsByClassName(`.likes-${id} button`);
-  buttonForLikes.addEventListener("click", addAlike(paramLikes, paramId));
+  buttonForLikes.addEventListener('click', addAlike(paramLikes, paramId));
 }

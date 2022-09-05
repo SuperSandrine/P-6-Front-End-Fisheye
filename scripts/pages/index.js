@@ -1,11 +1,12 @@
-//Cette fonction va chercher la données,
-//puis la transforme en JSON
-//puis remplie le tableau index par index (pour éviter davoir un tableau dans le tableau)
+import photographerFactory from '../factories/photographer';
+// Cette fonction va chercher la données,
+// puis la transforme en JSON
+// puis remplie le tableau index par index (pour éviter davoir un tableau dans le tableau)
 // console log
 // renvoie l'objet photographers
 async function getPhotographers() {
   let photographers = [];
-  await fetch("./data/photographers.json")
+  await fetch('./data/photographers.json')
     .then((response) => response.json())
     .then((response2) => {
       photographers = response2.photographers;
@@ -17,7 +18,7 @@ async function getPhotographers() {
 // this function Display the data catch previously, it's a "presentation" function
 async function displayData(photographers) {
   // class name of the section in main in html, currently the only section of main.
-  const photographersSection = document.querySelector(".photographer_section");
+  const photographersSection = document.querySelector('.photographer_section');
   photographers.forEach((photographer) => {
     // in the big function in factories files, for each photographer, we
     // call the photographerFactory and put it in const photographModel
@@ -26,7 +27,7 @@ async function displayData(photographers) {
     // const userCardDOM
     const userCardDOM = photographerModel.getUserCardDOM();
     // In the main/PhotorapherSection, add a node at the end of the list of a const
-    //userCardDOM.
+    // userCardDOM.
     photographersSection.appendChild(userCardDOM);
   });
 }

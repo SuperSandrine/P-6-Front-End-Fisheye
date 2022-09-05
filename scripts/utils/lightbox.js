@@ -3,12 +3,11 @@
 // dans la ligthbox je passe d'une image à l'autre avec les fleches.
 // soit je navigue dans un array avec les flèches.
 
-const lightboxModal = document.getElementById("lightbox_modal");
-const lightboxMedia = document.querySelector(".lightbox_modal-content");
-const main = document.querySelector("#body");
-const displayId = document.getElementsByClassName("display-lightbox");
-const tabindexLightbox =
-  "div[tabindex],button[tabindex],img[tabindex],p[tabindex]";
+const lightboxModal = document.getElementById('lightbox_modal');
+const lightboxMedia = document.querySelector('.lightbox_modal-content');
+const main = document.querySelector('#body');
+const displayId = document.getElementsByClassName('display-lightbox');
+const tabindexLightbox = 'div[tabindex],button[tabindex],img[tabindex],p[tabindex]';
 let focusablesLightbox = [];
 let previouslyFocusedElement = null;
 
@@ -24,17 +23,17 @@ let displayedLB = false;
 const keyboardNavigationOnLightbox = function (e) {
   e.preventDefault();
   console.log(e.key);
-  if (e.key === "Escape" || e.key === "Esc") {
+  if (e.key === 'Escape' || e.key === 'Esc') {
     closeLightboxModal(e);
   }
-  if (e.key === "Tab" && displayedLB === true) {
+  if (e.key === 'Tab' && displayedLB === true) {
     focusInLightbox(e);
   }
-  if (e.key === "ArrowLeft" && displayedLB === true) {
+  if (e.key === 'ArrowLeft' && displayedLB === true) {
     previousMedia(photographerMedia);
     giveLightboxItsMedias();
   }
-  if (e.key === "ArrowRight" && displayedLB === true) {
+  if (e.key === 'ArrowRight' && displayedLB === true) {
     nextMedia(photographerMedia);
     giveLightboxItsMedias();
   }
@@ -45,24 +44,24 @@ const keyboardNavigationOnLightbox = function (e) {
 // ses informations et l'image dans la lightbox
 function displayLightboxModal(e) {
   displayedLB = true;
-  lightboxModal.style.display = "block";
+  lightboxModal.style.display = 'block';
   //  lightboxModal.focus();
-  lightboxModal.removeAttribute("aria-hidden");
-  lightboxModal.setAttribute("aria-modal", "true");
-  main.classList.add("no-scroll");
-  main.setAttribute("aria-hidden", "true");
+  lightboxModal.removeAttribute('aria-hidden');
+  lightboxModal.setAttribute('aria-modal', 'true');
+  main.classList.add('no-scroll');
+  main.setAttribute('aria-hidden', 'true');
   idMedia = e;
   console.log(idMedia);
   getIndexofMediasForLightbox(photographerMedia);
   giveLightboxItsMedias(photographerMedia);
   // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
   focusablesLightbox = Array.from(
-    lightboxModal.querySelectorAll(tabindexLightbox)
+    lightboxModal.querySelectorAll(tabindexLightbox),
   );
   // on range le tableau en fonction des tabindex
-  focusablesLightbox.sort(function (a, b) {
-    let x = a.getAttribute("tabindex");
-    let y = b.getAttribute("tabindex");
+  focusablesLightbox.sort((a, b) => {
+    const x = a.getAttribute('tabindex');
+    const y = b.getAttribute('tabindex');
     if (x < y) {
       return -1;
     }
@@ -71,10 +70,10 @@ function displayLightboxModal(e) {
     }
     return 0;
   });
-  previouslyFocusedElement = document.querySelector(":focus");
+  previouslyFocusedElement = document.querySelector(':focus');
   console.log(previouslyFocusedElement);
   focusablesLightbox[0].focus();
-  window.addEventListener("keydown", keyboardNavigationOnLightbox);
+  window.addEventListener('keydown', keyboardNavigationOnLightbox);
   return idMedia;
 }
 
@@ -83,12 +82,12 @@ function closeLightboxModal() {
   if (previouslyFocusedElement !== null) {
     previouslyFocusedElement.focus();
     displayedLB = false;
-    lightboxModal.style.display = "none";
-    lightboxModal.setAttribute("aria-hidden", "true");
-    lightboxModal.removeAttribute("aria-modal");
-    main.classList.remove("no-scroll");
-    main.removeAttribute("aria-hidden");
-    window.removeEventListener("keydown", keyboardNavigationOnLightbox);
+    lightboxModal.style.display = 'none';
+    lightboxModal.setAttribute('aria-hidden', 'true');
+    lightboxModal.removeAttribute('aria-modal');
+    main.classList.remove('no-scroll');
+    main.removeAttribute('aria-hidden');
+    window.removeEventListener('keydown', keyboardNavigationOnLightbox);
   }
 }
 
@@ -113,8 +112,8 @@ function nextMedia(array) {
   if (indexOfMedia >= array.length) {
     indexOfMedia = 0;
     (fillMediaImageSource = array[indexOfMedia].image),
-      (fillMediaVideoSource = array[indexOfMedia].video),
-      (fillMediaTitle = array[indexOfMedia].title);
+    (fillMediaVideoSource = array[indexOfMedia].video),
+    (fillMediaTitle = array[indexOfMedia].title);
   }
   // if (indexOfMedia < 0) {
   //   indexOfMedia = array.length - 1;
@@ -123,8 +122,8 @@ function nextMedia(array) {
   //     (fillMediaTitle = array[indexOfMedia].title);
   else {
     (fillMediaImageSource = array[indexOfMedia].image),
-      (fillMediaVideoSource = array[indexOfMedia].video),
-      (fillMediaTitle = array[indexOfMedia].title);
+    (fillMediaVideoSource = array[indexOfMedia].video),
+    (fillMediaTitle = array[indexOfMedia].title);
   }
   return {
     indexOfMedia,
@@ -181,12 +180,12 @@ function previousMedia(array) {
   if (indexOfMedia < 0) {
     indexOfMedia = array.length - 1;
     (fillMediaImageSource = array[indexOfMedia].image),
-      (fillMediaVideoSource = array[indexOfMedia].video),
-      (fillMediaTitle = array[indexOfMedia].title);
+    (fillMediaVideoSource = array[indexOfMedia].video),
+    (fillMediaTitle = array[indexOfMedia].title);
   } else {
     (fillMediaImageSource = array[indexOfMedia].image),
-      (fillMediaVideoSource = array[indexOfMedia].video),
-      (fillMediaTitle = array[indexOfMedia].title);
+    (fillMediaVideoSource = array[indexOfMedia].video),
+    (fillMediaTitle = array[indexOfMedia].title);
   }
   return {
     indexOfMedia,
@@ -196,40 +195,39 @@ function previousMedia(array) {
   };
 }
 
-//prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
+// prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
 // pour afficher image, video et titre
 function giveLightboxItsMedias() {
   const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`;
   const mediaBigVideo = `<video controls >
   <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
 </video>`;
-  const bigMedia =
-    fillMediaImageSource == undefined ? mediaBigVideo : mediaBigImage;
+  const bigMedia = fillMediaImageSource == undefined ? mediaBigVideo : mediaBigImage;
   lightboxMedia.innerHTML = `${bigMedia}
      <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
 }
 
-//_________________ Navigation
+// _________________ Navigation
 // dans la ligthbox je passe d'une image à l'autre avec les fleches.
 // soit je navigue dans un array avec les flèches.
 
 // je crée un listener sur le click du next button, qui joue la fonction next et rempli la lightbox
-const lightboxModalNext = document.querySelector("#lightbox_modal-next-button");
-lightboxModalNext.addEventListener("click", (e) => {
+const lightboxModalNext = document.querySelector('#lightbox_modal-next-button');
+lightboxModalNext.addEventListener('click', (e) => {
   nextMedia(photographerMedia);
   giveLightboxItsMedias();
 });
 
 const lightboxModalPrevious = document.querySelector(
-  "#lightbox_modal-previous-button"
+  '#lightbox_modal-previous-button',
 );
-lightboxModalPrevious.addEventListener("click", (e) => {
+lightboxModalPrevious.addEventListener('click', (e) => {
   previousMedia(photographerMedia);
   giveLightboxItsMedias();
 });
 
-const closeId = document.querySelector("#close-lightbox");
-closeId.addEventListener("click", (e) => {
+const closeId = document.querySelector('#close-lightbox');
+closeId.addEventListener('click', (e) => {
   //  closeId.style.backgroundColor = "blue";
   closeLightboxModal();
 });
@@ -237,7 +235,7 @@ closeId.addEventListener("click", (e) => {
 function focusInLightbox(e) {
   e.preventDefault();
   let index = focusablesLightbox.findIndex(
-    (f) => f === lightboxModal.querySelector(":focus")
+    (f) => f === lightboxModal.querySelector(':focus'),
   );
   if (e.shiftKey === true) {
     index--;
@@ -254,10 +252,10 @@ function focusInLightbox(e) {
 }
 
 // je voudra écouter seulement dans la lightbox est ouverte
-//keyboardNavLB;
+// keyboardNavLB;
 
-//function keyboardNavigationOnLightbox() {
-//window.addEventListener("keydown", keyboardNavLB);
+// function keyboardNavigationOnLightbox() {
+// window.addEventListener("keydown", keyboardNavLB);
 
 // function keyboardNavigationOnLightbox() {
 //   window.addEventListener("keydown", function (e) {
@@ -280,7 +278,7 @@ function focusInLightbox(e) {
 // }
 
 // todo: BUG, le premier arrowleft ne fonctionne pas,
-//voir comment le tableau est lu la première fois
+// voir comment le tableau est lu la première fois
 
 // Array.from(displayId).forEach((el, index, arr) => {
 //   console.log(el);
