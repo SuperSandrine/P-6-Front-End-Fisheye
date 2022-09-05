@@ -1,4 +1,4 @@
-import photographerFactory from '../factories/photographer';
+import photographerFactory from '../factories/Photographer';
 // Cette fonction va chercher la données,
 // puis la transforme en JSON
 // puis remplie le tableau index par index (pour éviter davoir un tableau dans le tableau)

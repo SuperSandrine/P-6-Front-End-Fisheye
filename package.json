@@ -3,6 +3,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
+  "type":"module" ,
   "devDependencies": {
     "@babel/core": "^7.18.13",
     "@babel/eslint-parser": "^7.18.9",

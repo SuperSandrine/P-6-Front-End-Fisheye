@@ -1,3 +1,4 @@
+import { displayMedia, photographerMedia } from '../pages/photographer';
 // Function select, use a select to create a dynamic div section and hide the select afterward
 // custom select box sourced from W3S
 
@@ -6,21 +7,15 @@
 let sortingMethodFromList;
 
 // ***************** partie animation dynamique ******************
-let customSelectClassElmnt;
 let j;
-let l;
-let ll;
-let selectTagElmnt;
-let selectedDiv;
-let optionsBoxDiv;
 let optionDiv;
 
 /* look for element with the class "custom-select": */
-customSelectClassElmnt = document.querySelector('.custom-select');
-selectTagElmnt = customSelectClassElmnt.getElementsByTagName('select')[0]; // original options index [0]
-ll = selectTagElmnt.length; // number of options :'4'
+const customSelectClassElmnt = document.querySelector('.custom-select');
+const selectTagElmnt = customSelectClassElmnt.getElementsByTagName('select')[0]; // original options index [0]
+const ll = selectTagElmnt.length; // number of options :'4'
 /* for each element, create a new DIV that will act as the selected item, or the main button: */
-selectedDiv = document.createElement('DIV');
+const selectedDiv = document.createElement('DIV');
 selectedDiv.setAttribute('class', 'select-selected');
 selectedDiv.setAttribute('role', 'button');
 selectedDiv.setAttribute('id', 'selectedButton');
@@ -28,22 +23,13 @@ selectedDiv.setAttribute('aria-haspopup', 'listbox'); // indicates the button op
 selectedDiv.setAttribute('aria-labelledby', 'labelledSort');
 selectedDiv.setAttribute('tabindex', '0');
 selectedDiv.setAttribute('aria-controls', 'listboxSort');
-selectedDiv.innerHTML = selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML; // fill the div inner HTML with let selecTagElmnt : 'filtr' at first
+selectedDiv.innerHTML = selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML;
+// fill the div inner HTML with let selecTagElmnt : 'filtr' at first
 
 customSelectClassElmnt.appendChild(selectedDiv);
 
-selectedDiv.addEventListener('click', function (e) {
-  /* when the select box is clicked, close any other select boxes,
-      and open/close the current select box: */
-  e.stopPropagation();
-  closeAllSelect(this);
-  this.nextSibling.classList.toggle('select-hide');
-  this.nextSibling.setAttribute('aria-expanded', 'true');
-  this.classList.toggle('select-arrow-active');
-});
-
 /* create a new DIV that will contain the options list: */
-optionsBoxDiv = document.createElement('DIV');
+const optionsBoxDiv = document.createElement('DIV');
 optionsBoxDiv.setAttribute('class', 'select-items select-hide');
 optionsBoxDiv.setAttribute('role', 'listbox');
 optionsBoxDiv.setAttribute('aria-labelledby', 'labelledSort');
@@ -118,37 +104,6 @@ for (j = 1; j < ll; j++) {
 
 customSelectClassElmnt.appendChild(optionsBoxDiv);
 
-function closeAllSelect(elmnt) {
-  console.log('ça ferme');
-  /* a function that will close all select boxes in the document,
-  except the current select box: */
-  let i;
-  let xl;
-  let yl;
-  const arrNo = [];
-  xl = optionsBoxDiv.length;
-  yl = selectedDiv.length;
-  for (i = 0; i < yl; i++) {
-    if (elmnt == selectedDiv[i]) {
-      arrNo.push(i);
-    } else {
-      selectedDiv[i].classList.remove('select-arrow-active');
-    }
-  }
-  for (i = 0; i < xl; i++) {
-    if (arrNo.indexOf(i)) {
-      optionsBoxDiv[i].classList.add('select-hide');
-      optionsBoxDiv[i].removeAttribute('aria-expanded');
-    }
-  }
-  sortingMedias();
-  console.log('oui ça ferme');
-  console.log(arrNo);
-}
-
-/* if the user clicks anywhere outside the select box, then this line close all select boxes: */
-window.addEventListener('click', closeAllSelect);
-
 // ***************** partie Sort ******************
 function sortOnPopularity() {
   photographerMedia.sort((a, b) => {
@@ -208,6 +163,49 @@ function sortingMedias() {
     // ne fait rien
   }
 }
+// ******************************************* /
+
+function closeAllSelect(elmnt) {
+  console.log('ça ferme');
+  /* a function that will close all select boxes in the document,
+  except the current select box: */
+  let i;
+  let xl;
+  let yl;
+  const arrNo = [];
+  xl = optionsBoxDiv.length;
+  yl = selectedDiv.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == selectedDiv[i]) {
+      arrNo.push(i);
+    } else {
+      selectedDiv[i].classList.remove('select-arrow-active');
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      optionsBoxDiv[i].classList.add('select-hide');
+      optionsBoxDiv[i].removeAttribute('aria-expanded');
+    }
+  }
+  sortingMedias();
+  console.log('oui ça ferme');
+  console.log(arrNo);
+}
+
+/* if the user clicks anywhere outside the select box, then this line close all select boxes: */
+window.addEventListener('click', closeAllSelect);
+
+selectedDiv.addEventListener('click', function (e) {
+  /* when the select box is clicked, close any other select boxes,
+      and open/close the current select box: */
+  e.stopPropagation();
+  closeAllSelect(this);
+  this.nextSibling.classList.toggle('select-hide');
+  this.nextSibling.setAttribute('aria-expanded', 'true');
+  this.classList.toggle('select-arrow-active');
+});
+
 // ***************** partie navigation clavier ******************
 // utilisation en ressource pour navigation clavier de
 // https://www.w3.org/WAI/ARIA/apg/example-index/menu-button/menu-button-links.html

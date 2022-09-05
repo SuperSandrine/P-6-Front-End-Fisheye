@@ -1,7 +1,13 @@
+import photographerFactory from '../factories/photographer';
+import mediaFactory from '../factories/media';
+import { allLikesForTotal, displayAllLikesForTotal, addALike } from '../utils/likemeter';
+import displayLightboxModal from '../utils/lightbox';
+import { giveModalAName, displayContactModal } from '../utils/contactForm';
+
 // declared lets
 // > datas stored
-let photographers = [];
-let media = [];
+// let photographers = [];
+// let media = [];
 let photographerData;
 let photographerMedia;
 // > current url
@@ -14,6 +20,8 @@ console.log(parameterID); // TODO à supprimer avant livraison
 // puis remplie deux tableaux prédéclarés let photographers et let media
 // renvoie les objets photographers et media
 async function getPhotographers() {
+  let photographers = [];
+  let media = [];
   await fetch('./data/photographers.json')
     .then((response) => response.json())
     .then((response2) => {
@@ -61,11 +69,11 @@ const photographGalleryDiv = document.querySelector('.photograph-gallery ');
 //   });
 // }
 
-async function displayMedia(media) {
+export async function displayMedia(medias) {
   // console.log("media : " + media);
   photographGalleryDiv.innerHTML = '';
 
-  media.forEach((id) => {
+  medias.forEach((id) => {
     const makeACard = mediaFactory(id);
     // console.log(id);
     // id correspond à id du média
@@ -86,7 +94,7 @@ async function displayMedia(media) {
   links.forEach((a) => {
     a.addEventListener('click', (e) => {
       const target = e.target.parentNode;
-      displayLightboxModal(parseInt(target.getAttribute('data-id')));
+      displayLightboxModal(parseInt(target.getAttribute('data-id'), 10));
     });
   });
 
@@ -94,8 +102,8 @@ async function displayMedia(media) {
   buttonLike.forEach((button) => {
     button.addEventListener('click', (e) => {
       const target = e.target.parentNode;
-      const parameterId = parseInt(target.getAttribute('data-id'));
-      const parameterLikes = parseInt(target.getAttribute('data-likes'));
+      const parameterId = parseInt(target.getAttribute('data-id'), 10);
+      const parameterLikes = parseInt(target.getAttribute('data-likes'), 10);
       addALike(parameterLikes, parameterId);
     });
   });
@@ -111,8 +119,8 @@ async function displayMedia(media) {
 // Cette fonction lance le traitement des fonctions asynchrones dans l'ordre
 async function init() {
   const { photographers, media } = await getPhotographers();
-  photographerData = photographers.filter((el) => el.id == parameterID);
-  photographerMedia = media.filter((el) => el.photographerId == parameterID);
+  photographerData = photographers.filter((el) => el.id === parameterID);
+  photographerMedia = media.filter((el) => el.photographerId === parameterID);
   displayData(photographerData);
   displayMedia(photographerMedia);
   console.log(photographerMedia);
@@ -122,7 +130,7 @@ async function init() {
   // playAddAclick();
   //  OpenMenuDrop();
   const openContactModal = document.querySelector('#display-contact-modal');
-  openContactModal.addEventListener('click', (e) => {
+  openContactModal.addEventListener('click', () => {
     displayContactModal();
   });
   console.log(openContactModal);
@@ -134,6 +142,7 @@ async function init() {
       console.log("quelq'un a appuyé sur un bouton");
 
       if (e.key === 'Tab') {
+        console.log("qq'un a appuyé sur tab");
       } else if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         // openContactModal.click();
@@ -142,5 +151,8 @@ async function init() {
     });
     return contactFormButton;
   });
+  return photographerMedia;
 }
 init();
+
+export default photographerMedia;

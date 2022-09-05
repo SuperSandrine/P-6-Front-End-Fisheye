@@ -1,5 +1,5 @@
 // DOM Elements
-// const main = document.querySelector("#body");
+const main = document.querySelector('#body');
 const form = document.querySelector('form');
 const modal = document.getElementById('contact_modal');
 
@@ -18,19 +18,6 @@ focusablesContactForm.sort((a, b) => {
   b = b.attributes.tabindex.value;
   return a - b;
 });
-
-const keyboardNavigationOnContactModal = function (e) {
-  console.log(e.key);
-  if (
-    (e.key === 'Escape' || e.key === 'Esc')
-    && modal.matches('aria-hidden') == false
-  ) {
-    closeContactModal(e);
-  }
-  if (e.key === 'Tab' && modal.matches('aria-hidden') == false) {
-    focusInContactModal(e);
-  }
-};
 
 // event listener = both following functions are played in the
 // photographer.html with attr onclick
@@ -97,7 +84,8 @@ const firstNameChecker = (value) => {
     // In purpose to apply [data-error] and [data-error-visible] attributes
     // we are using setAttribute method. For doing so, we had previously selected
     // the .formData class div (so called containerFN).
-    // then we save the result in varibale firstname (to save data users) and A (to pass validate()).
+    // then we save the result in varibale firstname (to save data users)
+    // and A (to pass validate()).
   } else if (value.match(/^((\s{2,99})+.)|(\s{2,99})|.+(\s{2,99})+.$/)) {
     containerFirstName.setAttribute('aria-invalid', 'true');
 
@@ -137,7 +125,7 @@ const firstNameChecker = (value) => {
     );
     firstName = null;
     A = 0;
-  } else if (value == null || value == '' || !value) {
+  } else if (value == null || value === '' || !value) {
     containerFirstName.setAttribute('aria-invalid', 'true');
 
     containerFirstName.setAttribute('data-error-visible', true);
@@ -167,7 +155,7 @@ const lastNameChecker = (value) => {
     );
     lastName = null;
     B = 0;
-  } else if (value == null || value == '' || !value) {
+  } else if (value == null || value === '' || !value) {
     containerLastName.setAttribute('aria-invalid', 'true');
 
     containerLastName.setAttribute('data-error-visible', true);
@@ -238,7 +226,7 @@ const emailChecker = (value) => {
 };
 
 const messageChecker = (value) => {
-  if (value == null || value == '' || !value) {
+  if (value == null || value === '' || !value) {
     containerMessage.setAttribute('aria-invalid', 'true');
     containerMessage.setAttribute('data-error-visible', true);
     containerMessage.setAttribute(
@@ -287,7 +275,7 @@ inputsText.forEach((input) => {
   });
 });
 
-function validate() {
+export function validate() {
   if (A + B + C + D < 4) {
     if (!message) {
       containerMessage.setAttribute('aria-invalid', 'true');
@@ -321,7 +309,7 @@ function validate() {
     alert('Des champs sont vides');
     return false;
   }
-  if (A + B + C + D == 4) {
+  if (A + B + C + D === 4) {
     modal.style.display = 'none';
     document.querySelector('#contactForm').reset();
     // Previous part cleans inputs.
@@ -356,7 +344,7 @@ form.addEventListener('submit', (e) => {
 });
 
 const closeIdCM = document.querySelector('#close-contact_modal');
-closeIdCM.addEventListener('click', (e) => {
+closeIdCM.addEventListener('click', () => {
   closeContactModal();
 });
 
@@ -379,6 +367,19 @@ function focusInContactModal(e) {
   focusablesContactForm[index].focus();
 }
 
+const keyboardNavigationOnContactModal = function (e) {
+  console.log(e.key);
+  if (
+    (e.key === 'Escape' || e.key === 'Esc')
+    && modal.matches('aria-hidden') === false
+  ) {
+    closeContactModal(e);
+  }
+  if (e.key === 'Tab' && modal.matches('aria-hidden') === false) {
+    focusInContactModal(e);
+  }
+};
+
 // window.addEventListener("keydown", function (e) {
 //   console.log(e.key);
 //   if (e.key === "Escape" || e.key === "Esc") {
@@ -388,3 +389,5 @@ function focusInContactModal(e) {
 //     focusInContactModal(e);
 //   }
 // });
+
+export { displayContactModal, giveModalAName };

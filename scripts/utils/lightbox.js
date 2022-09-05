@@ -1,3 +1,5 @@
+import { photographerMedia } from '../pages/photographer';
+
 // plan: quand je clique sur une une image de la galerie
 // cette image s'affiche en grand seule dans la lightbox
 // dans la ligthbox je passe d'une image à l'autre avec les fleches.
@@ -6,90 +8,20 @@
 const lightboxModal = document.getElementById('lightbox_modal');
 const lightboxMedia = document.querySelector('.lightbox_modal-content');
 const main = document.querySelector('#body');
-const displayId = document.getElementsByClassName('display-lightbox');
+// const displayId = document.getElementsByClassName('display-lightbox');
 const tabindexLightbox = 'div[tabindex],button[tabindex],img[tabindex],p[tabindex]';
 let focusablesLightbox = [];
 let previouslyFocusedElement = null;
 
 let idMedia; // pour stocker l'id du média onclick sur la gallerie
 let idArray; // pour stocker un tableau de tous les id des media d'un photographe
+let indexOfMedia;
 
 // les 3 lets suivants pour remplir dynamiquement le innerhtml
 let fillMediaImageSource;
 let fillMediaVideoSource;
 let fillMediaTitle;
 let displayedLB = false;
-
-const keyboardNavigationOnLightbox = function (e) {
-  e.preventDefault();
-  console.log(e.key);
-  if (e.key === 'Escape' || e.key === 'Esc') {
-    closeLightboxModal(e);
-  }
-  if (e.key === 'Tab' && displayedLB === true) {
-    focusInLightbox(e);
-  }
-  if (e.key === 'ArrowLeft' && displayedLB === true) {
-    previousMedia(photographerMedia);
-    giveLightboxItsMedias();
-  }
-  if (e.key === 'ArrowRight' && displayedLB === true) {
-    nextMedia(photographerMedia);
-    giveLightboxItsMedias();
-  }
-};
-
-// en paramètre du display "e", j'ai appelé l'id du média dans media.js
-// quand je clique sur la photo, je récupère l'index de l'image pour afficher
-// ses informations et l'image dans la lightbox
-function displayLightboxModal(e) {
-  displayedLB = true;
-  lightboxModal.style.display = 'block';
-  //  lightboxModal.focus();
-  lightboxModal.removeAttribute('aria-hidden');
-  lightboxModal.setAttribute('aria-modal', 'true');
-  main.classList.add('no-scroll');
-  main.setAttribute('aria-hidden', 'true');
-  idMedia = e;
-  console.log(idMedia);
-  getIndexofMediasForLightbox(photographerMedia);
-  giveLightboxItsMedias(photographerMedia);
-  // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
-  focusablesLightbox = Array.from(
-    lightboxModal.querySelectorAll(tabindexLightbox),
-  );
-  // on range le tableau en fonction des tabindex
-  focusablesLightbox.sort((a, b) => {
-    const x = a.getAttribute('tabindex');
-    const y = b.getAttribute('tabindex');
-    if (x < y) {
-      return -1;
-    }
-    if (x > y) {
-      return 1;
-    }
-    return 0;
-  });
-  previouslyFocusedElement = document.querySelector(':focus');
-  console.log(previouslyFocusedElement);
-  focusablesLightbox[0].focus();
-  window.addEventListener('keydown', keyboardNavigationOnLightbox);
-  return idMedia;
-}
-
-// to close modal
-function closeLightboxModal() {
-  if (previouslyFocusedElement !== null) {
-    previouslyFocusedElement.focus();
-    displayedLB = false;
-    lightboxModal.style.display = 'none';
-    lightboxModal.setAttribute('aria-hidden', 'true');
-    lightboxModal.removeAttribute('aria-modal');
-    main.classList.remove('no-scroll');
-    main.removeAttribute('aria-hidden');
-    window.removeEventListener('keydown', keyboardNavigationOnLightbox);
-  }
-}
 
 // pour récupérer l'index de l'id de l'image, je dois découper le tableau avec
 // uniquement les ids, afin d'utiliser la méthode indexOf.
@@ -105,6 +37,18 @@ function getIndexofMediasForLightbox(array) {
     fillMediaVideoSource,
     fillMediaTitle,
   };
+}
+
+// prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
+// pour afficher image, video et titre
+function giveLightboxItsMedias() {
+  const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`;
+  const mediaBigVideo = `<video controls >
+  <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
+</video>`;
+  const bigMedia = fillMediaImageSource === undefined ? mediaBigVideo : mediaBigImage;
+  lightboxMedia.innerHTML = `${bigMedia}
+     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
 }
 
 function nextMedia(array) {
@@ -195,18 +139,6 @@ function previousMedia(array) {
   };
 }
 
-// prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
-// pour afficher image, video et titre
-function giveLightboxItsMedias() {
-  const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`;
-  const mediaBigVideo = `<video controls >
-  <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
-</video>`;
-  const bigMedia = fillMediaImageSource == undefined ? mediaBigVideo : mediaBigImage;
-  lightboxMedia.innerHTML = `${bigMedia}
-     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`;
-}
-
 // _________________ Navigation
 // dans la ligthbox je passe d'une image à l'autre avec les fleches.
 // soit je navigue dans un array avec les flèches.
@@ -249,6 +181,77 @@ function focusInLightbox(e) {
     index = focusablesLightbox.length - 1;
   }
   focusablesLightbox[index].focus();
+}
+
+const keyboardNavigationOnLightbox = function (e) {
+  e.preventDefault();
+  console.log(e.key);
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    closeLightboxModal(e);
+  }
+  if (e.key === 'Tab' && displayedLB === true) {
+    focusInLightbox(e);
+  }
+  if (e.key === 'ArrowLeft' && displayedLB === true) {
+    previousMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+  if (e.key === 'ArrowRight' && displayedLB === true) {
+    nextMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+};
+
+// en paramètre du display "e", j'ai appelé l'id du média dans media.js
+// quand je clique sur la photo, je récupère l'index de l'image pour afficher
+// ses informations et l'image dans la lightbox
+export default function displayLightboxModal(e) {
+  displayedLB = true;
+  lightboxModal.style.display = 'block';
+  //  lightboxModal.focus();
+  lightboxModal.removeAttribute('aria-hidden');
+  lightboxModal.setAttribute('aria-modal', 'true');
+  main.classList.add('no-scroll');
+  main.setAttribute('aria-hidden', 'true');
+  idMedia = e;
+  console.log(idMedia);
+  getIndexofMediasForLightbox(photographerMedia);
+  giveLightboxItsMedias(photographerMedia);
+  // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
+  focusablesLightbox = Array.from(
+    lightboxModal.querySelectorAll(tabindexLightbox),
+  );
+  // on range le tableau en fonction des tabindex
+  focusablesLightbox.sort((a, b) => {
+    const x = a.getAttribute('tabindex');
+    const y = b.getAttribute('tabindex');
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  });
+  previouslyFocusedElement = document.querySelector(':focus');
+  console.log(previouslyFocusedElement);
+  focusablesLightbox[0].focus();
+  window.addEventListener('keydown', keyboardNavigationOnLightbox);
+  return idMedia;
+}
+
+// to close modal
+function closeLightboxModal() {
+  if (previouslyFocusedElement !== null) {
+    previouslyFocusedElement.focus();
+    displayedLB = false;
+    lightboxModal.style.display = 'none';
+    lightboxModal.setAttribute('aria-hidden', 'true');
+    lightboxModal.removeAttribute('aria-modal');
+    main.classList.remove('no-scroll');
+    main.removeAttribute('aria-hidden');
+    window.removeEventListener('keydown', keyboardNavigationOnLightbox);
+  }
 }
 
 // je voudra écouter seulement dans la lightbox est ouverte
