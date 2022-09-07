@@ -15,13 +15,13 @@
     <title>Fisheye - photographe en titre et sa gallerie photo</title>
   </head>
   <body id="body">
-    <header lang="en">
-      <a tabindex="1" href="./index.html" role="image link" alt="Fisheye home page" role="banner">
-        <img src="./assets/images/logo.png" alt="" class="logo"
+    <header lang="en" role="banner">
+      <a tabindex="1" href="./index.html" alt="Fisheye home page">
+        <img src="./assets/images/logo.png" alt="Fisheye Logo" class="logo"
       /></a>
     </header>
     <main id="main">
-      <header role="heading" class="photograph-header"></header>
+      <header class="photograph-header"></header>
       <div class="photograph-sorting-gallery"> 
         <label tabindex="7" id="labelledSort" for="filter-photo">Trier par </label>
       <div tabindex="8" class="custom-select">
@@ -32,7 +32,6 @@
           <option value="3">Titre</option>
         </select>
         </div>
-      
       </div>
     </div>
 
@@ -153,6 +152,7 @@
       </div>
     </aside>
 
+    // TODO = rajouter: type="module" 
     <script src="./scripts/utils/contactForm.js"></script>
     <script src="./scripts/factories/photographer.js"></script>
     <script src="./scripts/factories/media.js"></script>

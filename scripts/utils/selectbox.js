@@ -224,16 +224,26 @@ focusablesSortingMenu = Array.from(
 console.log(focusablesSortingMenu);
 
 customSelectClassElmnt.addEventListener("focus", function (a) {
+//  a.preventDefault();
   console.log("j'ai le focus");
   console.log(a.target);
+  console.log(this)
   console.log(this.children[1]);
   // THOMAS: c'est marrant, a.target marche mais pas this?
   a.target.addEventListener("keydown", function (e) {
     console.log("quelq'un a appuyé sur un bouton");
-    console.log(e.target.children[1]);
-    console.log(this.children[2]);
-    if (e.key === "Tab") {
-    } else if (optionsBoxDiv.matches(".select-hide") == true) {
+    console.log(e.target.children[1]); //select-selected
+    console.log(this.children[2]); //'select items'
+    //if (e.key === "Tab") {
+    //} else
+    if (e.key !== "Tab"){
+      e.preventDefault();
+    }
+    
+    if (optionsBoxDiv.matches(".select-hide") === true) {
+    
+//      e.preventDefault();
+      e.stopImmediatePropagation();
       if (e.key === "ArrowDown" || e.key === " " || e.key === "Enter") {
         this.children[1].nextSibling.classList.remove("select-hide");
         this.children[1].setAttribute("aria-expanded", "true");
@@ -246,8 +256,9 @@ customSelectClassElmnt.addEventListener("focus", function (a) {
         this.children[1].classList.add("select-arrow-active");
         focusablesSortingMenu[2].focus();
       }
-    } else if (optionsBoxDiv.matches(".select-hide") == false) {
+    } else if (optionsBoxDiv.matches(".select-hide") === false) {
       e.preventDefault();
+      e.stopImmediatePropagation();
       let index = focusablesSortingMenu.findIndex(
         (f) => f === selectedDiv.nextSibling.querySelector(":focus")
       );
@@ -258,22 +269,24 @@ customSelectClassElmnt.addEventListener("focus", function (a) {
         }
         focusablesSortingMenu[index].focus();
       }
-      if (e.key === "ArrowDown") {
+       if (e.key === "ArrowDown") {
         index++;
         if (index >= focusablesSortingMenu.length) {
           index = 0;
         }
         focusablesSortingMenu[index].focus();
       }
-      if (e.key === "Enter" || e.key === " ") {
+       if (e.key === "Enter" || e.key === " ") {
         focusablesSortingMenu[index].click();
+        this.focus();
       }
-      if (e.key === "Escape" || e.key === "Esc") {
+       if (e.key === "Escape" || e.key === "Esc") {
         this.children[1].classList.remove("select-arrow-active");
         this.children[1].nextSibling.classList.add("select-hide");
         this.children[1].removeAttribute("aria-expanded");
-
         this.focus();
+        
+        console.log(this)
       }
     }
   });

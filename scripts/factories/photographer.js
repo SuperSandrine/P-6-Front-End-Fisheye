@@ -7,11 +7,11 @@ function photographerFactory(data) {
   function getUserCardDOM() {
     const link = document.createElement("a");
     link.setAttribute("href", linkUrl);
-    link.setAttribute("title", `${name} - nouvelle page`);
+    link.setAttribute("title", `${name} - voir les détails du photographe`);
     const article = document.createElement("article");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
-    img.setAttribute("alt", "");
+    img.setAttribute("alt", `portrait de ${name}`);
     const h2 = document.createElement("h2");
     h2.textContent = name;
     const text = document.createElement("p");
@@ -35,7 +35,7 @@ function photographerFactory(data) {
       <p class="tagline">${tagline}</p></div>
     </section>
     <div class="photographer-header-pictureAndButton-box">
-    <div tabindex="4" class="photographer-header-button-box"><button alt="contact me" class="contact_button" id="display-contact-modal" >
+    <div class="photographer-header-button-box"><button tabindex="4" alt="contact me" class="contact_button" id="display-contact-modal" >
           Contactez-moi
         </button></div>
         <img tabindex="5" src="${picture}" alt="portrait de ${name}"/> </div>
@@ -80,7 +80,8 @@ function photographerFactory(data) {
   function getPhotographPrice() {
     const photographPrice = document.querySelector(".photograph-price");
     //photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
-    photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span> <i aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `;
+    photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span>
+    <i aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `;
     return photographPrice;
   }
   // pour afficher le nombre de likes, cette fonction doit être jouer après l'affichage de la galerie

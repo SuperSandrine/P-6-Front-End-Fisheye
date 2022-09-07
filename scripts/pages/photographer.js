@@ -85,12 +85,44 @@ async function displayMedia(media) {
     //  );
   });
   const links = document.querySelectorAll(".display-lightbox");
+  let target2;
   links.forEach((a) => {
     a.addEventListener("click", (e) => {
-      let target = e.target.parentNode;
-      displayLightboxModal(parseInt(target.getAttribute("data-id")));
-    });
-  });
+      let cible = e.target.parentNode;
+      console.log(cible)
+      console.log(links)
+      displayLightboxModal(parseInt(cible.getAttribute("data-id")));
+    })});
+  links.forEach((b) => {
+//    console.log(b);
+//  b.preventDefault();
+    b.addEventListener("focus", function (o){
+      o.preventDefault();
+      console.log("j'ai le focus gallery : " + typeof(parseInt(o.target.getAttribute("data-id"),10)));
+      console.log(o);
+      o.target.addEventListener("keydown",function(u){
+        //u.preventDefault()
+        console.log("quelq'un a appuyé sur un bouton");
+        console.log(u);
+        //if (u.key === "Tab"){
+          //passe le focus au tabindex suivant
+        //} 
+         if (u.key === "Enter"||u.key === " "){
+        console.log("bleu")
+        console.log(u.target.getAttribute("data-id"))
+        displayLightboxModal(parseInt(o.target.getAttribute("data-id"),10))
+         }
+
+      })
+      
+     }
+    )
+    }
+    )
+  
+
+
+
 
   const buttonLike = document.querySelectorAll(".play-addALike");
   buttonLike.forEach((button) => {
@@ -127,5 +159,6 @@ async function init() {
   openContactModal.addEventListener("click", (e) => {
     displayContactModal();
   });
+  
 }
 init();

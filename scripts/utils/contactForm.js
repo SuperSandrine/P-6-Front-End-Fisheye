@@ -1,5 +1,5 @@
 // DOM Elements
-// const main = document.querySelector("#body");
+//const main = document.querySelector("#body");
 const form = document.querySelector("form");
 const modal = document.getElementById("contact_modal");
 
@@ -10,63 +10,52 @@ const containerFirstName = document.querySelector(".formData");
 
 const keyboardNavigationOnContactModal = function (e) {
   console.log(e.key);
-  if (e.key === "Escape" || e.key === "Esc") {
+  if ((e.key === "Escape" || e.key === "Esc") && modal.matches('aria-hidden') === false){
     closeContactModal(e);
   }
-  if (e.key === "Tab" && displayedCM === true) {
+  else if (e.key === "Tab" && modal.matches('aria-hidden')===false) {
     focusInContactModal(e);
   }
 };
 
 const tabindexContactForm =
-  "div[tabindex],h1[tabindex],img[tabindex],label[tabindex], input[tabindex],  textarea[tabindex]";
+  "div[tabindex],h1[tabindex],img[tabindex],label[tabindex],input[tabindex],textarea[tabindex]";
 let focusablesContactForm = [];
 let previouslyCMFocusedElement = null;
+focusablesContactForm = Array.from(modal.querySelectorAll(tabindexContactForm));
+  // on range le tableau en fonction des tabindex
 
-let displayedCM = false;
+focusablesContactForm.sort((a, b) => {
+  a = a.attributes.tabindex.value;
+  b = b.attributes.tabindex.value;
+  return a - b;
+});
+
+
+//let displayedCM = false;
 // event listener = both following functions are played in the
 // photographer.html with attr onclick
 // to lauch modal
 function displayContactModal() {
-  displayedCM = true;
+//  displayedCM = true;
   modal.style.display = "block";
   modal.removeAttribute("aria-hidden");
   modal.setAttribute("aria-modal", "true");
   main.classList.add("no-scroll");
   main.setAttribute("aria-hidden", "true");
-  focusablesContactForm = Array.from(
-    modal.querySelectorAll(tabindexContactForm)
-  );
-  // on range le tableau en fonction des tabindex
-  //  focusablesContactForm[0].attributes.tabindex.value
-  focusablesContactForm.sort(function (a, b) {
-    a = a.attributes.tabindex.value;
-    b = b.attributes.tabindex.value;
-    return a - b;
-  });
-  // TOUN, Thomas, ce sort ne marche pas
-  // focusablesContactForm.sort(function (a, b) {
-  //   let x = a.getAttribute("tabindex.value");
-  //   console.log(x);
-  //   let y = b.getAttribute("tabindex.value");
-  //   if (x < y) {
-  //     return -1;
-  //   }
-  //   if (x > y) {
-  //     return 1;
-  //   }
-  //   return 0;
-  // });
   console.log(focusablesContactForm);
-  previouslyCMFocusedElement = document.querySelector(":focus");
+//  previouslyCMFocusedElement = document.querySelector(":focus");
+  previouslyCMFocusedElement = document.querySelector('#display-contact-modal');
   console.log(previouslyCMFocusedElement);
   focusablesContactForm[0].focus();
   window.addEventListener("keydown", keyboardNavigationOnContactModal);
 }
+
 // to close modal
 function closeContactModal() {
-  displayedCM = false;
+//  displayedCM = false;
   modal.style.display = "none";
+  previouslyCMFocusedElement.focus();
   modal.setAttribute("aria-hidden", "true");
   modal.removeAttribute("aria-modal");
   main.classList.remove("no-scroll");
@@ -93,6 +82,7 @@ let D = 0;
 //Then all the checker function:
 const firstNameChecker = (value) => {
   if (value.length > 0 && value.length < 2) {
+    containerFirstName.setAttribute('aria-invalid', 'true');
     containerFirstName.setAttribute("data-error-visible", true);
     containerFirstName.setAttribute(
       "data-error",
@@ -105,6 +95,7 @@ const firstNameChecker = (value) => {
     // the .formData class div (so called containerFN).
     // then we save the result in varibale firstname (to save data users) and A (to pass validate()).
   } else if (value.match(/^((\s{2,99})+.)|(\s{2,99})|.+(\s{2,99})+.$/)) {
+    containerFirstName.setAttribute('aria-invalid', 'true');
     containerFirstName.setAttribute("data-error-visible", true);
     containerFirstName.setAttribute(
       "data-error",
@@ -117,6 +108,7 @@ const firstNameChecker = (value) => {
     // at the beginning of name OR if the name only have whitespaces
     // OR whitespaces in the middle of name
   } else if (value.match(/^([0-9]+.)|([0-9]+)|.+([0-9]+)+.$/)) {
+    containerFirstName.setAttribute('aria-invalid', 'true');
     containerFirstName.setAttribute("data-error-visible", true);
     containerFirstName.setAttribute(
       "data-error",
@@ -130,6 +122,7 @@ const firstNameChecker = (value) => {
       /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]*$/
     )
   ) {
+    containerFirstName.setAttribute('aria-invalid', 'true');
     containerFirstName.setAttribute("data-error-visible", true);
     containerFirstName.setAttribute(
       "data-error",
@@ -138,6 +131,7 @@ const firstNameChecker = (value) => {
     firstName = null;
     A = 0;
   } else if (value == null || value == "" || !value) {
+    containerFirstName.setAttribute('aria-invalid', 'true');
     containerFirstName.setAttribute("data-error-visible", true);
     containerFirstName.setAttribute(
       "data-error",
@@ -146,6 +140,7 @@ const firstNameChecker = (value) => {
     firstName = null;
     A = 0;
   } else {
+    containerFirstName.removeAttribute('aria-invalid', 'true');
     containerFirstName.removeAttribute("data-error-visible", false);
     firstName = value;
     A = 1;
@@ -154,6 +149,7 @@ const firstNameChecker = (value) => {
 
 const lastNameChecker = (value) => {
   if (value.length > 0 && value.length < 2) {
+    containerLastName.setAttribute('aria-invalid', 'true');
     containerLastName.setAttribute("data-error-visible", true);
     containerLastName.setAttribute(
       "data-error",
@@ -162,6 +158,7 @@ const lastNameChecker = (value) => {
     lastName = null;
     B = 0;
   } else if (value == null || value == "" || !value) {
+    containerLastName.setAttribute('aria-invalid', 'true');
     containerLastName.setAttribute("data-error-visible", true);
     containerLastName.setAttribute(
       "data-error",
@@ -170,6 +167,7 @@ const lastNameChecker = (value) => {
     lastName = null;
     B = 0;
   } else if (value.match(/^([0-9]+.)|([0-9]+)|.+([0-9]+)+.$/)) {
+    containerLastName.setAttribute('aria-invalid', 'true');
     containerLastName.setAttribute("data-error-visible", true);
     containerLastName.setAttribute(
       "data-error",
@@ -182,6 +180,7 @@ const lastNameChecker = (value) => {
       /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]*$/
     )
   ) {
+    containerLastName.setAttribute('aria-invalid', 'true');
     containerLastName.setAttribute("data-error-visible", true);
     containerLastName.setAttribute(
       "data-error",
@@ -190,6 +189,7 @@ const lastNameChecker = (value) => {
     lastName = null;
     B = 0;
   } else if (value.match(/^((\s{2,99})+.)|(\s{2,99})|.+(\s{2,99})+.$/)) {
+    containerLastName.setAttribute('aria-invalid', 'true');
     containerLastName.setAttribute("data-error-visible", true);
     containerLastName.setAttribute(
       "data-error",
@@ -198,6 +198,7 @@ const lastNameChecker = (value) => {
     lastName = null;
     B = 0;
   } else {
+    containerLastName.removeAttribute('aria-invalid', 'true');
     containerLastName.removeAttribute("data-error-visible", false);
     lastName = value;
     B = 1;
@@ -206,6 +207,7 @@ const lastNameChecker = (value) => {
 
 const emailChecker = (value) => {
   if (!value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
+    containerEmail.setAttribute('aria-invalid', 'true');
     containerEmail.setAttribute("data-error-visible", true);
     containerEmail.setAttribute(
       "data-error",
@@ -214,6 +216,7 @@ const emailChecker = (value) => {
     email = null;
     C = 0;
   } else {
+    containerEmail.removeAttribute('aria-invalid', 'true');
     containerEmail.removeAttribute("data-error-visible", false);
     email = value;
     C = 1;
@@ -222,6 +225,7 @@ const emailChecker = (value) => {
 
 const messageChecker = (value) => {
   if (value == null || value == "" || !value) {
+    containerMessage.setAttribute('aria-invalid', 'true');
     containerMessage.setAttribute("data-error-visible", true);
     containerMessage.setAttribute(
       "data-error",
@@ -232,6 +236,7 @@ const messageChecker = (value) => {
     //inclure les chiffre avec espaces dans les erreurs
     // ^[0-9]+.|([0-9]+)|.+[0-9]+.|\w+$
   } else if (value.match(/^([0-9]+.|([0-9]+)|.+[0-9]+.)$/)) {
+    containerMessage.setAttribute('aria-invalid', 'true');
     containerMessage.setAttribute("data-error-visible", true);
     containerMessage.setAttribute(
       "data-error",
@@ -240,6 +245,7 @@ const messageChecker = (value) => {
     message = null;
     D = 0;
   } else {
+    containerMessage.removeAttribute('aria-invalid', 'true');
     containerMessage.removeAttribute("data-error-visible", false);
     message = value;
     D = 1;
@@ -270,6 +276,7 @@ inputsText.forEach((input) => {
 function validate() {
   if (A + B + C + D < 4) {
     if (!message) {
+      containerMessage.setAttribute('aria-invalid', 'true');
       containerMessage.setAttribute("data-error-visible", true);
       containerMessage.setAttribute(
         "data-error",
@@ -277,6 +284,7 @@ function validate() {
       );
     }
     if (!email) {
+      containerEmail.setAttribute('aria-invalid', 'true');
       containerEmail.setAttribute("data-error-visible", true);
       containerEmail.setAttribute(
         "data-error",
@@ -284,10 +292,12 @@ function validate() {
       );
     }
     if (!lastName) {
+      containerLastName.setAttribute('aria-invalid', 'true');
       containerLastName.setAttribute("data-error-visible", true);
       containerLastName.setAttribute("data-error", "Vous devez entrer un nom.");
     }
     if (!firstName) {
+      containerFirstName.setAttribute('aria-invalid', 'true');
       containerFirstName.setAttribute("data-error-visible", true);
       containerFirstName.setAttribute(
         "data-error",

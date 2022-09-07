@@ -19,32 +19,15 @@ let idArray; // pour stocker un tableau de tous les id des media d'un photograph
 let fillMediaImageSource;
 let fillMediaVideoSource;
 let fillMediaTitle;
-let displayedLB = false;
+//let displayedLB = false;
 
-const keyboardNavigationOnLightbox = function (e) {
-  e.preventDefault();
-  console.log(e.key);
-  if (e.key === "Escape" || e.key === "Esc") {
-    closeLightboxModal(e);
-  }
-  if (e.key === "Tab" && displayedLB === true) {
-    focusInLightbox(e);
-  }
-  if (e.key === "ArrowLeft" && displayedLB === true) {
-    previousMedia(photographerMedia);
-    giveLightboxItsMedias();
-  }
-  if (e.key === "ArrowRight" && displayedLB === true) {
-    nextMedia(photographerMedia);
-    giveLightboxItsMedias();
-  }
-};
+
 
 // en paramètre du display "e", j'ai appelé l'id du média dans media.js
 // quand je clique sur la photo, je récupère l'index de l'image pour afficher
 // ses informations et l'image dans la lightbox
 function displayLightboxModal(e) {
-  displayedLB = true;
+//  displayedLB = true;
   lightboxModal.style.display = "block";
   //  lightboxModal.focus();
   lightboxModal.removeAttribute("aria-hidden");
@@ -82,7 +65,7 @@ function displayLightboxModal(e) {
 function closeLightboxModal() {
   if (previouslyFocusedElement !== null) {
     previouslyFocusedElement.focus();
-    displayedLB = false;
+//    displayedLB = false;
     lightboxModal.style.display = "none";
     lightboxModal.setAttribute("aria-hidden", "true");
     lightboxModal.removeAttribute("aria-modal");
@@ -337,3 +320,87 @@ function focusInLightbox(e) {
 // function linkEventListener() {
 //   a.addEventListener("click", displayLightboxModal());
 // }
+
+// const links = document.querySelectorAll(".display-lightbox");
+// links.forEach((a) => {
+//   a.addEventListener("click", (e) => {
+//     let target = e.target.parentNode;
+//     displayLightboxModal(parseInt(target.getAttribute("data-id")));
+//   });
+// });
+
+
+
+// customSelectClassElmnt.addEventListener('focus', function (a) {
+//   console.log("j'ai le focus");
+//   console.log(a.target);
+//   console.log(this.children[1]);
+//   // THOMAS: c'est marrant, a.target marche mais pas this?
+//   a.target.addEventListener('keydown', function (e) {
+//     console.log("quelq'un a appuyé sur un bouton");
+//     console.log(e.target.children[1]);
+//     console.log(this.children[2]);
+//     if (e.key === 'Tab') {
+//     } else if (optionsBoxDiv.matches('.select-hide') == true) {
+//       if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
+//         this.children[1].nextSibling.classList.remove('select-hide');
+//         this.children[1].setAttribute('aria-expanded', 'true');
+//         this.children[1].classList.add('select-arrow-active');
+//         focusablesSortingMenu[0].focus();
+//       }
+//       if (e.key === 'ArrowUp') {
+//         this.children[1].nextSibling.classList.remove('select-hide');
+//         this.children[1].setAttribute('aria-expanded', 'true');
+//         this.children[1].classList.add('select-arrow-active');
+//         focusablesSortingMenu[2].focus();
+//       }
+//     } else if (optionsBoxDiv.matches('.select-hide') == false) {
+//       e.preventDefault();
+//       let index = focusablesSortingMenu.findIndex(
+//         (f) => f === selectedDiv.nextSibling.querySelector(':focus'),
+//       );
+//       if (e.key === 'ArrowUp') {
+//         index--;
+//         if (index < 0) {
+//           index = focusablesSortingMenu.length - 1;
+//         }
+//         focusablesSortingMenu[index].focus();
+//       }
+//       if (e.key === 'ArrowDown') {
+//         index++;
+//         if (index >= focusablesSortingMenu.length) {
+//           index = 0;
+//         }
+//         focusablesSortingMenu[index].focus();
+//       }
+//       if (e.key === 'Enter' || e.key === ' ') {
+//         focusablesSortingMenu[index].click();
+//       }
+//       if (e.key === 'Escape' || e.key === 'Esc') {
+//         this.children[1].classList.remove('select-arrow-active');
+//         this.children[1].nextSibling.classList.add('select-hide');
+//         this.children[1].removeAttribute('aria-expanded');
+
+//         this.focus();
+//       }
+//     }
+//   });
+
+const keyboardNavigationOnLightbox = function (e) {
+  e.preventDefault();
+  console.log(e.key);
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeLightboxModal(e);
+  }
+  else if (e.key === "Tab" && lightboxModal.matches('aria-hidden') === false) {
+    focusInLightbox(e);
+  }
+  else if (e.key === "ArrowLeft" && lightboxModal.matches('aria-hidden') === false) {
+    previousMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+  else if (e.key === "ArrowRight" && lightboxModal.matches('aria-hidden') === false) {
+    nextMedia(photographerMedia);
+    giveLightboxItsMedias();
+  }
+};
