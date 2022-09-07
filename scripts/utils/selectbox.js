@@ -38,6 +38,7 @@ selectedDiv.addEventListener("click", function (e) {
       and open/close the current select box:*/
   e.stopPropagation();
   closeAllSelect(this);
+//  console.log("bug??")
   this.nextSibling.classList.toggle("select-hide");
   this.nextSibling.setAttribute("aria-expanded", "true");
   this.classList.toggle("select-arrow-active");
@@ -108,6 +109,10 @@ for (j = 1; j < ll; j++) {
         break;
       }
     }
+    sortingMedias();
+    totalOfLikes=0;
+    allLikesForTotal();
+    displayAllLikesForTotal();
     console.log(changeSelectedDiv);
     changeSelectedDiv.click();
   });
@@ -140,7 +145,7 @@ function closeAllSelect(elmnt) {
       optionsBoxDiv[i].removeAttribute("aria-expanded");
     }
   }
-  sortingMedias();
+//  sortingMedias();
   console.log("oui ça ferme");
   console.log(arrNo);
 }

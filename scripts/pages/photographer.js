@@ -85,7 +85,6 @@ async function displayMedia(media) {
     //  );
   });
   const links = document.querySelectorAll(".display-lightbox");
-  let target2;
   links.forEach((a) => {
     a.addEventListener("click", (e) => {
       let cible = e.target.parentNode;
@@ -98,6 +97,7 @@ async function displayMedia(media) {
 //  b.preventDefault();
     b.addEventListener("focus", function (o){
       o.preventDefault();
+      o.stopPropagation();
       console.log("j'ai le focus gallery : " + typeof(parseInt(o.target.getAttribute("data-id"),10)));
       console.log(o);
       o.target.addEventListener("keydown",function(u){
@@ -133,6 +133,21 @@ async function displayMedia(media) {
       addALike(parameterLikes, parameterId);
     });
   });
+  buttonLike.forEach((b) => {
+    b.addEventListener("focus", function(o){
+      o.preventDefault();
+      o.stopPropagation();
+      //console.log(o)
+      o.target.addEventListener("keydown",function(u){
+        if (u.key === "Enter"||u.key === " "){
+          //console.log(u.target.getAttribute("data-id"));
+          const parameterId = parseInt(u.target.getAttribute("data-id"));
+          const parameterLikes = parseInt(u.target.getAttribute("data-likes"));
+          addALike(parameterLikes, parameterId);
+
+    }})
+  })
+})
 }
 //const links: sélectionne tous les liens de la gallerie et forme avec le querySelector
 // une collection HTML (différent d'un nodeList avec un getelement), j'ai un tableau
