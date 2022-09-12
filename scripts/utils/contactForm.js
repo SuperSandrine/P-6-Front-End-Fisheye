@@ -372,12 +372,3 @@ function focusInContactModal(e) {
   focusablesContactForm[index].focus();
 }
 
-// window.addEventListener("keydown", function (e) {
-//   console.log(e.key);
-//   if (e.key === "Escape" || e.key === "Esc") {
-//     closeContactModal(e);
-//   }
-//   if (e.key === "Tab" && displayedCM === true) {
-//     focusInContactModal(e);
-//   }
-// });

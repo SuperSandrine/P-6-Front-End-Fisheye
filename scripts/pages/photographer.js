@@ -37,52 +37,16 @@ async function displayData(photographer) {
   });
 }
 
-// °°°°°°°°°°° travail en cours sur cette partie °°°°°°°°°°°°°°
 
 const photographGalleryDiv = document.querySelector(".photograph-gallery ");
 
-// TODO, THOMAS >> plutôt que d'effacer la galerie et réinjecter le tableau modifié,
-// comment la rendre dynamique, c'est à dire, qu'elle
-// change en même temps que son tableau change: le tableau photographerMedia.
-
-// ----------------sauvegarde : fonctionne avec le sort commenté dans selectbox avant samedi
-//---------------mais crée un bug d'affichage avec le tri et les likes, juste le tri fonctionne
-// --------------avec le code ci-dessous
-// async function displayMedia(media) {
-//   //  const photographGalleryDiv = document.querySelector(".photograph-gallery");
-//   //  photographGalleryDiv.removeChild();
-//   while (photographGalleryDiv.hasChildNodes()) {
-//     photographGalleryDiv.removeChild(photographGalleryDiv.firstChild);
-//   }
-//   media.forEach((id) => {
-//     const makeACard = mediaFactory(id);
-//     const printGallery = makeACard.getCardGallery();
-//     // if (photographGalleryDiv)
-//     // photographGalleryDiv.removeChild();
-//     photographGalleryDiv.appendChild(printGallery);
-//   });
-// }
-
 async function displayMedia(media) {
-  //console.log("media : " + media);
   photographGalleryDiv.innerHTML = "";
 
   media.forEach((id) => {
     const makeACard = mediaFactory(id);
-    //console.log(id);
-    // id correspond à id du média
     const printGallery = makeACard.getCardGallery();
-    //console.log(printGallery.article);
     photographGalleryDiv.appendChild(printGallery.article);
-    //const buttonForLikes = document.querySelector(`.likes-${id} button`);
-    //console.log(buttonForLikes);
-    //buttonForLikes.addEventListener(
-    // "click",
-    // addALike(
-    //   printGallery.parameterForLikesLikes,
-    //   printGallery.parameterForLikesId
-    // )
-    //  );
   });
   const links = document.querySelectorAll(".display-lightbox");
   links.forEach((a) => {
@@ -112,17 +76,10 @@ async function displayMedia(media) {
         console.log(u.target.getAttribute("data-id"))
         displayLightboxModal(parseInt(o.target.getAttribute("data-id"),10))
          }
-
       })
-      
-     }
-    )
-    }
-    )
+     })
+    })
   
-
-
-
 
   const buttonLike = document.querySelectorAll(".play-addALike");
   buttonLike.forEach((button) => {
