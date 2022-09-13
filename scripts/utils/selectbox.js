@@ -2,214 +2,210 @@
 // custom select box sourced from W3S
 
 // *** Il y a 3 partie, l'animation dynamique, le sort, la navigation clavier
+// ***************** partie import ******************
+import { photographerMedia, displayMedia } from '../pages/photographer.js'
+import { allLikesForTotal, displayAllLikesForTotal } from './likemeter.js'
 // ***************** partie variable ******************
-let sortingMethodFromList;
+let sortingMethodFromList
 
 // ***************** partie animation dynamique ******************
-let customSelectClassElmnt,
-  j,
-  l,
-  ll,
-  selectTagElmnt,
-  selectedDiv,
-  optionsBoxDiv,
-  optionDiv;
+let j,
+  optionDiv
 
-/*look for element with the class "custom-select":*/
-customSelectClassElmnt = document.querySelector(".custom-select");
-selectTagElmnt = customSelectClassElmnt.getElementsByTagName("select")[0]; // original options index [0]
-ll = selectTagElmnt.length; // number of options :'4'
-/*for each element, create a new DIV that will act as the selected item, or the main button:*/
-selectedDiv = document.createElement("DIV");
-selectedDiv.setAttribute("class", "select-selected");
-selectedDiv.setAttribute("role", "button");
-selectedDiv.setAttribute("id", "selectedButton");
-selectedDiv.setAttribute("aria-haspopup", "listbox"); // indicates the button opens a menu
-selectedDiv.setAttribute("aria-labelledby", "labelledSort");
-selectedDiv.setAttribute("tabindex", "0");
-selectedDiv.setAttribute("aria-controls", "listboxSort");
+/* look for element with the class "custom-select": */
+const customSelectClassElmnt = document.querySelector('.custom-select')
+const selectTagElmnt = customSelectClassElmnt.getElementsByTagName('select')[0] // original options index [0]
+const ll = selectTagElmnt.length // number of options :'4'
+/* for each element, create a new DIV that will act as the selected item, or the main button: */
+const selectedDiv = document.createElement('DIV')
+selectedDiv.setAttribute('class', 'select-selected')
+selectedDiv.setAttribute('role', 'button')
+selectedDiv.setAttribute('id', 'selectedButton')
+selectedDiv.setAttribute('aria-haspopup', 'listbox') // indicates the button opens a menu
+selectedDiv.setAttribute('aria-labelledby', 'labelledSort')
+selectedDiv.setAttribute('tabindex', '0')
+selectedDiv.setAttribute('aria-controls', 'listboxSort')
 selectedDiv.innerHTML =
-  selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML; // fill the div inner HTML with let selecTagElmnt : 'filtr' at first
+  selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML // fill the div inner HTML with let selecTagElmnt : 'filtr' at first
 
-customSelectClassElmnt.appendChild(selectedDiv);
+customSelectClassElmnt.appendChild(selectedDiv)
 
-selectedDiv.addEventListener("click", function (e) {
-  /*when the select box is clicked, close any other select boxes,
-      and open/close the current select box:*/
-  e.stopPropagation();
-  closeAllSelect(this);
-//  console.log("bug??")
-  this.nextSibling.classList.toggle("select-hide");
-  this.nextSibling.setAttribute("aria-expanded", "true");
-  this.classList.toggle("select-arrow-active");
-});
+selectedDiv.addEventListener('click', function (e) {
+  /* when the select box is clicked, close any other select boxes,
+      and open/close the current select box: */
+  e.stopPropagation()
+  closeAllSelect(this)
+  //  console.log("bug??")
+  this.nextSibling.classList.toggle('select-hide')
+  this.nextSibling.setAttribute('aria-expanded', 'true')
+  this.classList.toggle('select-arrow-active')
+})
 
-/* create a new DIV that will contain the options list:*/
-optionsBoxDiv = document.createElement("DIV");
-optionsBoxDiv.setAttribute("class", "select-items select-hide");
-optionsBoxDiv.setAttribute("role", "listbox");
-optionsBoxDiv.setAttribute("aria-labelledby", "labelledSort");
-optionsBoxDiv.setAttribute("id", "listboxSort");
-optionsBoxDiv.setAttribute("tabindex", "-1");
+/* create a new DIV that will contain the options list: */
+const optionsBoxDiv = document.createElement('DIV')
+optionsBoxDiv.setAttribute('class', 'select-items select-hide')
+optionsBoxDiv.setAttribute('role', 'listbox')
+optionsBoxDiv.setAttribute('aria-labelledby', 'labelledSort')
+optionsBoxDiv.setAttribute('id', 'listboxSort')
+optionsBoxDiv.setAttribute('tabindex', '-1')
 
 for (j = 1; j < ll; j++) {
-  /*for each option in the original select element except the [0] option which is "filtrer",
-    create a new DIV that will act as an option item:*/
-  optionDiv = document.createElement("DIV");
-  optionDiv.setAttribute("role", "option");
-  optionDiv.setAttribute("tabindex", "0");
+  /* for each option in the original select element except the [0] option which is "filtrer",
+    create a new DIV that will act as an option item: */
+  optionDiv = document.createElement('DIV')
+  optionDiv.setAttribute('role', 'option')
+  optionDiv.setAttribute('tabindex', '0')
 
-  optionDiv.innerHTML = selectTagElmnt.options[j].innerHTML;
+  optionDiv.innerHTML = selectTagElmnt.options[j].innerHTML
 
-  optionDiv.setAttribute("id", `${optionDiv.innerHTML}`);
+  optionDiv.setAttribute('id', `${optionDiv.innerHTML}`)
 
   // --- pour simplifer dessous et mettre un keydown listener mardi------
-  optionDiv.addEventListener("click", function (e) {
-    /*when an item is clicked, update the original select box, and the selected item:*/
-    let oldSelection, i, originalSelectTag, changeSelectedDiv, sl;
-    /* this. correspond à l'élément clické, soit la div date, div pop, div titre.*/
-    originalSelectTag =
-      this.parentNode.parentNode.getElementsByTagName("select")[0];
+  optionDiv.addEventListener('click', function (e) {
+    /* when an item is clicked, update the original select box, and the selected item: */
+    let oldSelection, i
+    /* this. correspond à l'élément clické, soit la div date, div pop, div titre. */
+    const originalSelectTag =
+      this.parentNode.parentNode.getElementsByTagName('select')[0]
     //    console.log(originalSelectTag); // 'filtrer'
-    sl = originalSelectTag.length;
-    changeSelectedDiv = this.parentNode.previousSibling;
+    const sl = originalSelectTag.length
+    const changeSelectedDiv = this.parentNode.previousSibling
     //    console.log(changeSelectedDiv);
-    /*h est la div contenant .select-items et .select-hide*/
+    /* h est la div contenant .select-items et .select-hide */
     //  console.log(changeSelectedDiv);
     for (i = 0; i < sl; i++) {
-      if (originalSelectTag.options[i].innerHTML == this.innerHTML) {
-        originalSelectTag.selectedIndex = i;
-        //console.log(changeSelectedDiv.innerHTML);//'filtrer'
-        changeSelectedDiv.innerHTML = this.innerHTML;
-        //console.log(changeSelectedDiv.innerHTML);//'Popularité'
+      if (originalSelectTag.options[i].innerHTML === this.innerHTML) {
+        originalSelectTag.selectedIndex = i
+        // console.log(changeSelectedDiv.innerHTML);//'filtrer'
+        changeSelectedDiv.innerHTML = this.innerHTML
+        // console.log(changeSelectedDiv.innerHTML);//'Popularité'
         changeSelectedDiv.setAttribute(
-          "aria-activedescendant",
+          'aria-activedescendant',
           `${this.innerHTML}`
-        );
+        )
         sortingMethodFromList =
-          changeSelectedDiv.innerHTML; /* sortingMFL change à chaque clic */
-        //console.log(sortingMethodFromList);
-        /* voici l'information dont j'ai besoin pour jouer mon tri*/
+          changeSelectedDiv.innerHTML /* sortingMFL change à chaque clic */
+        // console.log(sortingMethodFromList);
+        /* voici l'information dont j'ai besoin pour jouer mon tri */
         // ternaire :
-        //s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
+        // s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
         // ternaire
 
-        oldSelection = this.parentNode.querySelector(".same-as-selected");
+        oldSelection = this.parentNode.querySelector('.same-as-selected')
 
+        // eslint-disable-next-line no-unused-expressions
         oldSelection !== null
-          ? oldSelection.removeAttribute("class") &
-            oldSelection.removeAttribute("aria-selected") &
-            this.setAttribute("class", "same-as-selected") &
-            this.setAttribute("aria-selected", "true")
-          : this.setAttribute("class", "same-as-selected") &
-            this.setAttribute("aria-selected", "true");
+          ? (oldSelection.removeAttribute('class') &
+            oldSelection.removeAttribute('aria-selected') &
+            this.setAttribute('class', 'same-as-selected') &
+            this.setAttribute('aria-selected', 'true'))
+          : (this.setAttribute('class', 'same-as-selected') &
+            this.setAttribute('aria-selected', 'true'))
         // OK DONE: pour quoi une ternaire ne fait pas le travail ? >>> il ne faut pas mettre
         // & mais &&
 
-        break;
+        break
       }
     }
-    sortingMedias();
-    totalOfLikes=0;
-    allLikesForTotal();
-    displayAllLikesForTotal();
-    console.log(changeSelectedDiv);
-    changeSelectedDiv.click();
-  });
+    sortingMedias()
+    //    const totalOfLikes = 0
+    // const totalOfLikes = 0
+    allLikesForTotal()
+    displayAllLikesForTotal()
 
-  optionsBoxDiv.appendChild(optionDiv);
+    console.log(changeSelectedDiv)
+    changeSelectedDiv.click()
+  })
+
+  optionsBoxDiv.appendChild(optionDiv)
 }
 
-customSelectClassElmnt.appendChild(optionsBoxDiv);
+customSelectClassElmnt.appendChild(optionsBoxDiv)
 
-function closeAllSelect(elmnt) {
-  console.log("ça ferme");
-  /*a function that will close all select boxes in the document,
-  except the current select box:*/
-  let i,
-    xl,
-    yl,
-    arrNo = [];
-  xl = optionsBoxDiv.length;
-  yl = selectedDiv.length;
-  for (i = 0; i < yl; i++) {
-    if (elmnt == selectedDiv[i]) {
-      arrNo.push(i);
+function closeAllSelect (elmnt) {
+  console.log('ça ferme')
+  /* a function that will close all select boxes in the document,
+  except the current select box: */
+  let i
+  const arrNo = []
+  for (i = 0; i < selectedDiv.length; i++) {
+    if (elmnt === selectedDiv[i]) {
+      arrNo.push(i)
     } else {
-      selectedDiv[i].classList.remove("select-arrow-active");
+      selectedDiv[i].classList.remove('select-arrow-active')
     }
   }
-  for (i = 0; i < xl; i++) {
+  for (i = 0; i < optionsBoxDiv.length; i++) {
     if (arrNo.indexOf(i)) {
-      optionsBoxDiv[i].classList.add("select-hide");
-      optionsBoxDiv[i].removeAttribute("aria-expanded");
+      optionsBoxDiv[i].classList.add('select-hide')
+      optionsBoxDiv[i].removeAttribute('aria-expanded')
     }
   }
-//  sortingMedias();
-  console.log("oui ça ferme");
-  console.log(arrNo);
+  //  sortingMedias();
+  console.log('oui ça ferme')
+  console.log(arrNo)
 }
 
-/*if the user clicks anywhere outside the select box, then this line close all select boxes:*/
-window.addEventListener("click", closeAllSelect);
+/* if the user clicks anywhere outside the select box, then this line close all select boxes: */
+window.addEventListener('click', closeAllSelect)
 
 // ***************** partie Sort ******************
-function sortOnPopularity() {
+function sortOnPopularity () {
   photographerMedia.sort(function (a, b) {
-    let x = a.likes;
-    let y = b.likes;
+    const x = a.likes
+    const y = b.likes
     if (x < y) {
-      return -1;
+      return -1
     }
     if (x > y) {
-      return 1;
+      return 1
     }
-    return 0;
-  });
+    return 0
+  })
 }
 
-function alphabeticalSortOnTitle() {
+function alphabeticalSortOnTitle () {
   photographerMedia.sort(function (a, b) {
-    let x = a.title.toLowerCase();
-    let y = b.title.toLowerCase();
+    const x = a.title.toLowerCase()
+    const y = b.title.toLowerCase()
     if (x < y) {
-      return -1;
+      return -1
     }
     if (x > y) {
-      return 1;
+      return 1
     }
-    return 0;
-  });
+    return 0
+  })
 }
 
-function sortOnDate() {
+function sortOnDate () {
   photographerMedia.sort(function (a, b) {
-    let x = a.date;
-    let y = b.date;
+    const x = a.date
+    const y = b.date
     if (x < y) {
-      return -1;
+      return -1
     }
     if (x > y) {
-      return 1;
+      return 1
     }
-    return 0;
-  });
+    return 0
+  })
 }
 
-function sortingMedias() {
-  if (sortingMethodFromList === "Date") {
-    sortOnDate();
-    displayMedia(photographerMedia);
+function sortingMedias () {
+  if (sortingMethodFromList === 'Date') {
+    sortOnDate()
+    displayMedia(photographerMedia)
   }
-  if (sortingMethodFromList === "Titre") {
-    alphabeticalSortOnTitle();
-    displayMedia(photographerMedia);
+  if (sortingMethodFromList === 'Titre') {
+    alphabeticalSortOnTitle()
+    displayMedia(photographerMedia)
   }
-  if (sortingMethodFromList === "Popularité") {
-    sortOnPopularity();
-    displayMedia(photographerMedia);
+  if (sortingMethodFromList === 'Popularité') {
+    sortOnPopularity()
+    displayMedia(photographerMedia)
   } else {
-    //ne fait rien
+    // ne fait rien
   }
 }
 // ***************** partie navigation clavier ******************
@@ -221,78 +217,77 @@ function sortingMedias() {
 //                                                    - ferme le menu
 //                                                    - remet le :focus sur le bon tabindex
 
-let focusablesSortingMenu = [];
-let optionsSortingMenu = "div[role='option']";
+let focusablesSortingMenu = []
+const optionsSortingMenu = "div[role='option']"
 focusablesSortingMenu = Array.from(
   customSelectClassElmnt.querySelectorAll(optionsSortingMenu)
-);
-console.log(focusablesSortingMenu);
+)
+console.log(focusablesSortingMenu)
 
-customSelectClassElmnt.addEventListener("focus", function (a) {
+customSelectClassElmnt.addEventListener('focus', function (a) {
 //  a.preventDefault();
-  console.log("j'ai le focus");
-  console.log(a.target);
+  console.log("j'ai le focus")
+  console.log(a.target)
   console.log(this)
-  console.log(this.children[1]);
+  console.log(this.children[1])
   // THOMAS: c'est marrant, a.target marche mais pas this?
-  a.target.addEventListener("keydown", function (e) {
-    console.log("quelq'un a appuyé sur un bouton");
-    console.log(e.target.children[1]); //select-selected
-    console.log(this.children[2]); //'select items'
-    //if (e.key === "Tab") {
-    //} else
-    if (e.key !== "Tab"){
-      e.preventDefault();
+  a.target.addEventListener('keydown', function (e) {
+    console.log("quelq'un a appuyé sur un bouton")
+    console.log(e.target.children[1]) // select-selected
+    console.log(this.children[2]) // 'select items'
+    // if (e.key === "Tab") {
+    // } else
+    if (e.key !== 'Tab') {
+      e.preventDefault()
     }
-    
-    if (optionsBoxDiv.matches(".select-hide") === true) {
-    
-//      e.preventDefault();
-      e.stopImmediatePropagation();
-      if (e.key === "ArrowDown" || e.key === " " || e.key === "Enter") {
-        this.children[1].nextSibling.classList.remove("select-hide");
-        this.children[1].setAttribute("aria-expanded", "true");
-        this.children[1].classList.add("select-arrow-active");
-        focusablesSortingMenu[0].focus();
+
+    if (optionsBoxDiv.matches('.select-hide') === true) {
+      //      e.preventDefault();
+      e.stopImmediatePropagation()
+      if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
+        this.children[1].nextSibling.classList.remove('select-hide')
+        this.children[1].setAttribute('aria-expanded', 'true')
+        this.children[1].classList.add('select-arrow-active')
+        focusablesSortingMenu[0].focus()
       }
-      if (e.key === "ArrowUp") {
-        this.children[1].nextSibling.classList.remove("select-hide");
-        this.children[1].setAttribute("aria-expanded", "true");
-        this.children[1].classList.add("select-arrow-active");
-        focusablesSortingMenu[2].focus();
+      if (e.key === 'ArrowUp') {
+        this.children[1].nextSibling.classList.remove('select-hide')
+        this.children[1].setAttribute('aria-expanded', 'true')
+        this.children[1].classList.add('select-arrow-active')
+        focusablesSortingMenu[2].focus()
       }
-    } else if (optionsBoxDiv.matches(".select-hide") === false) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
+    } else if (optionsBoxDiv.matches('.select-hide') === false) {
+      e.preventDefault()
+      e.stopImmediatePropagation()
       let index = focusablesSortingMenu.findIndex(
-        (f) => f === selectedDiv.nextSibling.querySelector(":focus")
-      );
-      if (e.key === "ArrowUp") {
-        index--;
+        (f) => f === selectedDiv.nextSibling.querySelector(':focus')
+      )
+      if (e.key === 'ArrowUp') {
+        index--
         if (index < 0) {
-          index = focusablesSortingMenu.length - 1;
+          index = focusablesSortingMenu.length - 1
         }
-        focusablesSortingMenu[index].focus();
+        focusablesSortingMenu[index].focus()
       }
-       if (e.key === "ArrowDown") {
-        index++;
+      if (e.key === 'ArrowDown') {
+        index++
         if (index >= focusablesSortingMenu.length) {
-          index = 0;
+          index = 0
         }
-        focusablesSortingMenu[index].focus();
+        focusablesSortingMenu[index].focus()
       }
-       if (e.key === "Enter" || e.key === " ") {
-        focusablesSortingMenu[index].click();
-        this.focus();
+      if (e.key === 'Enter' || e.key === ' ') {
+        focusablesSortingMenu[index].click()
+        this.focus()
       }
-       if (e.key === "Escape" || e.key === "Esc") {
-        this.children[1].classList.remove("select-arrow-active");
-        this.children[1].nextSibling.classList.add("select-hide");
-        this.children[1].removeAttribute("aria-expanded");
-        this.focus();
-        
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        this.children[1].classList.remove('select-arrow-active')
+        this.children[1].nextSibling.classList.add('select-hide')
+        this.children[1].removeAttribute('aria-expanded')
+        this.focus()
+
         console.log(this)
       }
     }
-  });
-});
+  })
+})
