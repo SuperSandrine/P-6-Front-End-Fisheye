@@ -5,13 +5,14 @@
 
 // ***************** import ******************
 import { photographerMedia } from '../pages/photographer.js'
+import { videoControls } from './videoControls.js'
 
 const lightboxModal = document.getElementById('lightbox_modal')
 const lightboxMedia = document.querySelector('.lightbox_modal-content')
 const main = document.querySelector('#body')
 // const displayId = document.getElementsByClassName('display-lightbox')
 const tabindexLightbox =
-  'div[tabindex],button[tabindex],img[tabindex],p[tabindex]'
+  'div[tabindex],button[tabindex],img[tabindex],video[tabindex],p[tabindex]'
 let focusablesLightbox = []
 let previouslyFocusedElement = null
 
@@ -23,6 +24,28 @@ let fillMediaImageSource
 let fillMediaVideoSource
 let fillMediaTitle
 // let displayedLB = false;
+
+function sortFocusablesLightbox () {
+  focusablesLightbox.sort(function (a, b) {
+    const x = a.getAttribute('tabindex')
+    const y = b.getAttribute('tabindex')
+    if (x < y) {
+      return -1
+    }
+    if (x > y) {
+      return 1
+    }
+    return 0
+  })
+  console.log('rangement')
+}
+
+function createFocusablesLightbox () {
+  // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
+  focusablesLightbox = Array.from(lightboxModal.querySelectorAll(tabindexLightbox))
+  // on range le tableau en fonction des tabindex
+  sortFocusablesLightbox()
+}
 
 // en paramètre du display "e", j'ai appelé l'id du média dans media.js
 // quand je clique sur la photo, je récupère l'index de l'image pour afficher
@@ -39,22 +62,8 @@ export function displayLightboxModal (e) {
   console.log(idMedia)
   getIndexofMediasForLightbox(photographerMedia)
   giveLightboxItsMedias(photographerMedia)
-  // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
-  focusablesLightbox = Array.from(
-    lightboxModal.querySelectorAll(tabindexLightbox)
-  )
-  // on range le tableau en fonction des tabindex
-  focusablesLightbox.sort(function (a, b) {
-    const x = a.getAttribute('tabindex')
-    const y = b.getAttribute('tabindex')
-    if (x < y) {
-      return -1
-    }
-    if (x > y) {
-      return 1
-    }
-    return 0
-  })
+  createFocusablesLightbox()
+  console.log(focusablesLightbox)
   previouslyFocusedElement = document.querySelector(':focus')
   console.log(previouslyFocusedElement)
   focusablesLightbox[0].focus()
@@ -153,17 +162,29 @@ function previousMedia (array) {
   }
 }
 
+{ /* <div class="controls">
+      <button class="playpause">Play</button>
+      <button class="stop">Stop</button>
+      <button class="rwd">Rwd</button>
+      <button class="fwd">Fwd</button>
+      <div class="time">00:00</div>
+  </div>
+*/ }
+
 // prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
 // pour afficher image, video et titre
 function giveLightboxItsMedias () {
   const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`
-  const mediaBigVideo = `<div alt="${fillMediaTitle}"> <video tabindex="2" controls >
-  <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4">
-</video></div>`
+  const mediaBigVideo = `
+  <video tabindex="2" alt="${fillMediaTitle}" controls="controls">
+  <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4"> 
+  Votre navigateur ne prends pas en charge nos formats vidéos
+  </video>
+  `
   const bigMedia =
     fillMediaImageSource === undefined ? mediaBigVideo : mediaBigImage
   lightboxMedia.innerHTML = `${bigMedia}
-     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`
+    <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`
 }
 
 // _________________ Navigation
@@ -175,14 +196,14 @@ const lightboxModalNext = document.querySelector('#lightbox_modal-next-button')
 lightboxModalNext.addEventListener('click', (e) => {
   nextMedia(photographerMedia)
   giveLightboxItsMedias()
+  createFocusablesLightbox()
 })
 
-const lightboxModalPrevious = document.querySelector(
-  '#lightbox_modal-previous-button'
-)
+const lightboxModalPrevious = document.querySelector('#lightbox_modal-previous-button')
 lightboxModalPrevious.addEventListener('click', (e) => {
   previousMedia(photographerMedia)
   giveLightboxItsMedias()
+  createFocusablesLightbox()
 })
 
 const closeId = document.querySelector('#close-lightbox')
@@ -217,13 +238,59 @@ const keyboardNavigationOnLightbox = function (e) {
     closeLightboxModal(e)
   } else if (e.key === 'Tab' && lightboxModal.matches('aria-hidden') === false) {
     focusInLightbox(e)
+    // console.log(document.activeElement.tabIndex)
+    // if (e.key === 'Enter' && document.activeElement.tabIndex === 6) {
+    //   console.log(e.key)
+    //   closeLightboxModal(e)
+    // }
+    // J'aimerai avec Tab, tabuler dans la video
   } else if (e.key === 'ArrowLeft' && lightboxModal.matches('aria-hidden') === false) {
     previousMedia(photographerMedia)
     giveLightboxItsMedias()
+    createFocusablesLightbox()
   } else if (e.key === 'ArrowRight' && lightboxModal.matches('aria-hidden') === false) {
     nextMedia(photographerMedia)
     giveLightboxItsMedias()
+    createFocusablesLightbox()
   }
 }
+
+const insideLightboxModal = document.querySelector('.lightbox_modal')
+console.log(insideLightboxModal)
+insideLightboxModal.addEventListener('focus', function (a) {
+  //  a.preventDefault();
+  console.log("j'ai le focus dans la LB")
+  a.target.addEventListener('keydown', function (e) {
+    console.log("quelq'un a appuyé sur un bouton dans la LB")
+    //  console.log(e.target.children) // select-selected
+    //  console.log(this.children) // 'select items'
+    // if (e.key === "Tab") {
+    // } else
+    // if (e.key !== 'Tab') {
+    //   e.preventDefault()
+    // }
+
+    if (document.activeElement.tabIndex === 6) {
+      if (e.key === 'Enter') {
+        e.stopImmediatePropagation()
+        closeLightboxModal()
+      }
+    } else if (document.activeElement.tabIndex === 5) {
+      if (e.key === 'Enter') {
+        e.stopImmediatePropagation()
+        nextMedia(photographerMedia)
+        giveLightboxItsMedias()
+        createFocusablesLightbox()
+      }
+    } else if (document.activeElement.tabIndex === 4) {
+      if (e.key === 'Enter') {
+        e.stopImmediatePropagation()
+        previousMedia(photographerMedia)
+        giveLightboxItsMedias()
+        createFocusablesLightbox()
+      }
+    }
+  })
+})
 
 export { main }

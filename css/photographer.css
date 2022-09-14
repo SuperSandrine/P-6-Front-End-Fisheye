@@ -390,3 +390,51 @@ textarea::placeholder {
 /* .lightbox_modal-content video {
   width: 100%;
 } */
+
+/* --------- Modal Lightbox --------- */
+/* --------- Video Controls --------- */
+
+/* .player {
+  width: 480px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+} */
+
+/* video .controls {
+  width: 100%;
+}
+
+.controls {
+  height: 36px;
+}
+
+.player button {
+  display: block;
+  float: left;
+  border: 0;
+  margin-right: 2px;
+  height: 100%;
+  width: 50px;
+  cursor: pointer;
+}
+
+.player button:hover,
+.player button:focus {
+  background-color: #ddd;
+}
+
+.player button:active {
+  background-color: #ccc;
+}
+
+.controls div {
+  font-size: 12px;
+  display: inline-block;
+  line-height: 36px;
+  width: 45px;
+  float: right;
+}
+
+video {
+  margin-bottom: -5px;
+} */
