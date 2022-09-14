@@ -5,6 +5,7 @@ import { main } from './lightbox.js'
 // const main = document.querySelector("#body");
 const form = document.querySelector('form')
 const modal = document.getElementById('contact_modal')
+const submitButton = document.querySelector('.contact_button')
 
 const containerMessage = document.querySelector('#message').parentNode
 const containerEmail = document.querySelector('#email').parentNode
@@ -61,6 +62,8 @@ function closeContactModal () {
   modal.removeAttribute('aria-modal')
   main.classList.remove('no-scroll')
   main.removeAttribute('aria-hidden')
+  // main.style.backgroundColor = 'blue'
+
   window.removeEventListener('keydown', keyboardNavigationOnContactModal)
 }
 
@@ -345,10 +348,6 @@ for (let i = 0; i < form.length; i++) {
   )
 }
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault()
-})
-
 const closeIdCM = document.querySelector('#close-contact_modal')
 closeIdCM.addEventListener('click', (e) => {
   closeContactModal()
@@ -372,3 +371,42 @@ function focusInContactModal (e) {
   }
   focusablesContactForm[index].focus()
 }
+
+// form.addEventListener('submit', validate)
+
+// submitButton.addEventListener('submit', (e) => {
+//   e.preventDefault()
+//   e.stopImmediatePropagation()
+//   validate()
+// })
+
+form.onsubmit = function () { return validate() }
+
+const insideContactForm = document.querySelector('.contact_modal')
+console.log(insideContactForm)
+insideContactForm.addEventListener('focus', function (a) {
+  //  a.preventDefault();
+  console.log("j'ai le focus dans la CFM")
+  a.target.addEventListener('keydown', function (e) {
+    console.log("quelq'un a appuyé sur un bouton dans la CFM")
+    //  console.log(e.target.children) // select-selected
+    //  console.log(this.children) // 'select items'
+    // if (e.key === "Tab") {
+    // } else
+    // if (e.key !== 'Tab') {
+    //   e.preventDefault()
+    // }
+    if ((document.activeElement.tabIndex === 11) && (e.key === 'Enter')) {
+      // if (e.key === 'Enter') {
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      return validate()
+      // }
+    } else if ((document.activeElement.tabIndex === 12) && (e.key === 'Enter')) {
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      closeContactModal()
+      console.log('on dirait un bug')
+    }
+  })
+})
