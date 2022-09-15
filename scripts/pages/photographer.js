@@ -34,13 +34,11 @@ async function getPhotographers () {
 // les fonctions écrites dans la factory en asynchrone
 // test du dimanche
 async function displayData (photographer) {
-  console.log('photographer : ' + photographer)
   photographer.forEach((id) => {
     console.log(id)
     const photographerModel = photographerFactory(id)
     photographerModel.getPhotographHeader()
     photographerModel.getPhotographPrice()
-    console.log('gallery is coming')
   })
 }
 
@@ -57,8 +55,8 @@ async function displayMedia (media) {
   links.forEach((a) => {
     a.addEventListener('click', (e) => {
       const cible = e.target.parentNode
-      console.log(cible)
-      console.log(links)
+      // console.log(cible)
+      // console.log(links)
       displayLightboxModal(parseInt(cible.getAttribute('data-id')))
     })
   })
@@ -68,8 +66,8 @@ async function displayMedia (media) {
     b.addEventListener('focus', function (o) {
       o.preventDefault()
       o.stopPropagation()
-      console.log("j'ai le focus gallery : " + typeof (parseInt(o.target.getAttribute('data-id'), 10)))
-      console.log(o)
+      //      console.log("j'ai le focus gallery : " + typeof (parseInt(o.target.getAttribute('data-id'), 10)))
+      // console.log(o)
       o.target.addEventListener('keydown', function (u) {
         // u.preventDefault()
         console.log("quelq'un a appuyé sur un bouton")

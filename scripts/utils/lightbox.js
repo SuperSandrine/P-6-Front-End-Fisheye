@@ -37,7 +37,7 @@ function sortFocusablesLightbox () {
     }
     return 0
   })
-  console.log('rangement')
+//  console.log('rangement')
 }
 
 function createFocusablesLightbox () {
@@ -59,13 +59,13 @@ export function displayLightboxModal (e) {
   main.classList.add('no-scroll')
   main.setAttribute('aria-hidden', 'true')
   idMedia = e
-  console.log(idMedia)
+  //  console.log(idMedia)
   getIndexofMediasForLightbox(photographerMedia)
   giveLightboxItsMedias(photographerMedia)
   createFocusablesLightbox()
-  console.log(focusablesLightbox)
+  //  console.log(focusablesLightbox)
   previouslyFocusedElement = document.querySelector(':focus')
-  console.log(previouslyFocusedElement)
+  // console.log(previouslyFocusedElement)
   focusablesLightbox[0].focus()
   window.addEventListener('keydown', keyboardNavigationOnLightbox)
   return idMedia
@@ -97,7 +97,7 @@ let indexOfMedia
 function getIndexofMediasForLightbox (array) {
   idArray = array.map((el) => el.id)
   indexOfMedia = idArray.indexOf(idMedia)
-  console.log(indexOfMedia)
+  //  console.log(indexOfMedia)
   fillMedia(array)
   //  fillMediaImageSource = array[indexOfMedia].image
   //  console.log(fillMediaImageSource)
@@ -162,29 +162,43 @@ function previousMedia (array) {
   }
 }
 
-{ /* <div class="controls">
-      <button class="playpause">Play</button>
-      <button class="stop">Stop</button>
-      <button class="rwd">Rwd</button>
-      <button class="fwd">Fwd</button>
-      <div class="time">00:00</div>
-  </div>
-*/ }
-
 // prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
 // pour afficher image, video et titre
 function giveLightboxItsMedias () {
   const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`
   const mediaBigVideo = `
-  <video tabindex="2" alt="${fillMediaTitle}" controls="controls">
+  <video id="animateVideo" tabindex="2" alt="${fillMediaTitle}" >
   <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4"> 
   Votre navigateur ne prends pas en charge nos formats vidéos
   </video>
   `
+
   const bigMedia =
     fillMediaImageSource === undefined ? mediaBigVideo : mediaBigImage
   lightboxMedia.innerHTML = `${bigMedia}
     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`
+  console.log(bigMedia.match('video'))
+  const animateVideo = document.querySelector('#animateVideo')
+  // console.log(animateVideo)
+  if (animateVideo !== null) {
+    animateVideo.setAttribute('controls', 'controls')
+  }
+  //   if (bigMedia === video alors j'active le controls)
+  if (bigMedia.match('video') !== null) {
+    // set attributes controls pour l'enlever ensuite?
+    console.log('ça match')
+    giveVideoAccessibleControls()
+    videoControls()
+    const videoPlayer = document.querySelector('.controls')
+    console.log(videoPlayer)
+    videoPlayer.addEventListener('focus', function (a) {
+      console.log('focus dans controls' + a.target)
+      a.target.addEventListener('keydown', function (e) {
+        console.log('dans la video :' + e.key)
+      })
+    })
+    // console.log(animateVideo)
+  }
 }
 
 // _________________ Navigation
@@ -233,7 +247,7 @@ function focusInLightbox (e) {
 
 const keyboardNavigationOnLightbox = function (e) {
   e.preventDefault()
-  console.log(e.key)
+  //  console.log(e.key)
   if (e.key === 'Escape' || e.key === 'Esc') {
     closeLightboxModal(e)
   } else if (e.key === 'Tab' && lightboxModal.matches('aria-hidden') === false) {
@@ -256,7 +270,7 @@ const keyboardNavigationOnLightbox = function (e) {
 }
 
 const insideLightboxModal = document.querySelector('.lightbox_modal')
-console.log(insideLightboxModal)
+// console.log(insideLightboxModal)
 insideLightboxModal.addEventListener('focus', function (a) {
   //  a.preventDefault();
   console.log("j'ai le focus dans la LB")
@@ -290,7 +304,66 @@ insideLightboxModal.addEventListener('focus', function (a) {
         createFocusablesLightbox()
       }
     }
+    // else if (document.activeElement.tabIndex === 2) {
+    //   e.stopImmediatePropagation()
+    //   e.preventDefault()
+    //   console.log('je suis sur un tabindex2')
+    //   // const player = document.querySelectorAll('#animateVideo, .controls')
+    //   // player.addEventListener('keydown', keyboardNavigationOnLightboxVideo(e))
+    //   // e.preventDefault()
+    //   //      e.stopImmediatePropagation()
+    //   //      keyboardNavigationOnLightboxVideo()
+    // }
   })
 })
+
+function giveVideoAccessibleControls () {
+  const controlsButtons = `
+      <button class="playpause">Play</button>
+      <button class="stop">Stop</button>
+      <button class="rwd">Rwd</button>
+      <button class="fwd">Fwd</button>
+      <div class="time">00:00</div>`
+  const div = document.createElement('div')
+  // console.log(lightboxMedia.lastChild)
+  lightboxMedia.insertBefore(div, lightboxMedia.lastChild)
+  // lightboxMedia.append(div)
+  div.setAttribute('class', 'controls')
+  div.setAttribute('tabIndex', '2')
+  div.innerHTML = controlsButtons
+  //  lightboxMedia.innerHTML = controlsButtons
+  // const addNewControlsButtons = document.createElement('div').appendChild(
+  // const text = document.createTextNode(controlsButtons)
+  // const def = document.querySelector('.controls')
+  // def.innerHTML = controlsButtons
+//  lightboxMedia.append(div)
+  // div.appendChild(text)
+}
+
+const player = document.querySelector('.controls')
+console.log(player)
+player.addEventListener('focus', function (a) {
+  console.log('focus dans video et controls' + a.target)
+  a.target.addEventListener('keydown', function (e) {
+    console.log('dans la video :' + e.key)
+  })
+})
+//  'keydown', keyboardNavigationOnLightboxVideo())
+
+function keyboardNavigationOnLightboxVideo () {
+  // const player = document.querySelectorAll('#animateVideo, .controls')
+  // player.addEventListener('keydown')
+  // si mon focus est sur la video ou sur le controls
+  // alors je peux enter et space pour play
+  // il n'y pas de sons
+  // alors je peux accélérer avec arrowright
+  // alors je peux revenir en arrière avec arrowleft
+  // je rajoute pour le lecteur d'écran:
+  //        - role button,(role :list?)
+  //        - state selected, (expanded?)
+  //        - name play, name fastForward etc
+
+  console.log('dans la video :' + this.key)
+}
 
 export { main }

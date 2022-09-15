@@ -1,19 +1,23 @@
 // ---------------------- Video Controls ----------------------//
 // grab references to buttons and video
 
-const playPauseBtn = document.querySelector('.playpause')
-const stopBtn = document.querySelector('.stop')
-const rwdBtn = document.querySelector('.rwd')
-const fwdBtn = document.querySelector('.fwd')
-const timeLabel = document.querySelector('.time')
-
-const player = document.querySelector('video')
-
-// Remove the native controls from all players
 export function videoControls () {
+  const playPauseBtn = document.querySelector('.playpause')
+  const stopBtn = document.querySelector('.stop')
+  const rwdBtn = document.querySelector('.rwd')
+  const fwdBtn = document.querySelector('.fwd')
+  const timeLabel = document.querySelector('.time')
+
+  const animateVideo = document.querySelector('#animateVideo')
+  const player = animateVideo
+  //  console.log(player.attributes)
+  // Remove the native controls from all players
+
   player.removeAttribute('controls')
+  console.log(player)
 
   // Define constructor for player controls object
+
   playPauseBtn.onclick = function () {
     if (player.paused) {
       player.play()
@@ -31,11 +35,11 @@ export function videoControls () {
   }
 
   rwdBtn.onclick = function () {
-    player.currentTime -= 3
+    player.currentTime -= 5
   }
 
   fwdBtn.onclick = function () {
-    player.currentTime += 3
+    player.currentTime += 5
     if (player.currentTime >= player.duration || player.paused) {
       player.pause()
       player.currentTime = 0
@@ -48,7 +52,6 @@ export function videoControls () {
     const seconds = Math.floor(player.currentTime - minutes * 60)
     let minuteValue
     let secondValue
-    let mediaTime
 
     if (minutes < 10) {
       minuteValue = '0' + minutes
@@ -62,7 +65,15 @@ export function videoControls () {
       secondValue = seconds
     }
 
-    mediaTime = minuteValue + ':' + secondValue
+    const mediaTime = minuteValue + ':' + secondValue
     timeLabel.textContent = mediaTime
   }
+
+//   function keyboardNavigationOnLightboxVideo (e) {
+//     console.log(e.key)
+//     if (e.key === 'Enter' || e.key === ' ') {
+//       playVideo()
+//     }
+//   }
+//   return keyboardNavigationOnLightboxVideo
 }

@@ -387,6 +387,15 @@ textarea::placeholder {
   margin-bottom: -8px;
   overflow: scroll;
 }
+.lightbox_modal-content video {
+  height: 80%;
+  /* position: relative; */
+}
+.lightbox_modal-content .controls {
+  /* position: absolute; */
+  /* bottom: 20%; */
+}
+
 /* .lightbox_modal-content video {
   width: 100%;
 } */

@@ -113,7 +113,7 @@ for (j = 1; j < ll; j++) {
     allLikesForTotal()
     displayAllLikesForTotal()
 
-    console.log(changeSelectedDiv)
+    //    console.log(changeSelectedDiv)
     changeSelectedDiv.click()
   })
 
@@ -123,7 +123,7 @@ for (j = 1; j < ll; j++) {
 customSelectClassElmnt.appendChild(optionsBoxDiv)
 
 function closeAllSelect (elmnt) {
-  console.log('ça ferme')
+//  console.log('ça ferme')
   /* a function that will close all select boxes in the document,
   except the current select box: */
   let i
@@ -143,7 +143,7 @@ function closeAllSelect (elmnt) {
   }
   //  sortingMedias();
   console.log('oui ça ferme')
-  console.log(arrNo)
+//  console.log(arrNo)
 }
 
 /* if the user clicks anywhere outside the select box, then this line close all select boxes: */
@@ -222,19 +222,19 @@ const optionsSortingMenu = "div[role='option']"
 focusablesSortingMenu = Array.from(
   customSelectClassElmnt.querySelectorAll(optionsSortingMenu)
 )
-console.log(focusablesSortingMenu)
+// console.log(focusablesSortingMenu)
 
 customSelectClassElmnt.addEventListener('focus', function (a) {
 //  a.preventDefault();
-  console.log("j'ai le focus")
-  console.log(a.target)
-  console.log(this)
-  console.log(this.children[1])
+//  console.log("j'ai le focus")
+  // console.log(a.target)
+  // console.log(this)
+  // console.log(this.children[1])
   // THOMAS: c'est marrant, a.target marche mais pas this?
   a.target.addEventListener('keydown', function (e) {
-    console.log("quelq'un a appuyé sur un bouton")
-    console.log(e.target.children[1]) // select-selected
-    console.log(this.children[2]) // 'select items'
+    // console.log("quelq'un a appuyé sur un bouton")
+    // console.log(e.target.children[1]) // select-selected
+    // console.log(this.children[2]) // 'select items'
     // if (e.key === "Tab") {
     // } else
     if (e.key !== 'Tab') {
@@ -286,7 +286,7 @@ customSelectClassElmnt.addEventListener('focus', function (a) {
         this.children[1].removeAttribute('aria-expanded')
         this.focus()
 
-        console.log(this)
+        //        console.log(this)
       }
     }
   })

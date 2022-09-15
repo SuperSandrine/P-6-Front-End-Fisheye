@@ -5,7 +5,7 @@ import { main } from './lightbox.js'
 // const main = document.querySelector("#body");
 const form = document.querySelector('form')
 const modal = document.getElementById('contact_modal')
-const submitButton = document.querySelector('.contact_button')
+// const submitButton = document.querySelector('.contact_button')
 
 const containerMessage = document.querySelector('#message').parentNode
 const containerEmail = document.querySelector('#email').parentNode
@@ -383,7 +383,7 @@ function focusInContactModal (e) {
 form.onsubmit = function () { return validate() }
 
 const insideContactForm = document.querySelector('.contact_modal')
-console.log(insideContactForm)
+// console.log(insideContactForm)
 insideContactForm.addEventListener('focus', function (a) {
   //  a.preventDefault();
   console.log("j'ai le focus dans la CFM")
