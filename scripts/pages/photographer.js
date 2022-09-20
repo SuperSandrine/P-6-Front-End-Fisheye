@@ -113,7 +113,7 @@ async function displayMedia (media) {
   })
 
   const buttonLike = document.querySelectorAll('.play-addALike')
-  console.log(document.activeElement.matches('.play-addALike'))
+  //  console.log(document.activeElement.matches('.play-addALike'))
   //  if (document.activeElement.matches('.play-addALike') === true) {
   // comment faire pour qu'une fois que la barre enter addAclik, ça ne
   // fasse pas un click écouter par le listener

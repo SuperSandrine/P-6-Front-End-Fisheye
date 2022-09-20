@@ -12,11 +12,11 @@
       src="https://kit.fontawesome.com/ba64d1ea0b.js"
       crossorigin="anonymous"
     ></script>
-    <title>Fisheye - photographe en titre et sa gallerie photo</title>
+    <title>Fisheye - Détails du photographe et sa gallerie photo</title>
   </head>
   <body id="body">
-    <header lang="en" role="banner">
-      <a tabindex="1" href="./index.html" alt="Fisheye home page">
+    <header role="banner">
+      <a tabindex="1" href="./index.html" alt="Fisheye page d'accueil">
         <img src="./assets/images/logo.png" alt="Fisheye Logo" class="logo"
       /></a>
     </header>
@@ -49,7 +49,7 @@
         <div class="contact_modal" tabindex="1">
           <div class="contact_modal_header">
             <h1 tabindex="2" id="form-title">Contactez-moi</h1>
-            <img tabindex="12" role="button" aria-label="close contact form" id="close-contact_modal" src="./assets/icons/close.svg"  />
+            <img tabindex="12" role="button" aria-label="ferme le formulaire de contact" id="close-contact_modal" src="./assets/icons/close.svg"  />
           </div>
           <form
             id="contactForm"
@@ -116,9 +116,8 @@
               type="submit"
               value="Envoyer"
               role="button"
-              aria-label="Send"
+              aria-label="Envoyer"
             />
-            <!-- <button class="contact_button">Envoyer</button> -->
           </form>
         </div>
       </div>
@@ -126,18 +125,18 @@
 
     <!-- *********** MODAL Lightbox *********** -->
 
-    <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-label="image closeup view">
+    <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-label="image en vue rapprochée">
       <div class="position">
         <div class="lightbox_modal" tabindex="1">
           <div class="lightbox_modal-previous">
-            <button tabindex="4" aria-label="previous image" id="lightbox_modal-previous-button">
+            <button tabindex="4" aria-label="image précédente" id="lightbox_modal-previous-button">
               <img src="./assets/icons/leftarrow.svg" />
             </button>
           </div>
           <div class="lightbox_modal-content">
           </div>
           <div class="lightbox_modal-close">
-            <button tabindex="6" aria-label="close dialog" id="close-lightbox">
+            <button tabindex="6" aria-label="fermeture de la dialog" id="close-lightbox">
               <img  
                 src="./assets/icons/redclose.svg"
               />
@@ -145,7 +144,7 @@
             </button>
           </div>
           <div class="lightbox_modal-next">
-            <button tabindex="5" aria-label="next image" id="lightbox_modal-next-button">
+            <button tabindex="5" aria-label="image suivante" id="lightbox_modal-next-button">
               <img class="center" src="./assets/icons/rightarrow.svg" />
             </button>
           </div>
@@ -153,7 +152,6 @@
       </div>
     </aside>
 
-    // TODO = rajouter: type="module" 
     <script type="module" src="./scripts/utils/contactForm.js"></script>
     <script type="module" src="./scripts/factories/photographer.js"></script>
     <script type="module" src="./scripts/factories/media.js"></script>

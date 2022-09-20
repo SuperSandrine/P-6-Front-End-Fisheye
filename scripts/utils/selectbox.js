@@ -87,23 +87,16 @@ for (j = 1; j < ll; j++) {
           changeSelectedDiv.innerHTML /* sortingMFL change à chaque clic */
         // console.log(sortingMethodFromList);
         /* voici l'information dont j'ai besoin pour jouer mon tri */
-        // ternaire :
-        // s'il y a déjà une class? oui alors je la remove et j'en mets une, non j'en met une
-        // ternaire
-
         oldSelection = this.parentNode.querySelector('.same-as-selected')
-
-        // eslint-disable-next-line no-unused-expressions
-        oldSelection !== null
-          ? (oldSelection.removeAttribute('class') &
-            oldSelection.removeAttribute('aria-selected') &
-            this.setAttribute('class', 'same-as-selected') &
-            this.setAttribute('aria-selected', 'true'))
-          : (this.setAttribute('class', 'same-as-selected') &
-            this.setAttribute('aria-selected', 'true'))
-        // OK DONE: pour quoi une ternaire ne fait pas le travail ? >>> il ne faut pas mettre
-        // & mais &&
-
+        if (oldSelection !== null) {
+          oldSelection.removeAttribute('class')
+          oldSelection.removeAttribute('aria-selected')
+          this.setAttribute('class', 'same-as-selected')
+          this.setAttribute('aria-selected', 'true')
+        } else {
+          this.setAttribute('class', 'same-as-selected')
+          this.setAttribute('aria-selected', 'true')
+        }
         break
       }
     }
@@ -142,7 +135,7 @@ function closeAllSelect (elmnt) {
     }
   }
   //  sortingMedias();
-  console.log('oui ça ferme')
+//  console.log('oui ça ferme')
 //  console.log(arrNo)
 }
 
