@@ -103,12 +103,8 @@ for (j = 1; j < ll; j++) {
       }
     }
     sortingMedias()
-    //    const totalOfLikes = 0
-    // const totalOfLikes = 0
     allLikesForTotal()
     displayAllLikesForTotal()
-
-    //    console.log(changeSelectedDiv)
     changeSelectedDiv.click()
   })
 
@@ -117,16 +113,9 @@ for (j = 1; j < ll; j++) {
 
 customSelectClassElmnt.appendChild(optionsBoxDiv)
 
-function closeAllSelect (elmnt) {
-  //  console.log('ça ferme')
+function closeAllSelect () {
   /* a function that will close all select boxes in the document,
     except the current select box: */
-  // let i
-  // const arrNo = []
-  console.log(elmnt)
-  console.log(selectedDiv)
-  //  for (i = 0; i < selectedDiv.length; i++) {
-  // if (elmnt === selectedDiv) {
   selectedDiv.classList.remove('select-arrow-active')
   optionsBoxDiv.classList.add('select-hide')
   optionsBoxDiv.removeAttribute('aria-expanded')
