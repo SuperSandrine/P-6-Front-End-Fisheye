@@ -34,7 +34,9 @@ selectedDiv.addEventListener('click', function (e) {
   /* when the select box is clicked, close any other select boxes,
       and open/close the current select box: */
   e.stopPropagation()
-  closeAllSelect(this)
+  //  closeAllSelect()
+  //  closeAllSelect(this)
+
   //  console.log("bug??")
   this.nextSibling.classList.toggle('select-hide')
   this.nextSibling.setAttribute('aria-expanded', 'true')
@@ -116,31 +118,77 @@ for (j = 1; j < ll; j++) {
 customSelectClassElmnt.appendChild(optionsBoxDiv)
 
 function closeAllSelect (elmnt) {
-//  console.log('ça ferme')
+  //  console.log('ça ferme')
   /* a function that will close all select boxes in the document,
-  except the current select box: */
-  let i
-  const arrNo = []
-  for (i = 0; i < selectedDiv.length; i++) {
-    if (elmnt === selectedDiv[i]) {
-      arrNo.push(i)
-    } else {
-      selectedDiv[i].classList.remove('select-arrow-active')
-    }
-  }
-  for (i = 0; i < optionsBoxDiv.length; i++) {
-    if (arrNo.indexOf(i)) {
-      optionsBoxDiv[i].classList.add('select-hide')
-      optionsBoxDiv[i].removeAttribute('aria-expanded')
-    }
-  }
+    except the current select box: */
+  // let i
+  // const arrNo = []
+  console.log(elmnt)
+  console.log(selectedDiv)
+  //  for (i = 0; i < selectedDiv.length; i++) {
+  // if (elmnt === selectedDiv) {
+  selectedDiv.classList.remove('select-arrow-active')
+  optionsBoxDiv.classList.add('select-hide')
+  optionsBoxDiv.removeAttribute('aria-expanded')
+  // if (selectedDiv.classList.contains('select-arrow-active')) {
+  //   selectedDiv.classList.remove('select-arrow-active')
+  //   optionsBoxDiv.classList.add('select-hide')
+  //   optionsBoxDiv.removeAttribute('aria-expanded')
+  // }
+  // }// if else{}
+  // } else {
+  // selectedDiv.classList.remove('select-arrow-active')
+  // }
+  // if (arrNo.indexOf(i)) {
+  //   optionsBoxDiv.classList.add('select-hide')
+  //   optionsBoxDiv.removeAttribute('aria-expanded')
+  // }
+
   //  sortingMedias();
-//  console.log('oui ça ferme')
-//  console.log(arrNo)
+  // console.log('oui ça ferme')
+  //  console.log(arrNo)
 }
 
 /* if the user clicks anywhere outside the select box, then this line close all select boxes: */
 window.addEventListener('click', closeAllSelect)
+
+/// vvv fonction qui marche, comment la siplifier?
+// const arrNo = []
+
+// function closeAllSelect (elmnt) {
+// //  console.log('ça ferme')
+//   /* a function that will close all select boxes in the document,
+//   except the current select box: */
+//   let i, x, y
+//   // const arrNo = []
+//   x = document.getElementsByClassName('select-items')
+//   y = document.getElementsByClassName('select-selected')
+//   console.log(elmnt)
+//   // console.log(selectedDiv)
+//   for (i = 0; i < y.length; i++) {
+//     console.log('y', y)
+//     if (elmnt === y[i]) {
+//       console.log(elmnt)
+//       console.log(y[i])
+//       arrNo.push(i)
+//       console.log(arrNo)
+//     } else {
+//       y[i].classList.remove('select-arrow-active')
+//     }
+//   }
+//   for (i = 0; i < x.length; i++) {
+//     if (arrNo.indexOf(i)) {
+//       x[i].classList.add('select-hide')
+//       x[i].removeAttribute('aria-expanded')
+//     }
+//   }
+//   //  sortingMedias();
+//   console.log('oui ça ferme')
+// //  console.log(arrNo)
+// }
+
+// /* if the user clicks anywhere outside the select box, then this line close all select boxes: */
+// window.addEventListener('click', closeAllSelect)
 
 // ***************** partie Sort ******************
 function sortOnPopularity () {

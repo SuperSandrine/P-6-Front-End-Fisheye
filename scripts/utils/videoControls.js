@@ -15,7 +15,6 @@ export function videoControls () {
 
   player.removeAttribute('controls')
   player.setAttribute('loop', true)
-  console.log(player)
 
   // Define constructor for player controls object
 
@@ -69,12 +68,4 @@ export function videoControls () {
     const mediaTime = minuteValue + ':' + secondValue
     timeLabel.textContent = mediaTime
   }
-
-//   function keyboardNavigationOnLightboxVideo (e) {
-//     console.log(e.key)
-//     if (e.key === 'Enter' || e.key === ' ') {
-//       playVideo()
-//     }
-//   }
-//   return keyboardNavigationOnLightboxVideo
 }
