@@ -32,6 +32,8 @@ export function addALike (nbOfLikes, photoId) {
   // console.log("short : " + shortClassLikes);
 
   //  console.log("je check : " + totalOfLikes);
+  // TODO: vérifier addAlike
+  console.log('photoID', photoId)
   let nbOfLikesInner = parseInt(document.querySelector(`.likes-${photoId} p`).innerHTML)
   console.log('je check le nblikes en inner : ' + nbOfLikesInner)
   // console.log("short : " + shortClassLikes);
@@ -40,13 +42,18 @@ export function addALike (nbOfLikes, photoId) {
   // sinon on décrémente.
   //  const insideCard =
 
-  // eslint no-unused-expressions: ["error", { "allowTernary": true }]
-  // eslint-disable-next-line no-unused-expressions
-  nbOfLikes === nbOfLikesInner
-    ? (nbOfLikesInner = nbOfLikesInner + 1) &
-        totalOfLikes++
-    : nbOfLikesInner-- &
-        totalOfLikes--
+  // nbOfLikes === nbOfLikesInner
+  //   ? (nbOfLikesInner = nbOfLikesInner + 1) &
+  //       totalOfLikes++
+  //   : nbOfLikesInner-- &
+  //       totalOfLikes--
+  if (nbOfLikes === nbOfLikesInner) {
+    nbOfLikesInner = nbOfLikesInner + 1
+    totalOfLikes++
+  } else {
+    nbOfLikesInner--
+    totalOfLikes--
+  }
   // shortClassLikes = insideCard; >>> Thomas >>> Pourquoi ça marche pas?
   // console.log("voici le insideCard" + insideCard);
   // console.log( "nboflikes : " + nbOfLikes)

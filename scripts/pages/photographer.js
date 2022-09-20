@@ -54,6 +54,8 @@ async function displayMedia (media) {
   const links = document.querySelectorAll('.display-lightbox')
   links.forEach((a) => {
     a.addEventListener('click', (e) => {
+      e.preventDefault()
+
       const cible = e.target.parentNode
       // console.log(cible)
       // console.log(links)
@@ -65,19 +67,45 @@ async function displayMedia (media) {
     //  b.preventDefault();
     b.addEventListener('focus', function (o) {
       o.preventDefault()
-      o.stopPropagation()
+      o.stopImmediatePropagation()
       //      console.log("j'ai le focus gallery : " + typeof (parseInt(o.target.getAttribute('data-id'), 10)))
       // console.log(o)
       o.target.addEventListener('keydown', function (u) {
-        // u.preventDefault()
-        console.log("quelq'un a appuyé sur un bouton")
-        console.log(u)
+        if (u.key !== 'Tab') {
+          u.preventDefault()
+        }
+
+        // console.log("quelq'un a appuyé sur un bouton")
+        // console.log(u)
         // if (u.key === "Tab"){
         // passe le focus au tabindex suivant
         // }
-        if (u.key === 'Enter' || u.key === ' ') {
-          console.log('bleu')
-          console.log(u.target.getAttribute('data-id'))
+        if (u.key === 'Enter') {
+          // u.preventDefault()
+          u.stopImmediatePropagation()
+          u.preventDefault()
+          //        console.log('bleu')
+          //          console.log(u.target.getAttribute('data-id'))
+          displayLightboxModal(parseInt(o.target.getAttribute('data-id'), 10))
+        }
+      })
+      o.target.addEventListener('keyup', function (u) {
+        if (u.key !== 'Tab') {
+          u.preventDefault()
+        }
+
+        // console.log("quelq'un a appuyé sur un bouton")
+        // console.log(u)
+        // if (u.key === "Tab"){
+        // passe le focus au tabindex suivant
+        // }
+        if (u.key === ' ') {
+          // u.preventDefault()
+          u.preventDefault()
+
+          u.stopImmediatePropagation()
+          //        console.log('bleu')
+          //          console.log(u.target.getAttribute('data-id'))
           displayLightboxModal(parseInt(o.target.getAttribute('data-id'), 10))
         }
       })
@@ -85,21 +113,33 @@ async function displayMedia (media) {
   })
 
   const buttonLike = document.querySelectorAll('.play-addALike')
-  buttonLike.forEach((button) => {
-    button.addEventListener('click', (e) => {
-      const target = e.target.parentNode
-      const parameterId = parseInt(target.getAttribute('data-id'))
-      const parameterLikes = parseInt(target.getAttribute('data-likes'))
-      addALike(parameterLikes, parameterId)
-    })
-  })
+  console.log(document.activeElement.matches('.play-addALike'))
+  //  if (document.activeElement.matches('.play-addALike') === true) {
+  // comment faire pour qu'une fois que la barre enter addAclik, ça ne
+  // fasse pas un click écouter par le listener
   buttonLike.forEach((b) => {
     b.addEventListener('focus', function (o) {
       o.preventDefault()
       o.stopPropagation()
       // console.log(o)
-      o.target.addEventListener('keydown', function (u) {
-        if (u.key === 'Enter' || u.key === ' ') {
+      o.target.addEventListener('keyup', function (u) {
+        u.stopImmediatePropagation()
+        u.preventDefault()
+        //        console.log('touche', u.key)
+        if (u.key === ' ') {
+          u.preventDefault()
+          // console.log(u.target.getAttribute("data-id"));
+          const parameterId = parseInt(u.target.getAttribute('data-id'))
+          const parameterLikes = parseInt(u.target.getAttribute('data-likes'))
+          addALike(parameterLikes, parameterId)
+        }
+      })
+      o.target.addEventListener('keypress', function (u) {
+        u.stopImmediatePropagation()
+        u.preventDefault()
+        //        console.log('touche', u.key)
+        if (u.key === 'Enter') {
+          u.preventDefault()
           // console.log(u.target.getAttribute("data-id"));
           const parameterId = parseInt(u.target.getAttribute('data-id'))
           const parameterLikes = parseInt(u.target.getAttribute('data-likes'))
@@ -108,6 +148,39 @@ async function displayMedia (media) {
       })
     })
   })
+  //  } else {
+  buttonLike.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      const target = e.target.parentNode
+      console.log('le parent de id', e.target.parentNode)
+      const parameterId = parseInt(target.getAttribute('data-id'))
+      const parameterLikes = parseInt(target.getAttribute('data-likes'))
+      addALike(parameterLikes, parameterId)
+    })
+  })
+//  }
+  // if (document.activeElement == buttonLike) {
+  //   buttonLike.forEach((b) => {
+  //     b.addEventListener('focus', function (o) {
+  //       o.preventDefault()
+  //       o.stopPropagation()
+  //       // console.log(o)
+  //       o.target.addEventListener('keypress', function (u) {
+  //         u.stopImmediatePropagation()
+  //         u.preventDefault()
+  //         console.log('touche', u.key)
+  //         if (u.key === 'Enter' || u.key === ' ' || u.key === 'Space') {
+  //         // console.log(u.target.getAttribute("data-id"));
+  //           const parameterId = parseInt(u.target.getAttribute('data-id'))
+  //           const parameterLikes = parseInt(u.target.getAttribute('data-likes'))
+  //           addALike(parameterLikes, parameterId)
+  //         }
+  //       })
+  //     })
+  //   })
+  // }
 }
 // const links: sélectionne tous les liens de la gallerie et forme avec le querySelector
 // une collection HTML (différent d'un nodeList avec un getelement), j'ai un tableau

@@ -14,6 +14,7 @@ export function videoControls () {
   // Remove the native controls from all players
 
   player.removeAttribute('controls')
+  player.setAttribute('loop', true)
   console.log(player)
 
   // Define constructor for player controls object
@@ -40,11 +41,11 @@ export function videoControls () {
 
   fwdBtn.onclick = function () {
     player.currentTime += 5
-    if (player.currentTime >= player.duration || player.paused) {
-      player.pause()
-      player.currentTime = 0
-      playPauseBtn.textContent = 'Play'
-    }
+    //    if (player.currentTime >= player.duration || player.paused) {
+  //    player.pause()
+    //  player.currentTime = 0
+    // playPauseBtn.textContent = 'Play'
+    // }
   }
 
   player.ontimeupdate = function () {

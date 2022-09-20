@@ -25,6 +25,15 @@ let fillMediaVideoSource
 let fillMediaTitle
 // let displayedLB = false;
 
+// const videoPlayer = document.querySelector('.controls')
+// console.log(videoPlayer.matches('.controls'))
+//    console.log(videoPlayer)
+// videoPlayer.addEventListener('focus', function (a) {
+// const playPauseBtn = document.querySelector('.playpause')
+// const stopBtn = document.querySelector('.stop')
+// const rwdBtn = document.querySelector('.rwd')
+// const fwdBtn = document.querySelector('.fwd')
+
 function sortFocusablesLightbox () {
   focusablesLightbox.sort(function (a, b) {
     const x = a.getAttribute('tabindex')
@@ -45,13 +54,16 @@ function createFocusablesLightbox () {
   focusablesLightbox = Array.from(lightboxModal.querySelectorAll(tabindexLightbox))
   // on range le tableau en fonction des tabindex
   sortFocusablesLightbox()
+  focusablesLightbox[0].focus()
+
+  // console.log(focusablesLightbox)
 }
 
 // en paramètre du display "e", j'ai appelé l'id du média dans media.js
 // quand je clique sur la photo, je récupère l'index de l'image pour afficher
 // ses informations et l'image dans la lightbox
 export function displayLightboxModal (e) {
-//  displayedLB = true;
+  //  displayedLB = true;
   lightboxModal.style.display = 'block'
   //  lightboxModal.focus();
   lightboxModal.removeAttribute('aria-hidden')
@@ -66,8 +78,8 @@ export function displayLightboxModal (e) {
   //  console.log(focusablesLightbox)
   previouslyFocusedElement = document.querySelector(':focus')
   // console.log(previouslyFocusedElement)
-  focusablesLightbox[0].focus()
-  window.addEventListener('keydown', keyboardNavigationOnLightbox)
+  //  focusablesLightbox[0].focus()
+  //  window.addEventListener('keydown', keyboardNavigationOnLightbox)
   return idMedia
 }
 
@@ -81,7 +93,7 @@ function closeLightboxModal () {
     lightboxModal.removeAttribute('aria-modal')
     main.classList.remove('no-scroll')
     main.removeAttribute('aria-hidden')
-    window.removeEventListener('keydown', keyboardNavigationOnLightbox)
+    //    window.removeEventListener('keydown', keyboardNavigationOnLightbox)
   }
 }
 
@@ -97,13 +109,7 @@ let indexOfMedia
 function getIndexofMediasForLightbox (array) {
   idArray = array.map((el) => el.id)
   indexOfMedia = idArray.indexOf(idMedia)
-  //  console.log(indexOfMedia)
   fillMedia(array)
-  //  fillMediaImageSource = array[indexOfMedia].image
-  //  console.log(fillMediaImageSource)
-  //  fillMediaVideoSource = array[indexOfMedia].video
-  //  console.log(fillMediaVideoSource)
-  //  fillMediaTitle = array[indexOfMedia].title
   return {
     indexOfMedia,
     fillMediaImageSource,
@@ -117,14 +123,8 @@ function nextMedia (array) {
   if (indexOfMedia >= array.length) {
     indexOfMedia = 0
     fillMedia(array)
-    // (fillMediaImageSource = array[indexOfMedia].image)
-    // (fillMediaVideoSource = array[indexOfMedia].video)
-    // (fillMediaTitle = array[indexOfMedia].title)
   } else {
     fillMedia(array)
-    // (fillMediaImageSource = array[indexOfMedia].image)
-    // (fillMediaVideoSource = array[indexOfMedia].video)
-    // (fillMediaTitle = array[indexOfMedia].title)
   }
   return {
     indexOfMedia,
@@ -136,23 +136,11 @@ function nextMedia (array) {
 
 function previousMedia (array) {
   indexOfMedia--
-  // if (indexOfMedia >= array.length) {
-  //   indexOfMedia = 0;
-  //   (fillMediaImageSource = array[indexOfMedia].image),
-  //     (fillMediaVideoSource = array[indexOfMedia].video),
-  //     (fillMediaTitle = array[indexOfMedia].title);
-  // }
   if (indexOfMedia < 0) {
     indexOfMedia = array.length - 1
     fillMedia(array)
-    // (fillMediaImageSource = array[indexOfMedia].image)
-    // (fillMediaVideoSource = array[indexOfMedia].video)
-    // (fillMediaTitle = array[indexOfMedia].title)
   } else {
     fillMedia(array)
-    // (fillMediaImageSource = array[indexOfMedia].image)
-    // (fillMediaVideoSource = array[indexOfMedia].video)
-    // (fillMediaTitle = array[indexOfMedia].title)
   }
   return {
     indexOfMedia,
@@ -177,27 +165,21 @@ function giveLightboxItsMedias () {
     fillMediaImageSource === undefined ? mediaBigVideo : mediaBigImage
   lightboxMedia.innerHTML = `${bigMedia}
     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`
-  console.log(bigMedia.match('video'))
+  // console.log(bigMedia.match('video'))
   const animateVideo = document.querySelector('#animateVideo')
   // console.log(animateVideo)
   if (animateVideo !== null) {
     animateVideo.setAttribute('controls', 'controls')
+  //  animateVideo.setAttribute('data-able-player')
   }
   //   if (bigMedia === video alors j'active le controls)
   if (bigMedia.match('video') !== null) {
     // set attributes controls pour l'enlever ensuite?
-    console.log('ça match')
+    // console.log('ça match')
     giveVideoAccessibleControls()
     videoControls()
-    const videoPlayer = document.querySelector('.controls')
-    console.log(videoPlayer)
-    videoPlayer.addEventListener('focus', function (a) {
-      console.log('focus dans controls' + a.target)
-      a.target.addEventListener('keydown', function (e) {
-        console.log('dans la video :' + e.key)
-      })
-    })
-    // console.log(animateVideo)
+    //    const videoPlayer = document.querySelector('.controls')
+    videoPlayerKeyboardNavigation()
   }
 }
 
@@ -222,12 +204,12 @@ lightboxModalPrevious.addEventListener('click', (e) => {
 
 const closeId = document.querySelector('#close-lightbox')
 closeId.addEventListener('click', (e) => {
-  //  closeId.style.backgroundColor = "blue";
   closeLightboxModal()
 })
 
 function focusInLightbox (e) {
   e.preventDefault()
+  e.stopPropagation()
   let index = focusablesLightbox.findIndex(
     (f) => f === lightboxModal.querySelector(':focus')
   )
@@ -245,125 +227,294 @@ function focusInLightbox (e) {
   focusablesLightbox[index].focus()
 }
 
-const keyboardNavigationOnLightbox = function (e) {
-  e.preventDefault()
-  //  console.log(e.key)
-  if (e.key === 'Escape' || e.key === 'Esc') {
-    closeLightboxModal(e)
-  } else if (e.key === 'Tab' && lightboxModal.matches('aria-hidden') === false) {
-    focusInLightbox(e)
-    // console.log(document.activeElement.tabIndex)
-    // if (e.key === 'Enter' && document.activeElement.tabIndex === 6) {
-    //   console.log(e.key)
-    //   closeLightboxModal(e)
-    // }
-    // J'aimerai avec Tab, tabuler dans la video
-  } else if (e.key === 'ArrowLeft' && lightboxModal.matches('aria-hidden') === false) {
-    previousMedia(photographerMedia)
-    giveLightboxItsMedias()
-    createFocusablesLightbox()
-  } else if (e.key === 'ArrowRight' && lightboxModal.matches('aria-hidden') === false) {
-    nextMedia(photographerMedia)
-    giveLightboxItsMedias()
-    createFocusablesLightbox()
-  }
-}
-
 const insideLightboxModal = document.querySelector('.lightbox_modal')
 // console.log(insideLightboxModal)
-insideLightboxModal.addEventListener('focus', function (a) {
-  //  a.preventDefault();
-  console.log("j'ai le focus dans la LB")
-  a.target.addEventListener('keydown', function (e) {
-    console.log("quelq'un a appuyé sur un bouton dans la LB")
-    //  console.log(e.target.children) // select-selected
-    //  console.log(this.children) // 'select items'
-    // if (e.key === "Tab") {
-    // } else
-    // if (e.key !== 'Tab') {
-    //   e.preventDefault()
-    // }
+// ce listener s'active plusieursfois et du coup s'il activer 3 fois,
+// va enregistrer 3 keydown
+// trouver une autre manière de lancer la navigation
+// peut-être "la boite n'est pas cachée" ! suffit
 
-    if (document.activeElement.tabIndex === 6) {
-      if (e.key === 'Enter') {
-        e.stopImmediatePropagation()
-        closeLightboxModal()
-      }
-    } else if (document.activeElement.tabIndex === 5) {
-      if (e.key === 'Enter') {
-        e.stopImmediatePropagation()
+// si la LB est ouverte, écouter le keydown
+
+// insideLightboxModal.addEventListener('focus', function (a) {
+// enlever le focus
+
+if (lightboxModal.matches('aria-hidden') === false) {
+  insideLightboxModal.addEventListener('keydown', function (e) {
+    console.log("quelq'un a appuyé sur un bouton dans la LB", e.key)
+    if (e.key === 'Tab' && lightboxModal.matches('aria-hidden') === false) {
+      focusInLightbox(e)
+      //      console.log('ça marche?')
+    } else if (e.key !== 'Tab') {
+      e.stopImmediatePropagation()
+      e.preventDefault()
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        closeLightboxModal(e)
+      } else if (e.key === 'ArrowLeft' && lightboxModal.matches('aria-hidden') === false) {
+        previousMedia(photographerMedia)
+        giveLightboxItsMedias()
+        createFocusablesLightbox()
+      } else if (e.key === 'ArrowRight' && lightboxModal.matches('aria-hidden') === false) {
         nextMedia(photographerMedia)
         giveLightboxItsMedias()
         createFocusablesLightbox()
-      }
-    } else if (document.activeElement.tabIndex === 4) {
-      if (e.key === 'Enter') {
-        e.stopImmediatePropagation()
+      } else if (document.activeElement.tabIndex === 6 && e.key === 'Enter') {
+        closeLightboxModal()
+      } else if (document.activeElement.tabIndex === 5 && e.key === 'Enter') {
+        nextMedia(photographerMedia)
+        giveLightboxItsMedias()
+        createFocusablesLightbox()
+        // console.log(focusablesLightbox[1])
+      } else if (document.activeElement.tabIndex === 4 && e.key === 'Enter') {
         previousMedia(photographerMedia)
         giveLightboxItsMedias()
         createFocusablesLightbox()
       }
     }
-    // else if (document.activeElement.tabIndex === 2) {
-    //   e.stopImmediatePropagation()
-    //   e.preventDefault()
-    //   console.log('je suis sur un tabindex2')
-    //   // const player = document.querySelectorAll('#animateVideo, .controls')
-    //   // player.addEventListener('keydown', keyboardNavigationOnLightboxVideo(e))
-    //   // e.preventDefault()
-    //   //      e.stopImmediatePropagation()
-    //   //      keyboardNavigationOnLightboxVideo()
-    // }
   })
-})
+}
 
 function giveVideoAccessibleControls () {
   const controlsButtons = `
-      <button class="playpause">Play</button>
-      <button class="stop">Stop</button>
-      <button class="rwd">Rwd</button>
-      <button class="fwd">Fwd</button>
+      <button tabindex="2" class="playpause">Play</button>
+      <button tabindex="2" class="stop">Stop</button>
+      <button tabindex="2" class="rwd">Rwd</button>
+      <button tabindex="2" class="fwd">Fwd</button>
       <div class="time">00:00</div>`
   const div = document.createElement('div')
-  // console.log(lightboxMedia.lastChild)
   lightboxMedia.insertBefore(div, lightboxMedia.lastChild)
-  // lightboxMedia.append(div)
   div.setAttribute('class', 'controls')
-  div.setAttribute('tabIndex', '2')
+  div.setAttribute('tabindex', '2')
   div.innerHTML = controlsButtons
-  //  lightboxMedia.innerHTML = controlsButtons
-  // const addNewControlsButtons = document.createElement('div').appendChild(
-  // const text = document.createTextNode(controlsButtons)
-  // const def = document.querySelector('.controls')
-  // def.innerHTML = controlsButtons
-//  lightboxMedia.append(div)
-  // div.appendChild(text)
 }
+// const videoPlayer = document.querySelector('.controls')
+// // console.log(videoPlayer.matches('.controls'))
+// //    console.log(videoPlayer)
+// // videoPlayer.addEventListener('focus', function (a) {
+// const playPauseBtn = document.querySelector('.playpause')
+// const stopBtn = document.querySelector('.stop')
+// const rwdBtn = document.querySelector('.rwd')
+// const fwdBtn = document.querySelector('.fwd')
+// const timeLabel = document.querySelector('.time')
+// const playerButtons = 'button, div.time'
+// let focusablesPlayerLB = []
 
-const player = document.querySelector('.controls')
-console.log(player)
-player.addEventListener('focus', function (a) {
-  console.log('focus dans video et controls' + a.target)
-  a.target.addEventListener('keydown', function (e) {
-    console.log('dans la video :' + e.key)
+// focusablesPlayerLB = Array.from(videoPlayer.querySelectorAll(playerButtons))
+// console.log(focusablesPlayerLB)
+// const firstFocusablePlayerElement = focusablesPlayerLB[0]
+// console.log('1er', firstFocusablePlayerElement)
+// const lastFocusablePlayerElement = focusablesPlayerLB[focusablesPlayerLB.length - 1]
+// console.log('dernier', lastFocusablePlayerElement)
+
+// function focusInPlayerLB (e) {
+//   e.preventDefault()
+//   e.stopImmediatePropagation()
+//   let indexPlayer = focusablesPlayerLB.findIndex(
+//     (f) => f === videoPlayer.querySelector(':focus'))
+//   if (e.shiftKey === true) {
+//     indexPlayer--
+//   } else {
+//     indexPlayer++
+//   }
+//   if (indexPlayer >= focusablesPlayerLB.length) {
+//     indexPlayer = 0
+//   }
+//   if (indexPlayer < 0) {
+//     indexPlayer = focusablesPlayerLB.length - 1
+//   }
+//   focusablesPlayerLB[indexPlayer].focus()
+// }
+
+//   focusablesPlayerLB.forEach(function (elment) { elment.setAttribute('tabindex', '0') })
+//   console.log(focusablesPlayerLB)
+//   const isTabPressed = e.key === 'Tab'
+//   if (!isTabPressed) {
+//     console.log(!isTabPressed)
+//     return
+//   }
+//   if (e.shiftKey && (document.activeElement === firstFocusablePlayerElement)) {
+//     console.log(document.activeElement)
+//     lastFocusablePlayerElement.focus()
+//     main.style.backgroundColor = 'blue'
+//     //          e.preventDefault()
+//   } else if (e.key === 'Tab' && (document.activeElement === lastFocusablePlayerElement)) {
+//     firstFocusablePlayerElement.focus()
+//     e.preventDefault()
+//     main.style.backgroundColor = 'red'
+//   }
+//   firstFocusablePlayerElement.focus()
+// };
+
+//    if (videoPlayer.matches('.controls') === true) {
+// if (document.activeElement == videoPlayer) {
+// videoPlayer.style.backgroundColor = 'pink'
+// console.log('focus', document.activeElement)
+
+// console.log('.controls', videoPlayer.matches('.controls'))
+//    console.log('focus dans controls' + a.target)
+//      a.target.addEventListener('keydown', function (e) {
+function videoPlayerKeyboardNavigation () {
+  const videoPlayer = document.querySelector('.controls')
+  console.log('player', videoPlayer)
+
+  const video = document.querySelector('#animateVideo')
+  console.log('video', video)
+
+  const playPauseBtn = document.querySelector('.playpause')
+  const stopBtn = document.querySelector('.stop')
+  const rwdBtn = document.querySelector('.rwd')
+  const fwdBtn = document.querySelector('.fwd')
+  function activeKeyboardShortcuts (a) {
+    a.target.addEventListener('keydown', function (b) {
+      if (b.key === 'Enter' || b.key === ' ') {
+        b.preventDefault()
+        b.stopImmediatePropagation()
+        playPauseBtn.click()
+        b.stopImmediatePropagation()
+      } else if (b.key === 'ArrowLeft') {
+        b.preventDefault()
+        b.stopImmediatePropagation()
+        rwdBtn.click()
+      } else if (b.key === 'ArrowRight') {
+        b.preventDefault()
+        b.stopImmediatePropagation()
+        fwdBtn.click()
+      }
+    })
+  }
+  videoPlayer.addEventListener('focus', function (a) {
+    activeKeyboardShortcuts(a)
+    // a.preventDefault()
+    // a.stopImmediatePropagation()
+    // videoPlayer.style.backgroundColor = 'pink'
+    // console.log('this de videoplayer', this)
+    // this.addEventListener('keydown', function (b) {
+    //   if (b.key === 'Enter' || b.key === ' ') {
+    //     b.preventDefault()
+    //     b.stopImmediatePropagation()
+    //     playPauseBtn.click()
+    //     b.stopImmediatePropagation()
+    //   } else if (b.key === 'ArrowLeft') {
+    //     b.preventDefault()
+    //     b.stopImmediatePropagation()
+    //     rwdBtn.click()
+    //   } else if (b.key === 'ArrowRight') {
+    //     b.preventDefault()
+    //     b.stopImmediatePropagation()
+    //     fwdBtn.click()
+    //   }
+    // })
   })
-})
-//  'keydown', keyboardNavigationOnLightboxVideo())
-
-function keyboardNavigationOnLightboxVideo () {
-  // const player = document.querySelectorAll('#animateVideo, .controls')
-  // player.addEventListener('keydown')
-  // si mon focus est sur la video ou sur le controls
-  // alors je peux enter et space pour play
-  // il n'y pas de sons
-  // alors je peux accélérer avec arrowright
-  // alors je peux revenir en arrière avec arrowleft
-  // je rajoute pour le lecteur d'écran:
-  //        - role button,(role :list?)
-  //        - state selected, (expanded?)
-  //        - name play, name fastForward etc
-
-  console.log('dans la video :' + this.key)
+  video.addEventListener('focus', function (w) {
+    activeKeyboardShortcuts(w)
+  })
+  playPauseBtn.addEventListener('focus', function (c) {
+    this.addEventListener('keydown', function (d) {
+      if (d.key === 'Enter') {
+        d.preventDefault()
+        d.stopImmediatePropagation()
+        playPauseBtn.click()
+      }
+    })
+  })
+  stopBtn.addEventListener('focus', function (e) {
+    this.addEventListener('keydown', function (f) {
+      if (f.key === 'Enter') {
+        f.preventDefault()
+        f.stopImmediatePropagation()
+        stopBtn.click()
+      }
+    })
+  })
+  rwdBtn.addEventListener('focus', function () {
+    this.addEventListener('keydown', function (h) {
+      if (h.key === 'Enter') {
+        h.preventDefault()
+        h.stopImmediatePropagation()
+        rwdBtn.click()
+      }
+    })
+  })
+  fwdBtn.addEventListener('focus', function () {
+    this.addEventListener('keydown', function (j) {
+      if (j.key === 'Enter') {
+        j.preventDefault()
+        j.stopImmediatePropagation()
+        this.click()
+      }
+    })
+  })
+  // next part might add a condition
+  // else if (document.activeElement === playPauseBtn && b.key === 'Enter') {
+  //   this.children[0].click()
+  // } else if (document.activeElement === stopBtn && b.key === 'p') {
+  //   b.preventDefault()
+  //   // 9A MARCHE AVEC P, MAIS PAS AVEC ENTER
+  //   this.children[1].click()
+  // } else if (document.activeElement === stopBtn && b.key === 'Enter') {
+  //   b.preventDefault()
+  //   b.stopPropagation
+  //   // 9A MARCHE AVEC P, MAIS PAS AVEC ENTER
+  //   this.children[1].click()
+  // }
 }
+
+// e.stopImmediatePropagation()
+
+//   // e.preventDefault()
+// } else if (this.children[0] && e.key === 'Enter') {
+// // videoControls()
+//   this.style.backgroundColor = 'blue'
+// }
+
+// if (e.key !== 'Tab') {
+// e.stopPropagation()
+//        focusInPlayerLB(e)
+
+// } else if (e.key === 'Tab') {
+//   if (document.activeElement === videoPlayer) {
+//     focusInPlayerLB(e)
+//     videoPlayer.style.backgroundColor = 'pink'
+//   }
+// if (e.key !== 'Tab') {
+// e.stopPropagation()
+//   e.preventDefault()
+
+// CETTE PARTIE MARCHAIT vvv///
+// else if (e.key === 'Enter' || e.key === ' ') {
+//   e.preventDefault()
+//   e.stopImmediatePropagation()
+//   playPauseBtn.click()
+// } else
+// if (e.key === 'ArrowLeft') {
+//   e.preventDefault()
+//   e.stopImmediatePropagation()
+//   rwdBtn.click()
+// } else if (e.key === 'ArrowRight') {
+//   e.preventDefault()
+//   e.stopImmediatePropagation()
+//   fwdBtn.click()
+// } else if (document.activeElement.className === 'stop' && e.key === 'Enter') {
+//   e.preventDefault()
+//   e.stopImmediatePropagation()
+//   stopBtn.style.backgroundColor = 'blue'
+// }
+
+//   console.log(playPauseBtn.activeElement)
+// } else if (playPauseBtn.activeElement === true && e.key === 'Enter') {
+//   playPauseBtn.click()
+// } else if (stopBtn.activeElement === true && e.key === 'Enter') {
+//   stopBtn.click()
+// } else if (rwdBtn.activeElement === true && e.key === 'Enter') {
+//   rwdBtn.click()
+// } else if (fwdBtn.activeElement === true && e.key === 'Enter') {
+//   fwdBtn.click()
+// }
+// })
+// )
+// console.log(animateVideo)
+// }
+//   })
+// }
 
 export { main }
