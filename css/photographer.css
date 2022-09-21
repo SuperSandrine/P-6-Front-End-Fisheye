@@ -38,12 +38,21 @@
 
 .photograph-header {
   background-color: #fafafa;
+  border-radius: 5px;
   margin: 0 100px;
-  padding: calc(4%);
+  padding: 20px 30px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+@media screen and (max-width: 767px) {
+  .photograph-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 0px 40px;
+  }
 }
 
 .photograph-header_information {
@@ -85,17 +94,31 @@
 .photographer-header-pictureAndButton-box {
   display: flex;
   align-items: center;
+  gap: 20px;
+}
+@media screen and (max-width: 767px) {
+  .photographer-header-pictureAndButton-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* //flex-direction: column; */
+  }
 }
 .photographer-header-button-box {
-  padding: 0 10px;
+  padding: 0 0 0 10px;
 }
 
 /*---------- Sorting space or selected box ---------------*/
 .photograph-sorting-gallery {
   margin: 0 100px;
-  padding-bottom: 20px;
+  padding: 30px 0 20px 0;
   display: flex;
   justify-content: flex-start;
+}
+@media screen and (max-width: 767px) {
+  .photograph-sorting-gallery {
+    margin: 0px 40px;
+  }
 }
 
 .photograph-sorting-gallery label {
@@ -124,11 +147,22 @@
   row-gap: 20px;
   justify-content: space-between;
 }
+@media screen and (max-width: 767px) {
+  .photograph-gallery {
+    margin: 0px 40px;
+  }
+}
+
 .photograph-gallery article {
   display: flex;
   flex-direction: column;
   max-width: 350px;
   width: 32%;
+}
+@media screen and (max-width: 767px) {
+  .photograph-gallery article {
+    width: 48%;
+  }
 }
 .photograph-gallery article a {
   /* width: 350px;
@@ -177,17 +211,25 @@
 .photograph-gallery article div {
   display: flex;
   justify-content: space-between;
+  /* padding: 10px 0; */
 }
 .photograph-gallery article div p,
 .photograph-gallery article div div,
 .lightbox_modal-content-text {
   margin: 0;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   font-weight: 400;
   font-size: 24px;
   color: #901c1c;
   display: flex;
   align-items: center;
+}
+.photograph-gallery article div,
+.lightbox_modal-content-text {
+  padding: 10px 0;
+}
+.likesData {
+  padding: 0 0 0 5px;
 }
 
 .photograph-gallery article div i {
@@ -205,7 +247,7 @@ button {
   font-size: 1.2em;
 }
 button:hover {
-  color: #d3573c;
+  color: #db8876;
 }
 
 /*---------- Price and like space ------*/
@@ -226,7 +268,7 @@ button:hover {
   margin: 0;
 }
 .photograph-price p i {
-  font-size: 18px;
+  font-size: 23px;
 }
 
 /* --------- Footer --------- */
