@@ -427,65 +427,56 @@ textarea::placeholder {
   object-fit: contain;
   border-radius: 5px;
   margin-bottom: -8px;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
-.lightbox_modal-content video {
-  height: 80%;
-  /* position: relative; */
-}
-.lightbox_modal-content .controls {
-  /* position: absolute; */
-  /* bottom: 20%; */
-}
-
-/* .lightbox_modal-content video {
-  width: 100%;
-} */
-
 /* --------- Modal Lightbox --------- */
 /* --------- Video Controls --------- */
 
-/* .player {
-  width: 480px;
-  margin: 10px auto;
+.lightbox_modal-content video {
+  height: 83%;
+
+  /* position: relative; */
+}
+.lightbox_modal-content .controls {
+  /* width: 100%; */
+  margin: 10px auto 0 auto;
   border: 1px solid #ccc;
-} */
-
-/* video .controls {
-  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
 }
-
-.controls {
-  height: 36px;
-}
-
-.player button {
-  display: block;
-  float: left;
-  border: 0;
-  margin-right: 2px;
-  height: 100%;
-  width: 50px;
+.lightbox_modal-content .controls button {
+  width: 19%;
   cursor: pointer;
+  /* margin-right: 2px; */
+  height: 100%;
+}
+.lightbox_modal-content .controls button .playpause {
+  min-width: 72px;
 }
 
-.player button:hover,
-.player button:focus {
-  background-color: #ddd;
+.lightbox_modal-content .controls div {
+  width: 19%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.player button:active {
-  background-color: #ccc;
+.lightbox_modal-content .controls .time {
+  font-size: 1.1em;
+  padding: 0 5px;
 }
 
-.controls div {
-  font-size: 12px;
-  display: inline-block;
-  line-height: 36px;
-  width: 45px;
-  float: right;
+.controls div .time {
+  width: 19%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-video {
-  margin-bottom: -5px;
-} */
+.controls .time {
+  font-size: 1.1em;
+  padding: 0 5px;
+}

@@ -245,11 +245,11 @@ if (lightboxModal.matches('aria-hidden') === false) {
 
 function giveVideoAccessibleControls () {
   const controlsButtons = `
-      <button tabindex="2" class="playpause">Play</button>
-      <button tabindex="2" class="stop">Stop</button>
-      <button tabindex="2" class="rwd">Rwd</button>
-      <button tabindex="2" class="fwd">Fwd</button>
-      <div class="time">00:00</div>`
+      <button tabindex="2" class="playpause contact_button">Play</button>
+      <button tabindex="2" class="stop contact_button">Stop</button>
+      <button tabindex="2" class="rwd contact_button">Rwd</button>
+      <button tabindex="2" class="fwd contact_button">Fwd</button>
+      <div> <div class="time">00:00</div></div>`
   const div = document.createElement('div')
   lightboxMedia.insertBefore(div, lightboxMedia.lastChild)
   div.setAttribute('class', 'controls')
