@@ -16,7 +16,8 @@
 }
 .select-selected:hover,
 .select-selected:focus {
-  background-color: #d3573c;
+  background-color: #db8876;
+  color: black;
 }
 
 /*style the arrow inside the select element:*/
@@ -69,6 +70,6 @@
 .select-items div:hover,
 .select-items div:focus,
 .same-as-selected {
-  background-color: #d3573c;
+  background-color: #db8876;
   color: black;
 }

@@ -38,18 +38,47 @@
 
 .photograph-header {
   background-color: #fafafa;
+  border-radius: 5px;
   margin: 0 100px;
-  padding: calc(4%);
+  padding: 20px 30px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+@media screen and (max-width: 769px) {
+  .photograph-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .photograph-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 20px;
+  }
 }
 
 .photograph-header_information {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+@media screen and (max-width: 470px) {
+  .photograph-header_information {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .photograph-header p {
@@ -73,6 +102,11 @@
   font-size: 18px;
   text-align: left;
 }
+@media screen and (max-width: 470px) {
+  .tagline {
+    text-align: center;
+  }
+}
 
 .photograph-header img {
   height: 200px;
@@ -85,17 +119,46 @@
 .photographer-header-pictureAndButton-box {
   display: flex;
   align-items: center;
+  gap: 20px;
+}
+@media screen and (max-width: 769px) {
+  .photographer-header-pictureAndButton-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* //flex-direction: column; */
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .photographer-header-pictureAndButton-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    /* //flex-direction: column; */
+  }
 }
 .photographer-header-button-box {
-  padding: 0 10px;
+  padding: 0 0 0 10px;
 }
 
 /*---------- Sorting space or selected box ---------------*/
 .photograph-sorting-gallery {
   margin: 0 100px;
-  padding-bottom: 20px;
+  padding: 30px 0 20px 0;
   display: flex;
   justify-content: flex-start;
+}
+@media screen and (max-width: 769px) {
+  .photograph-sorting-gallery {
+    margin: 0px 40px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .photograph-sorting-gallery {
+    margin: 0 20px;
+  }
 }
 
 .photograph-sorting-gallery label {
@@ -124,11 +187,32 @@
   row-gap: 20px;
   justify-content: space-between;
 }
+@media screen and (max-width: 769px) {
+  .photograph-gallery {
+    margin: 0px 40px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .photograph-gallery {
+    margin: 0 20px;
+  }
+}
+
 .photograph-gallery article {
   display: flex;
   flex-direction: column;
   max-width: 350px;
   width: 32%;
+}
+@media screen and (max-width: 769px) {
+  .photograph-gallery article {
+    width: 48%;
+  }
+}
+@media screen and (max-width: 470px) {
+  .photograph-gallery article {
+    width: 100%;
+  }
 }
 .photograph-gallery article a {
   /* width: 350px;
@@ -177,17 +261,30 @@
 .photograph-gallery article div {
   display: flex;
   justify-content: space-between;
+  /* padding: 10px 0; */
 }
 .photograph-gallery article div p,
-.photograph-gallery article div div,
-.lightbox_modal-content-text {
+.photograph-gallery article div div {
   margin: 0;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   font-weight: 400;
   font-size: 24px;
   color: #901c1c;
   display: flex;
   align-items: center;
+}
+.photograph-gallery article div,
+.lightbox_modal-content-text {
+  padding: 10px 0;
+}
+@media screen and (max-width: 470px) {
+  .photograph-gallery article div {
+    padding: 0 0 10px 0;
+  }
+}
+
+.likesData {
+  padding: 0 0 0 5px;
 }
 
 .photograph-gallery article div i {
@@ -205,7 +302,7 @@ button {
   font-size: 1.2em;
 }
 button:hover {
-  color: #d3573c;
+  color: #db8876;
 }
 
 /*---------- Price and like space ------*/
@@ -226,7 +323,7 @@ button:hover {
   margin: 0;
 }
 .photograph-price p i {
-  font-size: 18px;
+  font-size: 23px;
 }
 
 /* --------- Footer --------- */
@@ -238,7 +335,7 @@ footer {
 
 .position {
   position: fixed;
-  overflow: auto;
+  overflow-y: auto;
   z-index: 10;
   top: 0;
   left: 0;
@@ -257,11 +354,11 @@ footer {
   padding: 35px;
   margin: auto;
   margin-top: 70px;
-  overflow: scroll;
 }
 
 .contact_modal_header {
   justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -311,12 +408,15 @@ textarea {
   font-size: 36px;
   font-weight: 400;
   /* text-indent: 20px; */
-  overflow: scroll;
 }
-form input:focus,
+/* textarea {
+  overflow-y: auto;
+} */
+
+/* form input:focus,
 textarea:focus {
-  /* outline: none; */
-}
+   outline: none; 
+} */
 
 textarea::placeholder {
   color: #db8876;
@@ -361,6 +461,16 @@ textarea::placeholder {
   margin-bottom: 5px;
   position: relative;
 }
+@media screen and (max-width: 470px) {
+  .lightbox_modal {
+    padding: 0px 0;
+    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+}
 
 .lightbox_modal-close {
   position: absolute;
@@ -377,16 +487,105 @@ textarea::placeholder {
 .lightbox_modal-content {
   padding: 0 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+@media screen and (max-width: 470px) {
+  .lightbox_modal-content {
+    padding: 0 5px;
+  }
+}
+
 .lightbox_modal-content img,
 .lightbox_modal-content video {
   width: 100%;
-  height: 93%;
+  /* height: 93%; */
   object-fit: contain;
   border-radius: 5px;
-  margin-bottom: -8px;
-  overflow: scroll;
+  /* margin-bottom: -8px; */
+  /* overflow: scroll; */
 }
+.lightbox_modal-content img {
+  height: 91%;
+}
+
+.lightbox_modal-content-text {
+  margin: 0;
+  font-weight: 400;
+  font-size: 24px;
+  color: #901c1c;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* --------- Modal Lightbox --------- */
+/* --------- Video Controls --------- */
+
 /* .lightbox_modal-content video {
-  width: 100%;
+  /* height: 83%; */
+/* position: relative; 
+} */
+@media screen and (max-width: 470px) {
+  .lightbox_modal-content video {
+    margin-top: 120px;
+    justify-content: center;
+    margin-bottom: 0;
+    height: unset;
+  }
+}
+
+.lightbox_modal-content .controls {
+  /* width: 100%; */
+  /* margin: 10px auto 0 auto; */
+  /* border: 1px solid #ccc; */
+  background-color: #fafafa;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 50px; */
+}
+
+@media screen and (max-width: 769px) {
+  .lightbox_modal-content .controls {
+    /* border: 1px solid #ccc; */
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+.lightbox_modal-content .controls button {
+  width: 19%;
+  min-width: 72px;
+
+  cursor: pointer;
+  /* margin-right: 2px; */
+  height: 50px;
+}
+
+.lightbox_modal-content .controls div {
+  width: 19%;
+  min-width: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox_modal-content .controls .time {
+  font-size: 1.1em;
+  padding: 0 5px;
+}
+
+/* .controls div .time {
+  width: 19%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .controls .time {
+  font-size: 1.1em;
+  padding: 0 5px;
 } */
