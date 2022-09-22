@@ -374,13 +374,13 @@ function focusInContactModal (e) {
 
 // form.addEventListener('submit', validate)
 
-// submitButton.addEventListener('submit', (e) => {
-//   e.preventDefault()
-//   e.stopImmediatePropagation()
-//   validate()
-// })
+form.addEventListener('submit', (e) => {
+  e.preventDefault() // va annuler la soumission automatique
+  // e.stopImmediatePropagation()
+  validate()
+})
 
-form.onsubmit = function () { return validate() }
+// form.onsubmit = function () { return validate() }
 
 const insideContactForm = document.querySelector('.contact_modal')
 // console.log(insideContactForm)
