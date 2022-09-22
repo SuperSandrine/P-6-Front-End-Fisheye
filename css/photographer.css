@@ -507,6 +507,12 @@ textarea::placeholder {
   /* margin-bottom: -8px; */
   /* overflow: scroll; */
 }
+
+.lightbox_modal-content video {
+  height: 93%;
+  max-height: 68vh;
+}
+
 .lightbox_modal-content img {
   height: 91%;
 }
