@@ -5,7 +5,7 @@
 }
 
 *:focus {
-  box-shadow: 0 0 10px #d3573c;
+  box-shadow: 0 0 20px #db8876;
   /* border: solid #d3573c; */
 }
 
@@ -355,6 +355,28 @@ footer {
   margin: auto;
   margin-top: 70px;
 }
+@media screen and (max-width: 900px) {
+  .contact_modal {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 769px) {
+  .contact_modal {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 470px) {
+  .contact_modal {
+    margin: auto;
+    width: 100vw;
+  }
+}
+
+.contact_modal .contact_button:hover {
+  /* background-color: #db8876;
+  color: #000000; */
+  border: 3px solid #fafafa;
+}
 
 .contact_modal_header {
   justify-content: space-between;
@@ -376,6 +398,11 @@ footer {
 .contact_modal_header h1 {
   font-size: 64px;
   font-weight: normal;
+}
+@media screen and (max-width: 769px) {
+  .contact_modal_header h1 {
+    font-size: 50px;
+  }
 }
 
 form {
@@ -402,7 +429,7 @@ form input,
 textarea {
   width: 100%;
   padding: 25px;
-  border: 2px white solid;
+  border: 3px white solid;
   border-radius: 5px;
   color: rgba(0, 0, 0, 0.3);
   font-size: 36px;
@@ -418,15 +445,15 @@ textarea:focus {
    outline: none; 
 } */
 
-textarea::placeholder {
+/* textarea::placeholder {
   color: #db8876;
   opacity: 50%;
-}
+} */
 
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 1em;
-  color: #312e2e;
+  color: black;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -439,7 +466,7 @@ textarea::placeholder {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text-control {
-  border: 2px solid #312e2e;
+  border: 3px solid #312e2e;
 }
 
 /* --------- Modal Lightbox --------- */
