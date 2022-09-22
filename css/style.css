@@ -21,9 +21,15 @@ body {
   height: 90px;
   margin: 0 100px;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 769px) {
   .header {
-    margin: 0 40px;
+    margin: 10px 40px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .header {
+    margin: 20px;
+    flex-direction: column;
   }
 }
 
@@ -44,12 +50,18 @@ h1 {
   gap: 30px 10px;
   margin: 75px 100px;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 769px) {
   .photographer_section {
-    /* display: grid; */
     grid-template-columns: 1fr 1fr;
     gap: 30px 10px;
     margin: 75px 40px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .photographer_section {
+    grid-template-columns: 1fr;
+    gap: 30px 0;
+    margin: 20px;
   }
 }
 
@@ -99,19 +111,19 @@ h1 {
 }
 .photographer_section article p .city {
   color: #901c1c;
-  font-size: 17px;
+  font-size: 23px;
   align-items: center;
 }
 
 .photographer_section article p .tagline {
   color: #000000;
-  font-size: 13px;
+  font-size: 19px;
   align-items: center;
   text-align: center;
 }
 .photographer_section article p .price {
   color: #757575;
-  font-size: 12px;
+  font-size: 18px;
   align-items: center;
   display: block;
   text-align: center;
