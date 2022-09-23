@@ -2,7 +2,7 @@
 import { totalOfLikes } from '../utils/likemeter.js'
 
 // ********************************** //
-// photographerFactory create several component for each photographer:
+// photographerFactory create several components for each photographer:
 //   -card for the index.html
 //   -header for the photograph.html
 //   -price box for the photograph.html
