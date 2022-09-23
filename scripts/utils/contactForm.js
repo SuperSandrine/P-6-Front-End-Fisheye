@@ -1,69 +1,56 @@
 // ***************** import ******************
 import { main } from './lightbox.js'
 
+// ***************** declared lets, const ******************
 // DOM Elements
-// const main = document.querySelector("#body");
 const form = document.querySelector('form')
 const modal = document.getElementById('contact_modal')
-// const submitButton = document.querySelector('.contact_button')
 
+// for displaying errors
 const containerMessage = document.querySelector('#message').parentNode
 const containerEmail = document.querySelector('#email').parentNode
 const containerLastName = document.querySelector('#lastName').parentNode
 const containerFirstName = document.querySelector('.formData')
 
-const keyboardNavigationOnContactModal = function (e) {
-  console.log(e.key)
-  if ((e.key === 'Escape' || e.key === 'Esc') && modal.matches('aria-hidden') === false) {
-    closeContactModal(e)
-  } else if (e.key === 'Tab' && modal.matches('aria-hidden') === false) {
-    focusInContactModal(e)
-  }
-}
-
+// for arranging the tab navigation
 const tabindexContactForm =
   'div[tabindex],h1[tabindex],img[tabindex],label[tabindex],input[tabindex],textarea[tabindex]'
 let focusablesContactForm = []
 let previouslyCMFocusedElement = null
 focusablesContactForm = Array.from(modal.querySelectorAll(tabindexContactForm))
-// on range le tableau en fonction des tabindex
-
+// sort the array according index to provide the right reading/focus order
 focusablesContactForm.sort((a, b) => {
   a = a.attributes.tabindex.value
   b = b.attributes.tabindex.value
   return a - b
 })
 
+// ***************** functions ******************
+
 // let displayedCM = false;
 // event listener = both following functions are played in the
 // photographer.html with attr onclick
+
 // to lauch modal
 export function displayContactModal () {
-//  displayedCM = true;
   modal.style.display = 'block'
   modal.removeAttribute('aria-hidden')
   modal.setAttribute('aria-modal', 'true')
   main.classList.add('no-scroll')
   main.setAttribute('aria-hidden', 'true')
-  console.log(focusablesContactForm)
-  //  previouslyCMFocusedElement = document.querySelector(":focus");
   previouslyCMFocusedElement = document.querySelector('#display-contact-modal')
-  console.log(previouslyCMFocusedElement)
   focusablesContactForm[0].focus()
   window.addEventListener('keydown', keyboardNavigationOnContactModal)
 }
 
 // to close modal
 function closeContactModal () {
-//  displayedCM = false;
   modal.style.display = 'none'
   previouslyCMFocusedElement.focus()
   modal.setAttribute('aria-hidden', 'true')
   modal.removeAttribute('aria-modal')
   main.classList.remove('no-scroll')
   main.removeAttribute('aria-hidden')
-  // main.style.backgroundColor = 'blue'
-
   window.removeEventListener('keydown', keyboardNavigationOnContactModal)
 }
 
@@ -238,8 +225,6 @@ const messageChecker = (value) => {
     )
     message = null
     D = 0
-    // inclure les chiffre avec espaces dans les erreurs
-    // ^[0-9]+.|([0-9]+)|.+[0-9]+.|\w+$
   } else if (value.match(/^([0-9]+.|([0-9]+)|.+[0-9]+.)$/)) {
     containerMessage.setAttribute('aria-invalid', 'true')
     containerMessage.setAttribute('data-error-visible', true)
@@ -278,7 +263,7 @@ inputsText.forEach((input) => {
   })
 })
 
-export function validate () {
+function validate () {
   if (A + B + C + D < 4) {
     if (!message) {
       containerMessage.setAttribute('aria-invalid', 'true')
@@ -309,14 +294,12 @@ export function validate () {
         'Vous devez entrer un prénom.'
       )
     }
-    alert('Des champs sont vides')
     return false
   } else if (A + B + C + D === 4) {
     modal.style.display = 'none'
     document.querySelector('#contactForm').reset()
     // Previous part cleans inputs.
-    // Next print in console the user datas ans message.
-    alert('message envoyé')
+    // Next print in console the user datas and message.
     console.log(
       'prénom :' +
         firstName +
@@ -336,7 +319,6 @@ export function validate () {
     return false
   }
 }
-// TOUN: thomas: est-ce que le return est utile? à quoi me sert la valeur?
 
 // function to avoid navigator bubble
 for (let i = 0; i < form.length; i++) {
@@ -349,11 +331,8 @@ for (let i = 0; i < form.length; i++) {
   )
 }
 
-const closeIdCM = document.querySelector('#close-contact_modal')
-closeIdCM.addEventListener('click', (e) => {
-  closeContactModal()
-})
-
+// --------- navigation part ----------
+// trap and maintain the focus inside the modal
 function focusInContactModal (e) {
   e.preventDefault()
   let index = focusablesContactForm.findIndex(
@@ -373,41 +352,38 @@ function focusInContactModal (e) {
   focusablesContactForm[index].focus()
 }
 
-// form.addEventListener('submit', validate)
+const keyboardNavigationOnContactModal = function (e) {
+  if ((e.key === 'Escape' || e.key === 'Esc') && modal.matches('aria-hidden') === false) {
+    closeContactModal(e)
+  } else if (e.key === 'Tab' && modal.matches('aria-hidden') === false) {
+    focusInContactModal(e)
+  }
+}
 
+// activation of submit with listener
 form.addEventListener('submit', (e) => {
-  e.preventDefault() // va annuler la soumission automatique
-  // e.stopImmediatePropagation()
+  e.preventDefault() // prevent from the auto submission
   validate()
 })
 
-// form.onsubmit = function () { return validate() }
+// activation of the modal closure with listener
+const closeIdCM = document.querySelector('#close-contact_modal')
+closeIdCM.addEventListener('click', (e) => {
+  closeContactModal()
+})
 
+// activation of the submission and closure through keyboard event
 const insideContactForm = document.querySelector('.contact_modal')
-// console.log(insideContactForm)
 insideContactForm.addEventListener('focus', function (a) {
-  //  a.preventDefault();
-  console.log("j'ai le focus dans la CFM")
   a.target.addEventListener('keydown', function (e) {
-    console.log("quelq'un a appuyé sur un bouton dans la CFM")
-    //  console.log(e.target.children) // select-selected
-    //  console.log(this.children) // 'select items'
-    // if (e.key === "Tab") {
-    // } else
-    // if (e.key !== 'Tab') {
-    //   e.preventDefault()
-    // }
     if ((document.activeElement.tabIndex === 11) && (e.key === 'Enter')) {
-      // if (e.key === 'Enter') {
       e.preventDefault()
       e.stopImmediatePropagation()
       return validate()
-      // }
     } else if ((document.activeElement.tabIndex === 12) && (e.key === 'Enter')) {
       e.preventDefault()
       e.stopImmediatePropagation()
       closeContactModal()
-      console.log('on dirait un bug')
     }
   })
 })
