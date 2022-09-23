@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
@@ -13,28 +13,32 @@
       src="https://kit.fontawesome.com/ba64d1ea0b.js"
       crossorigin="anonymous"
     ></script>
-    <title>Fisheye - Détails du photographe et sa gallerie photo</title>
+    <title>Fisheye - Détails du photographe et sa gallerie de médias</title>
   </head>
   <body class="blockpage" id="body">
-    <header class="header" role="banner">
-      <a tabindex="1" href="./index.html" alt="Fisheye page d'accueil">
-        <img src="./assets/images/logo.png" alt="Fisheye Logo" class="logo"
+    <header class="header">
+      <a tabindex="1" href="./index.html">
+        <img
+          src="./assets/images/logo.png"
+          alt="Aller à la page d'accueil de Fisheye"
+          class="logo"
       /></a>
     </header>
     <main id="main">
       <header class="photograph-header"></header>
-      <div class="photograph-sorting-gallery"> 
-        <label tabindex="7" id="labelledSort" for="filter-photo">Trier par </label>
-      <div tabindex="8" class="custom-select">
-        <select id="filter-photo">
-          <option value="0">Filtrer:</option>
-          <option value="1">Popularité</option>
-          <option value="2">Date</option>
-          <option value="3">Titre</option>
-        </select>
+      <div class="photograph-sorting-gallery">
+        <label tabindex="7" id="labelledSort" for="filter-photo"
+          >Trier par
+        </label>
+        <div tabindex="8" class="custom-select">
+          <select id="filter-photo">
+            <option value="0">Filtrer:</option>
+            <option value="1">Popularité</option>
+            <option value="2">Date</option>
+            <option value="3">Titre</option>
+          </select>
         </div>
       </div>
-    </div>
 
       <div class="photograph-gallery"></div>
 
@@ -45,12 +49,24 @@
 
     <!-- *********** MODAL contact form *********** -->
 
-    <aside id="contact_modal" role="dialog" aria-hidden="true" aria-labelledby="form-title">
+    <aside
+      id="contact_modal"
+      role="dialog"
+      aria-hidden="true"
+      aria-labelledby="form-title"
+    >
       <div class="position">
         <div class="contact_modal" tabindex="1">
           <div class="contact_modal_header">
             <h1 tabindex="2" id="form-title">Contactez-moi</h1>
-            <img tabindex="12" role="button" aria-label="ferme le formulaire de contact" id="close-contact_modal" src="./assets/icons/close.svg"  />
+            <img
+              tabindex="12"
+              role="button"
+              aria-label="ferme la modale : formulaire de contact"
+              alt="ferme la modale : formulaire de contact"
+              id="close-contact_modal"
+              src="./assets/icons/close.svg"
+            />
           </div>
           <form
             id="contactForm"
@@ -74,7 +90,7 @@
             </div>
 
             <div class="formData" data-error="&nbsp;">
-              <label tabindex="5" id="5"  for="lastName">Nom</label>
+              <label tabindex="5" id="5" for="lastName">Nom</label>
               <input
                 class="text-control"
                 type="text"
@@ -116,7 +132,6 @@
               class="btn-submit contact_button"
               type="submit"
               value="Envoyer"
-              role="button"
               aria-label="Envoyer"
             />
           </form>
@@ -126,27 +141,50 @@
 
     <!-- *********** MODAL Lightbox *********** -->
 
-    <aside id="lightbox_modal" role="dialog" aria-hidden="true" aria-label="image en vue rapprochée">
+    <aside
+      id="lightbox_modal"
+      role="dialog"
+      aria-hidden="true"
+      aria-label="Affiche le média en vue rapprochée"
+    >
       <div class="position">
         <div class="lightbox_modal" tabindex="1">
           <div class="lightbox_modal-previous">
-            <button tabindex="4" aria-label="image précédente" id="lightbox_modal-previous-button">
-              <img src="./assets/icons/leftarrow.svg" />
+            <button
+              tabindex="4"
+              aria-label="affiche image précédente"
+              id="lightbox_modal-previous-button"
+            >
+              <img
+                src="./assets/icons/leftarrow.svg"
+                alt="affiche image précédente"
+              />
             </button>
           </div>
-          <div class="lightbox_modal-content" >
-          </div>
+          <div class="lightbox_modal-content"></div>
           <div class="lightbox_modal-close">
-            <button tabindex="6" aria-label="fermeture de la dialog" id="close-lightbox">
-              <img  
+            <button
+              tabindex="6"
+              aria-label="fermeture de la modale : lightbox"
+              id="close-lightbox"
+            >
+              <img
                 src="./assets/icons/redclose.svg"
+                alt="ferme la modale : lightbox"
               />
-
             </button>
           </div>
           <div class="lightbox_modal-next">
-            <button tabindex="5" aria-label="image suivante" id="lightbox_modal-next-button">
-              <img class="center" src="./assets/icons/rightarrow.svg" />
+            <button
+              tabindex="5"
+              aria-label="affiche image suivante"
+              id="lightbox_modal-next-button"
+            >
+              <img
+                class="center"
+                src="./assets/icons/rightarrow.svg"
+                alt="affiche image suivante"
+              />
             </button>
           </div>
         </div>

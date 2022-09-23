@@ -50,7 +50,7 @@ export function photographerFactory (data) {
     const photographPrice = document.querySelector('.photograph-price')
     // photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
     photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span>
-    <i lang="en" aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `
+    <i role="img" lang="en" aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `
     return photographPrice
   }
   // pour afficher le nombre de likes, cette fonction doit être jouer après

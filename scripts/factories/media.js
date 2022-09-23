@@ -27,13 +27,13 @@ export function mediaFactory (data) {
     // );
     const article = document.createElement('article')
     article.setAttribute('lang', 'en')
-    article.innerHTML = `<a tabindex="9" alt="${title}, closeup view" href="#" class="display-lightbox" data-id="${id}">
+    article.innerHTML = `<a tabindex="9" aria-label="${title}, closeup view" href="#" class="display-lightbox" data-id="${id}">
         ${media}
       </a>
       <div>
         <p lang='en' tabindex="9">${title}</p>
         <div tabindex="9" class="likes-${id}" ><p class="likesData">${likes} </p><button tabindex="9" class="button-likes-${id} play-addALike" data-id="${id}" data-likes="${likes}" >
-        <i aria-label="likes"
+        <i role="img" aria-label="likes"
         class="fa-solid fa-heart heartSolid"> </i></button></div>
       </div>`
     return { article, parameterForLikesId, parameterForLikesLikes }
