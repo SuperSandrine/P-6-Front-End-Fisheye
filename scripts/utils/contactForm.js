@@ -26,11 +26,6 @@ focusablesContactForm.sort((a, b) => {
 })
 
 // ***************** functions ******************
-
-// let displayedCM = false;
-// event listener = both following functions are played in the
-// photographer.html with attr onclick
-
 // to lauch modal
 export function displayContactModal () {
   modal.style.display = 'block'

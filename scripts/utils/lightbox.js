@@ -1,22 +1,25 @@
 
-// plan: quand je clique sur une une image de la galerie
-// cette image s'affiche en grand seule dans la lightbox
-// dans la ligthbox je passe d'une image à l'autre avec les fleches.
-// soit je navigue dans un array avec les flèches.
+// plan: when I click on a media in the gallery
+// this media is displayed alone in a modal lightbox
+// I can navigate from one media to another with keyboard arrow
 
 // ***************** import ******************
 import { photographerMedia } from '../pages/photographer.js'
 import { videoControls } from './videoControls.js'
 
+// ***************** declared lets, const ******************
+// DOM
 const lightboxModal = document.getElementById('lightbox_modal')
 const lightboxMedia = document.querySelector('.lightbox_modal-content')
 const main = document.querySelector('#body')
-// const displayId = document.getElementsByClassName('display-lightbox')
+
+// for arranging the tab navigation
 const tabindexLightbox =
   'div[tabindex],button[tabindex],img[tabindex],video[tabindex],p[tabindex]'
 let focusablesLightbox = []
 let previouslyFocusedElement = null
 
+// data storage
 let idMedia // pour stocker l'id du média onclick sur la gallerie
 let idArray // pour stocker un tableau de tous les id des media d'un photographe
 
@@ -24,17 +27,9 @@ let idArray // pour stocker un tableau de tous les id des media d'un photographe
 let fillMediaImageSource
 let fillMediaVideoSource
 let fillMediaTitle
-// let displayedLB = false;
 
-// const videoPlayer = document.querySelector('.controls')
-// console.log(videoPlayer.matches('.controls'))
-//    console.log(videoPlayer)
-// videoPlayer.addEventListener('focus', function (a) {
-// const playPauseBtn = document.querySelector('.playpause')
-// const stopBtn = document.querySelector('.stop')
-// const rwdBtn = document.querySelector('.rwd')
-// const fwdBtn = document.querySelector('.fwd')
-
+// ***************** functions ******************
+// to sort lightbox elements with tabIndex in the reading order
 function sortFocusablesLightbox () {
   focusablesLightbox.sort(function (a, b) {
     const x = a.getAttribute('tabindex')
@@ -49,18 +44,24 @@ function sortFocusablesLightbox () {
   })
 }
 
+// create an array with the reading order of each lightbox elements
+// and sort this array according tabindex
 function createFocusablesLightbox () {
-  // on crée le tableau d'ordre de lecture une fois, la lightbox affichée
   focusablesLightbox = Array.from(lightboxModal.querySelectorAll(tabindexLightbox))
-  // on range le tableau en fonction des tabindex
   sortFocusablesLightbox()
   focusablesLightbox[0].focus()
 }
 
 // en paramètre du display "e", j'ai appelé l'id du média dans media.js
-// quand je clique sur la photo, je récupère l'index de l'image pour afficher
-// ses informations et l'image dans la lightbox
+// to launch Lightbox:
+//   - memorised which previously focused element was before launching LB
+//   - add and remove several attribute
+//   - as parameter "e", i called media ID in media.js
+//   - get the index of the media clicked from the array photographerMedia
+//   - from the index, provide medias display in lightbox
+//   - once Lightbox filled, create lightbox focusables.
 export function displayLightboxModal (e) {
+  previouslyFocusedElement = document.querySelector(':focus')
   lightboxModal.style.display = 'block'
   lightboxModal.removeAttribute('aria-hidden')
   lightboxModal.setAttribute('aria-modal', 'true')
@@ -70,7 +71,6 @@ export function displayLightboxModal (e) {
   getIndexofMediasForLightbox(photographerMedia)
   giveLightboxItsMedias(photographerMedia)
   createFocusablesLightbox()
-  previouslyFocusedElement = document.querySelector(':focus')
   return idMedia
 }
 
@@ -83,18 +83,22 @@ function closeLightboxModal () {
     lightboxModal.removeAttribute('aria-modal')
     main.classList.remove('no-scroll')
     main.removeAttribute('aria-hidden')
-    //    window.removeEventListener('keydown', keyboardNavigationOnLightbox)
   }
 }
 
+// to avoid repetition in the several next functions,
+// fillMedia provide lets to complete dynamically the
+// lightbox and permit with only the index to display
+// the right-media
 function fillMedia (array) {
   fillMediaImageSource = array[indexOfMedia].image
   fillMediaVideoSource = array[indexOfMedia].video
   fillMediaTitle = array[indexOfMedia].title
 }
 
-// pour récupérer l'index de l'id de l'image, je dois découper le tableau avec
-// uniquement les ids, afin d'utiliser la méthode indexOf.
+// to get the index of a media ID, I should map array with only ids (make
+// another array only with IDs), in the purpose to use indexOf method
+// first function called on the lightbox launch
 let indexOfMedia
 function getIndexofMediasForLightbox (array) {
   idArray = array.map((el) => el.id)
@@ -108,6 +112,8 @@ function getIndexofMediasForLightbox (array) {
   }
 }
 
+// nextMedia and previousMedia navigate in the array and create the
+// carousel effect in using indexOfMedia
 function nextMedia (array) {
   indexOfMedia++
   if (indexOfMedia >= array.length) {
@@ -123,7 +129,6 @@ function nextMedia (array) {
     fillMediaTitle
   }
 }
-
 function previousMedia (array) {
   indexOfMedia--
   if (indexOfMedia < 0) {
@@ -140,8 +145,10 @@ function previousMedia (array) {
   }
 }
 
-// prendre la valeur de indexOfMedia et l'injecter dans la formule ci-dessous
-// pour afficher image, video et titre
+// create media components of Lightbox:
+//    - using indexOfMedia value to complete either one or the other media image or video
+//    - using a ternary to decide which type of media should appear
+//    - if an element video exist, then add its component
 function giveLightboxItsMedias () {
   const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`
   const mediaBigVideo = `
@@ -155,6 +162,7 @@ function giveLightboxItsMedias () {
     fillMediaImageSource === undefined ? mediaBigVideo : mediaBigImage
   lightboxMedia.innerHTML = `${bigMedia}
     <p tabindex="3" class="lightbox_modal-content-text">${fillMediaTitle}</p>`
+
   const animateVideo = document.querySelector('#animateVideo')
   if (animateVideo !== null) {
     animateVideo.setAttribute('controls', 'controls')
@@ -166,30 +174,33 @@ function giveLightboxItsMedias () {
   }
 }
 
-// _________________ Navigation
-// dans la ligthbox je passe d'une image à l'autre avec les fleches.
-// soit je navigue dans un array avec les flèches.
+// --------- navigation part ----------
+// I can navigate from one media to another with keyboard arrows
 
-// je crée un listener sur le click du next button, qui joue la fonction next et rempli la lightbox
+//  activation with a click listener on next button,
+//  - play function next,
+//  - create media components
+//  - create focusables once media components are displayed
 const lightboxModalNext = document.querySelector('#lightbox_modal-next-button')
 lightboxModalNext.addEventListener('click', () => {
   nextMedia(photographerMedia)
   giveLightboxItsMedias()
   createFocusablesLightbox()
 })
-
+// same process
 const lightboxModalPrevious = document.querySelector('#lightbox_modal-previous-button')
 lightboxModalPrevious.addEventListener('click', () => {
   previousMedia(photographerMedia)
   giveLightboxItsMedias()
   createFocusablesLightbox()
 })
-
+// activation of lightbox modal closure
 const closeId = document.querySelector('#close-lightbox')
 closeId.addEventListener('click', () => {
   closeLightboxModal()
 })
 
+// trap the focus inside the lightbox modal
 function focusInLightbox (e) {
   e.preventDefault()
   e.stopPropagation()
@@ -210,10 +221,10 @@ function focusInLightbox (e) {
   focusablesLightbox[index].focus()
 }
 
+// Keyboard navigation
 const insideLightboxModal = document.querySelector('.lightbox_modal')
 if (lightboxModal.matches('aria-hidden') === false) {
   insideLightboxModal.addEventListener('keydown', function (e) {
-    //    console.log("quelq'un a appuyé sur un bouton dans la LB", e.key)
     if (e.key === 'Tab' && lightboxModal.matches('aria-hidden') === false) {
       focusInLightbox(e)
     } else if (e.key !== 'Tab') {
@@ -244,6 +255,8 @@ if (lightboxModal.matches('aria-hidden') === false) {
   })
 }
 
+// --------- video part ----------
+// create player controls components for videos
 function giveVideoAccessibleControls () {
   const controlsButtons = `
       <button tabindex="2" class="playpause contact_button">Play</button>
@@ -257,12 +270,14 @@ function giveVideoAccessibleControls () {
   div.setAttribute('tabindex', '2')
   div.innerHTML = controlsButtons
 }
+
+// DOM part
+// create keyboard events on video controls
+//   - play video controls keyboard events fct on video and on video player
+//   - also if the focused button is clicked through Enter, active the controls
 function videoPlayerKeyboardNavigation () {
   const videoPlayer = document.querySelector('.controls')
-  console.log('player', videoPlayer)
-
   const video = document.querySelector('#animateVideo')
-  console.log('video', video)
 
   const playPauseBtn = document.querySelector('.playpause')
   const stopBtn = document.querySelector('.stop')
@@ -293,6 +308,7 @@ function videoPlayerKeyboardNavigation () {
   video.addEventListener('focus', function (w) {
     activeKeyboardShortcuts(w)
   })
+
   playPauseBtn.addEventListener('focus', function () {
     this.addEventListener('keydown', function (d) {
       if (d.key === 'Enter' || d.key === ' ') {

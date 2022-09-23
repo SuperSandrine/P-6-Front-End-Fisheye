@@ -98,7 +98,6 @@ async function displayMedia (media) {
       e.preventDefault()
       e.stopImmediatePropagation()
       const target = e.target.parentNode
-      console.log('le parent de id', e.target.parentNode)
       const parameterId = parseInt(target.getAttribute('data-id'))
       const parameterLikes = parseInt(target.getAttribute('data-likes'))
       addALike(parameterLikes, parameterId)
@@ -144,10 +143,11 @@ async function init () {
   const { photographers, media } = await getPhotographers()
   photographerData = photographers.filter((el) => el.id === parseInt(parameterID))
   photographerMedia = media.filter((el) => el.photographerId === parseInt(parameterID))
+  // display photographer datas in header
   displayData(photographerData)
   // and same for gallery
   displayMedia(photographerMedia)
-  allLikesForTotal()
+  // allLikesForTotal()
   displayAllLikesForTotal()
   giveModalAName(photographerData)
   const openContactModal = document.querySelector('#display-contact-modal')
