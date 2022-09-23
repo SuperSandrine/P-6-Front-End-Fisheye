@@ -1,6 +1,7 @@
-// ***************** import ******************
+// ***************** import ****************** //
 import { totalOfLikes } from '../utils/likemeter.js'
 
+// ********************************** //
 export function photographerFactory (data) {
   const { name, city, id, country, tagline, price, portrait } = data
 
