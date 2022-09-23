@@ -2,12 +2,17 @@
 import { totalOfLikes } from '../utils/likemeter.js'
 
 // ********************************** //
+// photographerFactory create several component for each photographer:
+//   -card for the index.html
+//   -header for the photograph.html
+//   -price box for the photograph.html
 export function photographerFactory (data) {
   const { name, city, id, country, tagline, price, portrait } = data
 
   const picture = `assets/photographers/${portrait}`
   const linkUrl = `photographer.html?id=${id}`
 
+  // Create the card for each photographer inside an <article>
   function getUserCardDOM () {
     const link = document.createElement('a')
     link.setAttribute('href', linkUrl)
@@ -30,41 +35,42 @@ export function photographerFactory (data) {
     return article
   }
 
+  // Create the main header of the photograph.html page
   function getPhotographHeader () {
     const photographHeader = document.querySelector('.photograph-header')
-    photographHeader.innerHTML = `<section class="photograph-header_information">
+    photographHeader.innerHTML = `
+    <section class="photograph-header_information">
       <h1 tabindex="2">${name}</h1>
       <div tabindex="3">
-      <p class="city">${city + ', ' + country}</p>
-      <p class="tagline">${tagline}</p></div>
+        <p class="city">${city + ', ' + country}</p>
+        <p class="tagline">${tagline}</p>
+      </div>
     </section>
     <div class="photographer-header-pictureAndButton-box">
-    <div class="photographer-header-button-box"><button tabindex="4" alt="contact me" class="contact_button" id="display-contact-modal" >
+      <div class="photographer-header-button-box">
+        <button tabindex="4" alt="contact me" class="contact_button" id="display-contact-modal" >
           Contactez-moi
-        </button></div>
-        <img tabindex="5" src="${picture}" alt="portrait de ${name}"/> </div>
+        </button>
+      </div>
+      <img tabindex="5" src="${picture}" alt="portrait de ${name}"/> 
+    </div>
     `
     return photographHeader
   }
 
+  // Create the price box with the total of likes counts from import
   function getPhotographPrice () {
     const photographPrice = document.querySelector('.photograph-price')
-    // photographPrice.innerHTML = `<p class="parent"><span>vide</span> <i class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ / jour</p> `;
     photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span>
     <i role="img" lang="en" aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `
     return photographPrice
   }
-  // pour afficher le nombre de likes, cette fonction doit être jouer après
-  // l'affichage de la galerie
 
   return {
     name,
     picture,
-    // totalOfLikes,
-    // allLikesForOne,
     getUserCardDOM,
     getPhotographHeader,
     getPhotographPrice
-    // addALikeToTotal,
   }
 }
