@@ -28,7 +28,6 @@
   right: 26px;
   width: 16px;
   height: 11px;
-  /* border: 6px solid white; */
   /*border-color: #fff transparent transparent transparent; */
   background: url(../assets/icons/uparrow.svg);
   transform: rotate(180deg);
@@ -36,7 +35,6 @@
 
 /*point the arrow upwards when the select box is open (active):*/
 .select-selected.select-arrow-active:after {
-  /* border-color: transparent transparent #fff transparent; */
   transform: none;
 }
 
@@ -47,11 +45,10 @@
   padding: 23px 60px 23px 20px;
   border-radius: 5px;
   cursor: pointer;
-  border-bottom: 1px solid white; /*TODO=trouver un moyen de faire une
-  petite ligne */
+  border-bottom: 1px solid white;
 }
 
-/*style items (options):*/
+/*or select options*/
 .select-items {
   position: absolute;
   background-color: #901c1c;

@@ -22,17 +22,17 @@ export function videoControls () {
   playPauseBtn.onclick = function () {
     if (player.paused) {
       player.play()
-      playPauseBtn.textContent = 'Pause'
+      playPauseBtn.innerHTML = '<i class="fas fa-pause"> </i> Pause'
     } else {
       player.pause()
-      playPauseBtn.textContent = 'Play'
+      playPauseBtn.innerHTML = '<i class="fas fa-play"></i> Play'
     }
   }
 
   stopBtn.onclick = function () {
     player.pause()
     player.currentTime = 0
-    playPauseBtn.textContent = 'Play'
+    playPauseBtn.innerHTML = '<i class="fas fa-play"></i> Play'
   }
 
   rwdBtn.onclick = function () {

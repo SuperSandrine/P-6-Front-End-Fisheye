@@ -52,7 +52,6 @@ function createFocusablesLightbox () {
   focusablesLightbox[0].focus()
 }
 
-// en paramètre du display "e", j'ai appelé l'id du média dans media.js
 // to launch Lightbox:
 //   - memorised which previously focused element was before launching LB
 //   - add and remove several attribute
@@ -152,7 +151,7 @@ function previousMedia (array) {
 function giveLightboxItsMedias () {
   const mediaBigImage = `<img tabindex="2" alt="${fillMediaTitle}" src="./assets/medias-vrac/${fillMediaImageSource}"/>`
   const mediaBigVideo = `
-  <video id="animateVideo" tabindex="2" alt="${fillMediaTitle}" >
+  <video title="la vidéo '${fillMediaTitle}', n'a pas de sons" id="animateVideo" tabindex="2" alt="${fillMediaTitle}" >
   <source src="./assets/medias-vrac/${fillMediaVideoSource}" type="video/mp4"> 
   Votre navigateur ne prends pas en charge nos formats vidéos
   </video>
@@ -255,19 +254,27 @@ if (lightboxModal.matches('aria-hidden') === false) {
   })
 }
 
+// <button class="ytp-play-button ytp-button"
+// aria-keyshortcuts="k" data-title-no-tooltip="Lire" aria-label="Lire keyboard shortcut k" title="Lire (k)"><svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%"><use class="ytp-svg-shadow" xlink:href="#ytp-id-148"></use><path class="ytp-svg-fill" d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" id="ytp-id-148"></path></svg></button>
+
 // --------- video part ----------
 // create player controls components for videos
 function giveVideoAccessibleControls () {
   const controlsButtons = `
-      <button tabindex="2" class="playpause contact_button">Play</button>
-      <button tabindex="2" class="stop contact_button">Stop</button>
-      <button tabindex="2" class="rwd contact_button">Rwd</button>
-      <button tabindex="2" class="fwd contact_button">Fwd</button>
+      <button aria-controls="animateVideo" aria-keyshortcuts="'Enter', ' '" aria-label="Lire, raccourci clavier enter ou espace" 
+      title="Lire (Enter ou Espace)" tabindex="2" class="playpause contact_button"><i class="fas fa-play"></i> Play</button>
+      <button aria-controls="animateVideo" aria-label="Arrête la vidéo et la rembobine" tabindex="2" class="stop contact_button"><i class="fas fa-stop"></i> Stop</button>
+      <button aria-controls="animateVideo" aria-keyshortcuts="'ArrowLeft'" aria-label="Rembobine, raccourci clavier flèche gauche" 
+      title="Rembobine (ArrowLeft)" tabindex="2" class="rwd contact_button"><i class="fas fa-backward"></i> Rewind</button>
+      <button aria-controls="animateVideo" aria-keyshortcuts="'ArrowRight'" aria-label="Avance rapide, raccourci clavier flèche droite" 
+      title="Avance rapide (ArrowRight)" tabindex="2" class="fwd contact_button"><i class="fas fa-forward"></i> Forward</button>
       <div> <div class="time">00:00</div></div>`
   const div = document.createElement('div')
   lightboxMedia.insertBefore(div, lightboxMedia.lastChild)
   div.setAttribute('class', 'controls')
   div.setAttribute('tabindex', '2')
+  div.setAttribute('aria-controls', 'animateVideo')
+  div.setAttribute('aria-label', 'commandes du lecteur vidéo')
   div.innerHTML = controlsButtons
 }
 
