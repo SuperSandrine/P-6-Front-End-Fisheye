@@ -147,7 +147,7 @@ async function init () {
   displayData(photographerData)
   // and same for gallery
   displayMedia(photographerMedia)
-  // allLikesForTotal()
+  allLikesForTotal()
   displayAllLikesForTotal()
   giveModalAName(photographerData)
   const openContactModal = document.querySelector('#display-contact-modal')

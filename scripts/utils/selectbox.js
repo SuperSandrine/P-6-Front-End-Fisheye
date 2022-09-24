@@ -1,22 +1,21 @@
 // Function select, use a select to create a dynamic div section and hide the select afterward
-// custom select box sourced from W3S
+// custom select box sourced from W3S : https://www.w3schools.com/howto/tryit.asp?filename=tryhow_custom_select
 
-// *** Il y a 3 partie, l'animation dynamique, le sort, la navigation clavier
-// ***************** partie import ******************
+// ***************** import ******************
 import { photographerMedia, displayMedia } from '../pages/photographer.js'
 import { allLikesForTotal, displayAllLikesForTotal } from './likemeter.js'
-// ***************** partie variable ******************
-let sortingMethodFromList
 
-// ***************** partie animation dynamique ******************
+// ***************** declared lets, const ******************
+let sortingMethodFromList
 let j,
   optionDiv
 
-/* look for element with the class "custom-select": */
+// DOM
 const customSelectClassElmnt = document.querySelector('.custom-select')
-const selectTagElmnt = customSelectClassElmnt.getElementsByTagName('select')[0] // original options index [0]
-const ll = selectTagElmnt.length // number of options :'4'
-/* for each element, create a new DIV that will act as the selected item, or the main button: */
+const selectTagElmnt = customSelectClassElmnt.getElementsByTagName('select')[0]
+const ll = selectTagElmnt.length
+/* for each element, create a new DIV
+selected Div will act as the main button inside which the sorting name is shown: */
 const selectedDiv = document.createElement('DIV')
 selectedDiv.setAttribute('class', 'select-selected')
 selectedDiv.setAttribute('role', 'button')
@@ -26,22 +25,8 @@ selectedDiv.setAttribute('aria-labelledby', 'labelledSort')
 selectedDiv.setAttribute('tabindex', '0')
 selectedDiv.setAttribute('aria-controls', 'listboxSort')
 selectedDiv.innerHTML =
-  selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML // fill the div inner HTML with let selecTagElmnt : 'filtr' at first
-
+  selectTagElmnt.options[selectTagElmnt.selectedIndex].innerHTML // fill the div inner HTML with let selecTagElmnt : 'filter' at first
 customSelectClassElmnt.appendChild(selectedDiv)
-
-selectedDiv.addEventListener('click', function (e) {
-  /* when the select box is clicked, close any other select boxes,
-      and open/close the current select box: */
-  e.stopPropagation()
-  //  closeAllSelect()
-  //  closeAllSelect(this)
-
-  //  console.log("bug??")
-  this.nextSibling.classList.toggle('select-hide')
-  this.nextSibling.setAttribute('aria-expanded', 'true')
-  this.classList.toggle('select-arrow-active')
-})
 
 /* create a new DIV that will contain the options list: */
 const optionsBoxDiv = document.createElement('DIV')
@@ -51,44 +36,31 @@ optionsBoxDiv.setAttribute('aria-labelledby', 'labelledSort')
 optionsBoxDiv.setAttribute('id', 'listboxSort')
 optionsBoxDiv.setAttribute('tabindex', '-1')
 
+/* for each option in the original select element (except the [0] option which is "filtrer"),
+create a new DIV that will act as an option item: */
 for (j = 1; j < ll; j++) {
-  /* for each option in the original select element except the [0] option which is "filtrer",
-    create a new DIV that will act as an option item: */
   optionDiv = document.createElement('DIV')
   optionDiv.setAttribute('role', 'option')
   optionDiv.setAttribute('tabindex', '0')
-
   optionDiv.innerHTML = selectTagElmnt.options[j].innerHTML
-
   optionDiv.setAttribute('id', `${optionDiv.innerHTML}`)
-
-  // --- pour simplifer dessous et mettre un keydown listener mardi------
+  /* when an item is clicked, update the original select box, and the selected item: */
   optionDiv.addEventListener('click', function (e) {
-    /* when an item is clicked, update the original select box, and the selected item: */
     let oldSelection, i
-    /* this. correspond à l'élément clické, soit la div date, div pop, div titre. */
     const originalSelectTag =
-      this.parentNode.parentNode.getElementsByTagName('select')[0]
-    //    console.log(originalSelectTag); // 'filtrer'
+      this.parentNode.parentNode.getElementsByTagName('select')[0] // 'filtrer'
     const sl = originalSelectTag.length
     const changeSelectedDiv = this.parentNode.previousSibling
-    //    console.log(changeSelectedDiv);
-    /* h est la div contenant .select-items et .select-hide */
-    //  console.log(changeSelectedDiv);
     for (i = 0; i < sl; i++) {
       if (originalSelectTag.options[i].innerHTML === this.innerHTML) {
         originalSelectTag.selectedIndex = i
-        // console.log(changeSelectedDiv.innerHTML);//'filtrer'
-        changeSelectedDiv.innerHTML = this.innerHTML
-        // console.log(changeSelectedDiv.innerHTML);//'Popularité'
+        changeSelectedDiv.innerHTML = this.innerHTML // the clicked tag appear
         changeSelectedDiv.setAttribute(
           'aria-activedescendant',
           `${this.innerHTML}`
         )
         sortingMethodFromList =
-          changeSelectedDiv.innerHTML /* sortingMFL change à chaque clic */
-        // console.log(sortingMethodFromList);
-        /* voici l'information dont j'ai besoin pour jouer mon tri */
+          changeSelectedDiv.innerHTML // SMFL will active the sorting medias function
         oldSelection = this.parentNode.querySelector('.same-as-selected')
         if (oldSelection !== null) {
           oldSelection.removeAttribute('class')
@@ -107,79 +79,17 @@ for (j = 1; j < ll; j++) {
     displayAllLikesForTotal()
     changeSelectedDiv.click()
   })
-
   optionsBoxDiv.appendChild(optionDiv)
 }
-
 customSelectClassElmnt.appendChild(optionsBoxDiv)
 
 function closeAllSelect () {
-  /* a function that will close all select boxes in the document,
-    except the current select box: */
   selectedDiv.classList.remove('select-arrow-active')
   optionsBoxDiv.classList.add('select-hide')
   optionsBoxDiv.removeAttribute('aria-expanded')
-  // if (selectedDiv.classList.contains('select-arrow-active')) {
-  //   selectedDiv.classList.remove('select-arrow-active')
-  //   optionsBoxDiv.classList.add('select-hide')
-  //   optionsBoxDiv.removeAttribute('aria-expanded')
-  // }
-  // }// if else{}
-  // } else {
-  // selectedDiv.classList.remove('select-arrow-active')
-  // }
-  // if (arrNo.indexOf(i)) {
-  //   optionsBoxDiv.classList.add('select-hide')
-  //   optionsBoxDiv.removeAttribute('aria-expanded')
-  // }
-
-  //  sortingMedias();
-  // console.log('oui ça ferme')
-  //  console.log(arrNo)
 }
 
-/* if the user clicks anywhere outside the select box, then this line close all select boxes: */
-window.addEventListener('click', closeAllSelect)
-
-/// vvv fonction qui marche, comment la siplifier?
-// const arrNo = []
-
-// function closeAllSelect (elmnt) {
-// //  console.log('ça ferme')
-//   /* a function that will close all select boxes in the document,
-//   except the current select box: */
-//   let i, x, y
-//   // const arrNo = []
-//   x = document.getElementsByClassName('select-items')
-//   y = document.getElementsByClassName('select-selected')
-//   console.log(elmnt)
-//   // console.log(selectedDiv)
-//   for (i = 0; i < y.length; i++) {
-//     console.log('y', y)
-//     if (elmnt === y[i]) {
-//       console.log(elmnt)
-//       console.log(y[i])
-//       arrNo.push(i)
-//       console.log(arrNo)
-//     } else {
-//       y[i].classList.remove('select-arrow-active')
-//     }
-//   }
-//   for (i = 0; i < x.length; i++) {
-//     if (arrNo.indexOf(i)) {
-//       x[i].classList.add('select-hide')
-//       x[i].removeAttribute('aria-expanded')
-//     }
-//   }
-//   //  sortingMedias();
-//   console.log('oui ça ferme')
-// //  console.log(arrNo)
-// }
-
-// /* if the user clicks anywhere outside the select box, then this line close all select boxes: */
-// window.addEventListener('click', closeAllSelect)
-
-// ***************** partie Sort ******************
+// ***************** Sorting part ******************
 function sortOnPopularity () {
   photographerMedia.sort(function (a, b) {
     const x = a.likes
@@ -235,87 +145,50 @@ function sortingMedias () {
     sortOnPopularity()
     displayMedia(photographerMedia)
   } else {
-    // ne fait rien
+    // do nothing
   }
 }
-// ******************************************* /
 
-// function closeAllSelect(elmnt) {
-//   console.log('ça ferme');
-//   /* a function that will close all select boxes in the document,
-//   except the current select box: */
-//   let i;
-//   let xl;
-//   let yl;
-//   const arrNo = [];
-//   xl = optionsBoxDiv.length;
-//   yl = selectedDiv.length;
-//   for (i = 0; i < yl; i++) {
-//     if (elmnt == selectedDiv[i]) {
-//       arrNo.push(i);
-//     } else {
-//       selectedDiv[i].classList.remove('select-arrow-active');
-//     }
-//   }
-//   for (i = 0; i < xl; i++) {
-//     if (arrNo.indexOf(i)) {
-//       optionsBoxDiv[i].classList.add('select-hide');
-//       optionsBoxDiv[i].removeAttribute('aria-expanded');
-//     }
-//   }
-//   sortingMedias();
-//   console.log('oui ça ferme');
-//   console.log(arrNo);
-// }
+// ************************* open/close dropdown part ****************** /
 
-/* if the user clicks anywhere outside the select box, then this line close all select boxes: */
+/* if the user clicks anywhere outside the select box, then this line close select box: */
 window.addEventListener('click', closeAllSelect)
 
+/* when the select box is clicked
+  open/close the current select box */
 selectedDiv.addEventListener('click', function (e) {
-  /* when the select box is clicked, close any other select boxes,
-      and open/close the current select box: */
   e.stopPropagation()
-  closeAllSelect(this)
   this.nextSibling.classList.toggle('select-hide')
   this.nextSibling.setAttribute('aria-expanded', 'true')
   this.classList.toggle('select-arrow-active')
 })
 
-// ***************** partie navigation clavier ******************
-// utilisation en ressource pour navigation clavier de
+// ***************** keyboard navigation part ******************
+// source for the keyboard navigation
 // https://www.w3.org/WAI/ARIA/apg/example-index/menu-button/menu-button-links.html
-// action : - quand le focus est sur la select, on peut la déplier
-//          - une fois déplier, on peut se déplacer dans le menu
-//          - on peut clicker pour choisir notre tri: - ça lance le tri
-//                                                    - ferme le menu
-//                                                    - remet le :focus sur le bon tabindex
+// action : - When focus is on the main sorting button, we can deploy the menu choices
+//          - once deployed, we can move inside menu choices
+//          - we can activate our choice with keyboard: - sort media
+//                                                      - close the menu
+//                                                      - put the :focus where it was (on main button)
 
 let focusablesSortingMenu = []
 const optionsSortingMenu = "div[role='option']"
 focusablesSortingMenu = Array.from(
   customSelectClassElmnt.querySelectorAll(optionsSortingMenu)
 )
-// console.log(focusablesSortingMenu)
 
+// Here we focus in the sorting main button, once there, there is different
+// possibilities: not open with 'Tab', open dropdown with ArrowUp or ArrowDown,
+// Enter and Space.
+// Once opened, move inside the dropdown with ArrowUp, Down, Enter or Space
+// imitate a click action, and escape close the dropdown.
 customSelectClassElmnt.addEventListener('focus', function (a) {
-//  a.preventDefault();
-//  console.log("j'ai le focus")
-  // console.log(a.target)
-  // console.log(this)
-  // console.log(this.children[1])
-  // THOMAS: c'est marrant, a.target marche mais pas this?
   a.target.addEventListener('keydown', function (e) {
-    // console.log("quelq'un a appuyé sur un bouton")
-    // console.log(e.target.children[1]) // select-selected
-    // console.log(this.children[2]) // 'select items'
-    // if (e.key === "Tab") {
-    // } else
     if (e.key !== 'Tab') {
       e.preventDefault()
     }
-
     if (optionsBoxDiv.matches('.select-hide') === true) {
-      //      e.preventDefault();
       e.stopImmediatePropagation()
       if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
         this.children[1].nextSibling.classList.remove('select-hide')
@@ -358,8 +231,6 @@ customSelectClassElmnt.addEventListener('focus', function (a) {
         this.children[1].nextSibling.classList.add('select-hide')
         this.children[1].removeAttribute('aria-expanded')
         this.focus()
-
-        //        console.log(this)
       }
     }
   })

@@ -1,7 +1,9 @@
 // ---------------------- Video Controls ----------------------//
-// grab references to buttons and video
+// MDN source from : https://developer.mozilla.org/en-US/docs/Learn/Accessibility/Multimedia#accessible_audio_and_video_controls
+// and https://github.com/mdn/learning-area/tree/main/accessibility/multimedia
 
 export function videoControls () {
+  // DOM
   const playPauseBtn = document.querySelector('.playpause')
   const stopBtn = document.querySelector('.stop')
   const rwdBtn = document.querySelector('.rwd')
@@ -10,13 +12,12 @@ export function videoControls () {
 
   const animateVideo = document.querySelector('#animateVideo')
   const player = animateVideo
-  //  console.log(player.attributes)
-  // Remove the native controls from all players
 
+  // Remove the native controls from all players
   player.removeAttribute('controls')
   player.setAttribute('loop', true)
 
-  // Define constructor for player controls object
+  // Define actions for player controls object
 
   playPauseBtn.onclick = function () {
     if (player.paused) {
@@ -40,11 +41,6 @@ export function videoControls () {
 
   fwdBtn.onclick = function () {
     player.currentTime += 5
-    //    if (player.currentTime >= player.duration || player.paused) {
-  //    player.pause()
-    //  player.currentTime = 0
-    // playPauseBtn.textContent = 'Play'
-    // }
   }
 
   player.ontimeupdate = function () {
@@ -52,19 +48,16 @@ export function videoControls () {
     const seconds = Math.floor(player.currentTime - minutes * 60)
     let minuteValue
     let secondValue
-
     if (minutes < 10) {
       minuteValue = '0' + minutes
     } else {
       minuteValue = minutes
     }
-
     if (seconds < 10) {
       secondValue = '0' + seconds
     } else {
       secondValue = seconds
     }
-
     const mediaTime = minuteValue + ':' + secondValue
     timeLabel.textContent = mediaTime
   }
