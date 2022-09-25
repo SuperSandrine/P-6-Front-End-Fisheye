@@ -62,7 +62,7 @@ export function photographerFactory (data) {
   function getPhotographPrice () {
     const photographPrice = document.querySelector('.photograph-price')
     photographPrice.innerHTML = `<p class="parent"><span>${totalOfLikes}</span>
-    <i role="img" lang="en" aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `
+    <i role="img" aria-label="likes" class="fa-solid fa-heart heartSolid"></i></p><p>${price}€ <span aria-label="par">/</span> jour</p> `
     return photographPrice
   }
 

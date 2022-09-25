@@ -20,7 +20,6 @@ export function mediaFactory (data) {
     const parameterForLikesId = id
 
     const article = document.createElement('article')
-    article.setAttribute('lang', 'en')
     article.innerHTML = `
     <a  tabindex="9" 
         aria-label="${title}, vue rapprochée" 
@@ -30,7 +29,7 @@ export function mediaFactory (data) {
       ${media}
     </a>
     <div>
-      <p lang='en' tabindex="9">${title}</p>
+      <p tabindex="9">${title}</p>
       <div tabindex="9" class="likes-${id}" >
         <p class="likesData">${likes} </p>
         <button tabindex="9" 

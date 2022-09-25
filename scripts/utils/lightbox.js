@@ -262,12 +262,12 @@ if (lightboxModal.matches('aria-hidden') === false) {
 function giveVideoAccessibleControls () {
   const controlsButtons = `
       <button aria-controls="animateVideo" aria-keyshortcuts="'Enter', ' '" aria-label="Lire, raccourci clavier enter ou espace" 
-      title="Lire (Enter ou Espace)" tabindex="2" class="playpause contact_button"><i class="fas fa-play"></i> Play</button>
+      title="Lire (Entrée ou Espace)" tabindex="2" class="playpause contact_button"><i class="fas fa-play"></i> Play</button>
       <button aria-controls="animateVideo" aria-label="Arrête la vidéo et la rembobine" tabindex="2" class="stop contact_button"><i class="fas fa-stop"></i> Stop</button>
       <button aria-controls="animateVideo" aria-keyshortcuts="'ArrowLeft'" aria-label="Rembobine, raccourci clavier flèche gauche" 
-      title="Rembobine (ArrowLeft)" tabindex="2" class="rwd contact_button"><i class="fas fa-backward"></i> Rewind</button>
+      title="Rembobine (Flèche gauche)" tabindex="2" class="rwd contact_button"><i class="fas fa-backward"></i> Rewind</button>
       <button aria-controls="animateVideo" aria-keyshortcuts="'ArrowRight'" aria-label="Avance rapide, raccourci clavier flèche droite" 
-      title="Avance rapide (ArrowRight)" tabindex="2" class="fwd contact_button"><i class="fas fa-forward"></i> Forward</button>
+      title="Avance rapide (Flèche droite)" tabindex="2" class="fwd contact_button"><i class="fas fa-forward"></i> Forward</button>
       <div> <div class="time">00:00</div></div>`
   const div = document.createElement('div')
   lightboxMedia.insertBefore(div, lightboxMedia.lastChild)
