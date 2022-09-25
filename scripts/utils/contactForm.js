@@ -34,7 +34,8 @@ export function displayContactModal () {
   main.classList.add('no-scroll')
   main.setAttribute('aria-hidden', 'true')
   previouslyCMFocusedElement = document.querySelector('#display-contact-modal')
-  focusablesContactForm[0].focus()
+  const indexFocusOnCF = focusablesContactForm.length - 1
+  focusablesContactForm[indexFocusOnCF].focus()
   window.addEventListener('keydown', keyboardNavigationOnContactModal)
 }
 

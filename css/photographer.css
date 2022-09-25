@@ -29,6 +29,7 @@
   background-color: #901c1c;
   border-radius: 5px;
   cursor: pointer;
+  display: unset;
 }
 
 .contact_button:hover {
@@ -249,7 +250,7 @@
 }
 
 .likesData {
-  padding: 0 0 0 5px;
+  padding: 0 0 0 15px;
 }
 
 .photograph-gallery article div i {
@@ -259,11 +260,12 @@
 
 button {
   border: none;
-  padding: 0 2px 0 1px;
+  padding: 2px;
   background: none;
   cursor: pointer;
   color: #901c1c;
   font-size: 1.2em;
+  display: flex;
 }
 
 button:hover {
@@ -340,6 +342,18 @@ footer {
 
 .contact_modal .contact_button:hover {
   border: 3px solid #fafafa;
+}
+
+#close-contact_modal {
+  padding: 2px;
+}
+.contact_modal h1:focus,
+.contact_modal label:focus,
+.contact_modal input:focus,
+.contact_button:focus,
+#close-contact_modal:focus {
+  box-shadow: 0 0 20px #901c1c;
+  border-radius: 5px;
 }
 
 .contact_modal_header {
@@ -529,6 +543,7 @@ textarea {
   min-width: 87px;
   cursor: pointer;
   height: 70px;
+  display: unset;
 }
 
 .lightbox_modal-content .controls div {

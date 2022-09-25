@@ -33,7 +33,7 @@ export function mediaFactory (data) {
       <div tabindex="9" class="likes-${id}" >
         <p class="likesData">${likes} </p>
         <button tabindex="9" 
-            class="button-likes-${id} play-addALike" 
+            class="play-addALike" 
             data-id="${id}" 
             data-likes="${likes}" >
           <i role="img" aria-label="likes" 

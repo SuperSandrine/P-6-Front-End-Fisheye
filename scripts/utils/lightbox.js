@@ -49,7 +49,9 @@ function sortFocusablesLightbox () {
 function createFocusablesLightbox () {
   focusablesLightbox = Array.from(lightboxModal.querySelectorAll(tabindexLightbox))
   sortFocusablesLightbox()
-  focusablesLightbox[0].focus()
+  const indexFocusOnLB = focusablesLightbox.length - 1
+  console.log(indexFocusOnLB)
+  focusablesLightbox[indexFocusOnLB].focus()
 }
 
 // to launch Lightbox:
