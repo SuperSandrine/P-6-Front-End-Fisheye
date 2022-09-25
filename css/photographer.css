@@ -6,6 +6,7 @@
 
 *:focus {
   box-shadow: 0 0 20px #db8876;
+  border-radius: 5px;
 }
 
 #contact_modal {
@@ -258,7 +259,7 @@
 
 button {
   border: none;
-  padding: 0;
+  padding: 0 2px 0 1px;
   background: none;
   cursor: pointer;
   color: #901c1c;
