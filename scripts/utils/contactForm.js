@@ -35,8 +35,9 @@ export function displayContactModal () {
   main.setAttribute('aria-hidden', 'true')
   previouslyCMFocusedElement = document.querySelector('#display-contact-modal')
   const indexFocusOnCF = focusablesContactForm.length - 1
-  focusablesContactForm[indexFocusOnCF].focus()
+  // focusablesContactForm[indexFocusOnCF].focus()
   window.addEventListener('keydown', keyboardNavigationOnContactModal)
+  focusablesContactForm[indexFocusOnCF].focus()
 }
 
 // to close modal
@@ -292,7 +293,7 @@ function validate () {
     }
     return false
   } else if (A + B + C + D === 4) {
-    modal.style.display = 'none'
+    // modal.style.display = 'none'
     document.querySelector('#contactForm').reset()
     // Previous part cleans inputs.
     // Next print in console the user datas and message.
@@ -360,12 +361,22 @@ const keyboardNavigationOnContactModal = function (e) {
 form.addEventListener('submit', (e) => {
   e.preventDefault() // prevent from the auto submission
   validate()
+  closeContactModal()
 })
 
 // activation of the modal closure with listener
 const closeIdCM = document.querySelector('#close-contact_modal')
 closeIdCM.addEventListener('click', (e) => {
   closeContactModal()
+})
+closeIdCM.addEventListener('focus', (e) => {
+  (e.target.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.stopImmediatePropagation()
+      e.preventDefault()
+      closeContactModal()
+    }
+  }))
 })
 
 // activation of the submission and closure through keyboard event
